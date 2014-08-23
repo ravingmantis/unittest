@@ -1,0 +1,18 @@
+Encoding: UTF-8
+Package: unittest
+Type: Package
+Title: TAP-compliant unit testing.
+Version: 1.0-0
+Date: 2014-08-23
+Authors@R:
+    c(person('Jamie','Lentin',email='jm@ravingmantis.com',role=c('aut')),
+      person('Anthony','Hennessey',email='ah@ravingmantis.com',role=c('aut','cre')))
+Description:
+    Concise TAP-compliant unit testing package. Produces tests that can be run with CMD check with minimal implementation overhead.
+License: GPL (>= 3)
+Depends:
+    R (>= 3.0.0)
+Imports:
+Suggests: 
+BugReports: https://github.com/ravingmantis/unittest/issues
+LazyData: yes
