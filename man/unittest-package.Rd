@@ -6,7 +6,7 @@
 \title{TAP-compliant Unit Testing}
 \description{
   Concise TAP-compliant unit testing package.
-  Produces tests that can be run with CMD check with minimal implementation overhead.
+  Authored tests that can be run using CMD check with minimal implementation overhead.
   If you want more features there are other unit testing packages (see 'See Also').
 }
 \details{
