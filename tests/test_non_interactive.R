@@ -1,38 +1,42 @@
 R_binary <- file.path(R.home("bin"), "R")
 
-run_script <- function(script) {
-    warn <- ""
-    out <- withCallingHandlers(
+run_script <- function(script, expected_status, expected_out, description) {
+    # solaris does not like pipes so use tmp files as intermediaries
+    tmpfiles <- tempfile(pattern = c('R_unittest_stdout_','R_unittest_stderr_'), tmpdir = tempdir())
+    exit_status <- withCallingHandlers(
         system2(
             R_binary,
             c("--vanilla", "--slave"),
             input=script,
-            wait = TRUE, stdout = TRUE, stderr = TRUE),
+            wait = TRUE, stdout = tmpfiles[1], stderr = tmpfiles[2]),
         warning = function (w) {
-            warn <<- sub('running command.* had status', 'command returned status', conditionMessage(w))
             invokeRestart("muffleWarning")
-        })
-    invisible( c(warn, out) )
-}
-
-compare <- function(actual, expected, description) {
-    if( isTRUE(all.equal(actual, expected)) ) {
+        }
+    )
+    actual <- readLines(tmpfiles[1])  # only interested in stdout
+    if( isTRUE(all.equal(actual, expected_out)) && exit_status == expected_status) {
         cat("ok\n")
     } else {
-        cat("\nExpected:",
-            expected,
-            "\nGot:",
+        cat("\nExpected status",
+            expected_status,
+            "\nGot status",
+            exit_status,
+            "\nExpected stdout:",
+            expected_out,
+            "\nGot stdout:",
             actual,
             sep = "\n"
         )
         stop( description )
     }
+    invisible( c(exit_status, actual) )
 }
 
 # one test one success
-out <- run_script("library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")")
-compare(out, c(
-        "",
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")",
+    0,
+    c(
         "ok - 1 equals 1",
         "# Looks like you passed all 1 tests."
     ),
@@ -40,9 +44,10 @@ compare(out, c(
 ) 
 
 # two tests two sucesses
-out <- run_script("library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nok(2==2,\"2 equals 2\")")
-compare(out, c(
-        "",
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nok(2==2,\"2 equals 2\")",
+    0,
+    c(
         "ok - 1 equals 1",
         "ok - 2 equals 2",
         "# Looks like you passed all 2 tests."
@@ -51,9 +56,10 @@ compare(out, c(
 ) 
 
 # one test one failure 
-out <- run_script("library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")")
-compare(out, c(
-        "command returned status 10",
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")",
+    10,
+    c(
         "not ok - 1 equals 1",
         "# Test returned non-TRUE value:",
         "# [1] FALSE",
@@ -63,9 +69,10 @@ compare(out, c(
 )
 
 # four tests two failures 
-out <- run_script("library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nok(2!=2,\"2 equals 2\")\nok(3==3,\"3 equals 3\")\nok(4!=4,\"4 equals 4\")")
-compare(out, c(
-        "command returned status 10",
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nok(2!=2,\"2 equals 2\")\nok(3==3,\"3 equals 3\")\nok(4!=4,\"4 equals 4\")",
+    10,
+    c(
         "ok - 1 equals 1",
         "not ok - 2 equals 2",
         "# Test returned non-TRUE value:",
@@ -80,9 +87,10 @@ compare(out, c(
 )
 
 # check detaching stops non_interactive_exit functionality
-out <- run_script("library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=FALSE)")
-compare(out, c(
-        "",
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=FALSE)",
+    0,
+    c(
         "not ok - 1 equals 1",
         "# Test returned non-TRUE value:",
         "# [1] FALSE"
@@ -91,9 +99,10 @@ compare(out, c(
 )
 
 # and if we re-attach it works again
-out <- run_script("library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=FALSE)\nlibrary(unittest, quietly = TRUE)\nok(2!=2,\"2 equals 2\")")
-compare(out, c(
-        "command returned status 10",
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=FALSE)\nlibrary(unittest, quietly = TRUE)\nok(2!=2,\"2 equals 2\")",
+    10,
+    c(
         "not ok - 1 equals 1",
         "# Test returned non-TRUE value:",
         "# [1] FALSE",
@@ -106,9 +115,10 @@ compare(out, c(
 )
 
 # check detaching and unloading stops non_interactive_exit functionality
-out <- run_script("library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=TRUE)")
-compare(out, c(
-        "",
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=TRUE)",
+    0,
+    c(
         "not ok - 1 equals 1",
         "# Test returned non-TRUE value:",
         "# [1] FALSE"
@@ -117,9 +127,10 @@ compare(out, c(
 )
 
 # and if we reload and re-attach it works again
-out <- run_script("library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=TRUE)\nlibrary(unittest, quietly = TRUE)\nok(2!=2,\"2 equals 2\")")
-compare(out, c(
-        "command returned status 10",
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=TRUE)\nlibrary(unittest, quietly = TRUE)\nok(2!=2,\"2 equals 2\")",
+    10,
+    c(
         "not ok - 1 equals 1",
         "# Test returned non-TRUE value:",
         "# [1] FALSE",
