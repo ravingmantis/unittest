@@ -1,0 +1,10 @@
+2014-09-10  Anthony Hennessey  <ah@ravingmantis.com>
+
+    Version 1.0-1
+
+    * tests/test_non_interactive.R (run_script): stdout and stderr in system2 command to tmp files to avoid 'illegal seek' error on Solaris.
+
+2014-08-23  Jamie Lentin  <jm@ravingmantis.com>
+
+    Version 1.0-0
+    Initial release.
