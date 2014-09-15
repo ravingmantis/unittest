@@ -1,7 +1,7 @@
 unittest
 ========
 
-This is a concise, [TAP](http://testanything.org/)-compliant, R package for writing unit tests. Authored tests that can be run with `R CMD check` with minimal implementation overhead.
+This is a concise, [TAP](http://testanything.org/)-compliant, R package for writing unit tests. Authored tests can be run with `R CMD check` with minimal implementation overhead.
 
 The `unittest` package provides a single function, `ok`, that prints "ok" when the expression provided evaluates to `TRUE` and "not ok" if the expression evaluates to anything else or results in an error.
 
