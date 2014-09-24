@@ -69,15 +69,13 @@
   Assuming your package contains (and \code{exports}) the \code{biggest()} function from
   \sQuote{Getting started}, we could add a \code{tests/test_biggest.R} that contains
   \preformatted{
+    library(mypackage)
     library(unittest, quietly = TRUE)
 
     ok( biggest(3,4) == 4, "two numbers" )
     ok( biggest(c(5,3),c(3,4)) == 5, "two vectors" )
   }
   and that's it. \code{R CMD check} will run the tests and fail if any of the tests fail.
-
-  Note that your test file MUST load \code{unittest}, but SHOULD NOT load the package being tested explicitly
-  (this is done for you by \code{CMD check}).\cr
 
   If you want to include tests for un-exported functions you will need to refer to them directly using
   \code{:::} notation.
