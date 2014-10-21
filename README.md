@@ -43,10 +43,18 @@ In an R session type
 Installing the latest version directly from GitHub
 ==================================================
 
+If you have the CRAN package [devtools](http://CRAN.R-project.org/package=devtools)
+you can use this to install directly from github:
+
+    # install.packages("devtools")
+    devtools::install_github("ravingmantis/unittest")
+
+Alternatively if you do not have devtools available, do one of the following:
+
 Linux
 -----
 
-In an R session type
+In an R session type:
 
     pkg_file <- tempfile()
     download.file(url = 'https://github.com/ravingmantis/unittest/archive/master.tar.gz', mode = 'wb', method = 'wget', destfile = pkg_file)
@@ -55,11 +63,11 @@ In an R session type
 Mac OSX / Windows
 -----------------
 
-Assumes that the CRAN package [downloader](http://CRAN.R-project.org/package=downloader) is installed.
+``download.file`` may not support fetching ``https`` URLs. Alternatively, you
+can use the the CRAN package [downloader](http://CRAN.R-project.org/package=downloader)
+to fetch the archive instead:
 
-In an R session type
-
-    library(downloader)
+    # install.packages("downloader")
     pkg_file <- tempfile()
-    download(url = 'https://github.com/ravingmantis/unittest/archive/master.tar.gz', mode = 'wb', destfile = pkg_file)
+    downloader::download(url = 'https://github.com/ravingmantis/unittest/archive/master.tar.gz', mode = 'wb', destfile = pkg_file)
     install.packages(pkg_file, repos = NULL, type = 'source')
