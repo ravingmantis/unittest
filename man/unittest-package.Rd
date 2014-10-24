@@ -10,7 +10,7 @@
   If you want more features there are other unit testing packages (see 'See Also').
 }
 \details{
-  The \code{unittest} package provides a single function, \code{\link{ok}}, that prints \code{ok}
+  The \code{unittest} package provides a function, \code{\link{ok}}, that prints \code{ok}
   when the expression provided evaluates to \code{TRUE} and \code{not ok} if the expression
   evaluates to anything else or results in an error. This is the \code{TAP} format
   (\url{http://testanything.org/}) for reporting test results.
@@ -83,6 +83,30 @@
   first test would need to look like this
   \preformatted{
     ok( mypackage:::biggest(3,4) == 4, "two numbers" )
+  }
+}
+
+\section{Grouping tests}{
+  When dealing with many tests in one file, it is useful to group them together, to do this unittest
+  provides \code{ok_group}. You can use it thus:-
+  \preformatted{
+    ok_group("Test addition", {
+      ok( 1 + 1 == 2, "Can add 1" )
+      ok( 1 + 3 == 4, "Can add 3" )
+    })
+    ok_group("Test subtraction", {
+      ok( 1 - 1 == 0, "Can subtract 1" )
+      ok( 1 - 3 == -2, "Can subtract 3" )
+    })
+  }
+  ...which will result in...
+  \preformatted{
+    # Test addition
+    ok - Can add 1
+    ok - Can add 3
+    # Test subtraction
+    ok - Can subtract 1
+    ok - Can subtract 3
   }
 }
 
