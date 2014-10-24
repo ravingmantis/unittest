@@ -43,6 +43,17 @@ run_script(
     "One test one success case not as expected"
 ) 
 
+# Success with a multi-line expression
+run_script(
+    "library(unittest, quietly = TRUE)\nok(all.equal(c('This is a string', 'This is a string too', 'Exciting times'),\nc('This is a string', 'This is a string too', 'Exciting times')))",
+    0,
+    c(
+        'ok - all.equal(c("This is a string", "This is a string too", "Exc',
+        "# Looks like you passed all 1 tests."
+    ),
+    "One test one success case not as expected"
+) 
+
 # two tests two sucesses
 run_script(
     "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nok(2==2,\"2 equals 2\")",

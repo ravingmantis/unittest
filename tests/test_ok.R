@@ -19,19 +19,39 @@ expect_success <- function( ok_call ) {
     invisible( TRUE )
 }
 
-expect_failure <- function( ok_call, exp_err_regex = NULL ) {
+expect_failure <- function( ok_call, exp_fail_regex = NULL ) {
     output <- paste(capture.output(ok_call), collapse = "\n")
     if( ! grepl(x = output, pattern='^not ok -', perl=TRUE) ) {
         stop( paste('expected failure, got: ', output) ) 
     }
-    if( ! is.null(exp_err_regex) ) {
-        if( ! grepl(x = output, pattern = exp_err_regex, perl=TRUE) ) {
-            stop( paste('\'exp_err_regex\' did not match. Got: ', output, sep = "") )
+    if( ! is.null(exp_fail_regex) ) {
+        if( ! grepl(x = output, pattern = exp_fail_regex, perl=TRUE) ) {
+            stop( paste('\'exp_fail_regex\' did not match. Got: ', output, sep = "") )
         }
     }
     invisible( TRUE )
 }
 
+expect_error <- function( ok_call, exp_err_regex = NULL ) {
+    msg <- tryCatch({ok_call ; "No error returned"}, error = function(e) e$message)
+    if(!grepl(exp_err_regex, msg)) {
+        stop("'", msg, "' should contain '", exp_err_regex, "'")
+    }
+}
+
+# -----------------
+# test invalid uses
+# -----------------
+
+expect_error(
+    ok(TRUE, 5),
+    '\'description\' must be of type \'chr\''
+)
+
+expect_error(
+    ok(TRUE, c("Lots", "of", "string")),
+    '\'description\' must be of type \'chr\''
+)
 
 # ------------
 # test success

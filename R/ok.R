@@ -2,8 +2,8 @@ ok <- function(
     test,
     description
 ) {
-    if( missing(description) ) description <- strtrim(deparse(substitute(test)), 60)
-    if( ! is.character(description) ) stop('\'description\' must be of type \'chr\'.')
+    if( missing(description) ) description <- strtrim(paste0(deparse(substitute(test)), collapse = " "), 60)
+    if( ! is.character(description) || length(description) > 1 ) stop('\'description\' must be of type \'chr\' and not a vector.')
 
     result <- tryCatch(test, error = function(e) e)
 
