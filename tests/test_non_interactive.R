@@ -153,3 +153,15 @@ run_script(
     "detaching and unloading stops non_interactive_exit functionality and then reloading and re-attaching resets and the rest still works"
 )
 
+# Failure outside test
+run_script(
+    "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nstop('eek\nook')\nok(2==2,\"2 equals 2\")",
+    1,
+    c(
+        "ok - 1 equals 1",
+        "# Looks like 1 tests passed, but script ended prematurely",
+        "# Error: eek",
+        "# ook"
+    ),
+    "Failure outside tests"
+)

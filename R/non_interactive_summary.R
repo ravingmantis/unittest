@@ -17,6 +17,7 @@ assign_outcome <- function( outcome ) {
 
 # having this as a named function means that CMD check will not complain about the use of cat and packageStartupMessage in .onLoad
 non_interactive_exit <- function( e ) {
+    err_message <- geterrmessage()
     if( exists('outcomes', where = e) && nrow(get('outcomes', pos = e)) ) {
          tests.total <- nrow( get('outcomes', pos = e) )
          tests.failed <- sum(! get('outcomes', pos = e)$status) 
@@ -24,6 +25,11 @@ non_interactive_exit <- function( e ) {
              cat( paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.\n", collapse = " ") )
              # We need to alter the status code, stop() doesn't work, not allowed to use .Last, should only happen as script is terminating anyway.
              quit(save = "no", status = 10, runLast=FALSE)
+         }
+         else if ( nzchar(err_message) ) {
+             cat( paste("# Looks like", tests.total, "tests passed, but script ended prematurely\n", collapse = " ") )
+             cat( paste0("# ", strsplit(err_message, "[\r\n]+")[[1]], collapse = "\n"))
+             invisible( NULL )
          }
          else {
              cat( paste("# Looks like you passed all", tests.total, "tests.\n", collapse = " ") )
