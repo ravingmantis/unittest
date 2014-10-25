@@ -3,7 +3,7 @@ unittest
 
 This is a concise, [TAP](http://testanything.org/)-compliant, R package for writing unit tests. Authored tests can be run with `R CMD check` with minimal implementation overhead.
 
-The `unittest` package provides a single function, `ok`, that prints "ok" when the expression provided evaluates to `TRUE` and "not ok" if the expression evaluates to anything else or results in an error.
+The workhorse of the `unittest` package is the `ok` function which prints "ok" when the expression provided evaluates to `TRUE` and "not ok" if the expression evaluates to anything else or results in an error.
 
 If you are writing a package see the "I'm writing a package, how do I put tests in it?" section in the package documentation.
 
@@ -40,16 +40,8 @@ In an R session type
 
     install.packages('unittest')
 
-Installing the latest version directly from GitHub
-==================================================
-
-If you have the CRAN package [devtools](http://CRAN.R-project.org/package=devtools)
-you can use this to install directly from github:
-
-    # install.packages("devtools")
-    devtools::install_github("ravingmantis/unittest")
-
-Alternatively if you do not have devtools available, do one of the following:
+Installing the latest development version directly from GitHub
+==============================================================
 
 Linux
 -----
@@ -71,3 +63,13 @@ to fetch the archive instead:
     pkg_file <- tempfile()
     downloader::download(url = 'https://github.com/ravingmantis/unittest/archive/master.tar.gz', mode = 'wb', destfile = pkg_file)
     install.packages(pkg_file, repos = NULL, type = 'source')
+
+Alternatively use the `devtools` CRAN package
+---------------------------------------------
+
+If you have the CRAN package [devtools](http://CRAN.R-project.org/package=devtools)
+you can use this to install directly from github:
+
+    # install.packages("devtools")
+    devtools::install_github("ravingmantis/unittest")
+

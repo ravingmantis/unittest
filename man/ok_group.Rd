@@ -1,9 +1,9 @@
 \name{ok_group}
 \alias{ok_group}
 
-\title{Group a set of tests}
+\title{Group associated unit tests}
 
-\description{Group a set of tests together}
+\description{Group associated unit tests with TAP compliant comments seperating the output.}
 
 \usage{
   ok_group( message, tests )
@@ -34,11 +34,25 @@
       ok( 1 + 1 == 2, "Can add 1" )
       ok( 1 + 3 == 4, "Can add 3" )
   })
-
   ok_group("Test subtraction", {
       ok( 1 - 1 == 0, "Can subtract 1" )
       ok( 1 - 3 == -2, "Can subtract 3" )
   })
+  # # Test addition
+  # ok - Can add 1
+  # ok - Can add 3
+  # # Test subtraction
+  # ok - Can subtract 1
+  # ok - Can subtract 3
 
+  # Multiline group message 
+  ok_group(c("Test multiplication", "but not division"),{
+      ok( 1 * 1 == 1, "Can multiple by 1" )
+      ok( 2 * 3 == 6, "Can multiply by 3" )
+  })
+  # # Test multiplication
+  # # but not division
+  # ok - Can multiple by 1
+  # ok - Can multiply by 3
   }
 }

@@ -87,7 +87,7 @@
 }
 
 \section{Grouping tests}{
-  When dealing with many tests in one file, it is useful to group them together, to do this unittest
+  When dealing with many tests in one file, it is useful to group them together, to do this \code{unittest}
   provides \code{ok_group}. You can use it thus:-
   \preformatted{
     ok_group("Test addition", {
