@@ -28,5 +28,5 @@ expect_equal(ok_group("camels", print("moo")), c(
     "# camels",
     '[1] "moo"'))
 
-# Check return value
-if (ok_group("camels", 6) != 6) stop("Didn't return 6")
+# Return NULL
+if (!is.null(ok_group("camels", 6))) stop("Didn't return NULL")

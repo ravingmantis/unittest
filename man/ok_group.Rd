@@ -20,7 +20,7 @@
 }
 
 \value{
-  Returns the result of the code block.
+  Returns NULL.
 }
 
 \details{
