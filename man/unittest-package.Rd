@@ -84,6 +84,12 @@
   \preformatted{
     ok( mypackage:::biggest(3,4) == 4, "two numbers" )
   }
+
+  If you want to run your tests at the R command line with the source function, then use the \code{chdir}
+  option to make sure that your tests run in the same directory that \code{CMD check} will run them.
+  \preformatted{
+    source( "mypackage/tests/test_biggest.R", chdir = TRUE )
+  }
 }
 
 \section{Grouping tests}{
@@ -119,6 +125,40 @@
       b <- 1:3
       ok( all.equal(a,b), "a and b are equal" )
     }
+
+    Alternatively, the following helper function will give coloured output showing what's different
+    \preformatted{
+      cmp <- function(a, b) {
+        if(identical(all.equal(a,b), TRUE)) return(TRUE)
+
+        if (file.exists(Sys.which('git'))) {
+          totmp <- function(x) {
+            f <- tempfile(pattern = "str.")
+            capture.output(str(x,
+              vec.len = 1000,
+              digits.d = 5,
+              nchar.max = 1000), file = f)
+            return(f)
+          }
+
+          return(suppressWarnings(system2(
+            Sys.which('git'),
+            c("diff", "--no-index", "--color-words", totmp(a), totmp(b)),
+            input = "",
+            stdout = TRUE, stderr = TRUE)))
+        }
+
+        return(c(
+          capture.output(str(a)),
+          "... does not equal...",
+          capture.output(str(b))
+        ))
+      }
+    }
+    To see the coloured output, try the following:
+    \preformatted{
+    ok(cmp(1:3, 1:8))
+    }
   }
 
   \subsection{Checking an error condition happened}{
@@ -146,6 +186,18 @@
     this will result in the output
     \preformatted{
       ok - add_four() argument not numeric correctly throws an error
+    }
+  }
+
+  \subsection{Testing unexported package functions}{
+    If you have some tests which require access to unexported functions,
+    or unexported S3 methods, you can use \code{local}.
+    \preformatted{
+      local({
+        ok(internal_function() == 3)
+        ok(another_internal_function() == 4)
+        ok(final_internal_function() == 5)
+      }, asNamespace('mypackage'))
     }
   }
 
