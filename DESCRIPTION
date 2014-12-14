@@ -1,7 +1,7 @@
 Encoding: UTF-8
 Package: unittest
 Type: Package
-Title: TAP-compliant unit testing.
+Title: TAP-compliant Unit Testing
 Version: 1.1-1
 Date: 2014-12-13
 Authors@R:
