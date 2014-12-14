@@ -1,8 +1,12 @@
+    Unreleased
+
+    * Fix spelling mistakes in documentation, changelog
+
 2014-12-13  Jamie Lentin  <jm@ravingmantis.com>
 
     Version 1.1-0
 
-    * R/ok_group.R (ok_group): New function to display a debug message before evaluating a code block contatining unit tests.
+    * R/ok_group.R (ok_group): New function to display a debug message before evaluating a code block containing unit tests.
     * R/ok.R (ok): Long descriptions no longer breaks output.
     * R/non_interactive_summary.R (non_interactive_exit): Now notices when tests end prematurely and puts out debug message.
     * man/unittest-package.Rd: Fixed incorrect instructions for integration with R CMD check.

@@ -34,7 +34,7 @@
   \preformatted{
     biggest <- function(x,y) { max(c(x,y)) }
   }
-  To test this create a file called \code{test_myfunction.R} in the same directory cointaining
+  To test this create a file called \code{test_myfunction.R} in the same directory containing
   \preformatted{
     library(unittest, quietly = TRUE)
 
@@ -189,9 +189,9 @@
     }
   }
 
-  \subsection{Testing unexported package functions}{
-    If you have some tests which require access to unexported functions,
-    or unexported S3 methods, you can use \code{local}.
+  \subsection{Testing un-exported package functions}{
+    If you have some tests which require access to un-exported functions,
+    or un-exported S3 methods, you can use \code{local}.
     \preformatted{
       local({
         ok(internal_function() == 3)

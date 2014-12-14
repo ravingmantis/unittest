@@ -3,7 +3,7 @@
 
 \title{Group associated unit tests}
 
-\description{Group associated unit tests with TAP compliant comments seperating the output.}
+\description{Group associated unit tests with TAP compliant comments separating the output.}
 
 \usage{
   ok_group( message, tests )
@@ -47,12 +47,12 @@
 
   # Multiline group message 
   ok_group(c("Test multiplication", "but not division"),{
-      ok( 1 * 1 == 1, "Can multiple by 1" )
+      ok( 1 * 1 == 1, "Can multiply by 1" )
       ok( 2 * 3 == 6, "Can multiply by 3" )
   })
   # # Test multiplication
   # # but not division
-  # ok - Can multiple by 1
+  # ok - Can multiply by 1
   # ok - Can multiply by 3
   }
 }
