@@ -165,3 +165,23 @@ run_script(
     ),
     "Failure outside tests"
 )
+
+# tryCatch() doesn't count as failure
+run_script(
+    paste(
+        "library(unittest, quietly = TRUE)",
+        "ok(1==1, '1 equals 1')",
+        "tryCatch(stop('not fatal'), error = function (e) NULL)",
+        "ok(2==2, '2 equals 2')",
+        "", sep = "\n"
+    ),
+    0,
+    c(
+        "ok - 1 equals 1",
+        "NULL",
+        "ok - 2 equals 2",
+        "# Looks like you passed all 2 tests.",
+        NULL
+    ),
+    "Caught errors outside tests"
+)
