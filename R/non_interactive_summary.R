@@ -29,6 +29,7 @@ non_interactive_exit <- function( e ) {
          else if ( nzchar(err_message) ) {
              cat( paste("# Looks like", tests.total, "tests passed, but script ended prematurely\n", collapse = " ") )
              cat( paste0("# ", strsplit(err_message, "[\r\n]+")[[1]], collapse = "\n"))
+             cat( "\n" )
              invisible( NULL )
          }
          else {
