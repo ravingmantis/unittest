@@ -155,7 +155,13 @@ run_script(
 
 # Failure outside test
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nstop('eek\nook')\nok(2==2,\"2 equals 2\")",
+    paste(
+        "library(unittest, quietly = TRUE)",
+        "ok(1==1, '1 equals 1')",
+        "stop('eek\nook')",
+        "ok(2==2, '2 equals 2')",
+        "", sep = "\n"
+    ),
     1,
     c(
         "ok - 1 equals 1",
