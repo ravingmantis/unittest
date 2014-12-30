@@ -154,6 +154,7 @@ run_script(
 )
 
 # Failure outside test
+# NB: The error message is on stderr, not stdout, so the TAP output lies. Is this bad?
 run_script(
     paste(
         "library(unittest, quietly = TRUE)",
@@ -165,9 +166,8 @@ run_script(
     1,
     c(
         "ok - 1 equals 1",
-        "# Looks like 1 tests passed, but script ended prematurely",
-        "# Error: eek",
-        "# ook"
+        "# Looks like you passed all 1 tests.",
+        NULL
     ),
     "Failure outside tests"
 )

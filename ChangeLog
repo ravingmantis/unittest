@@ -1,6 +1,6 @@
     Unreleased
 
-    * R/non_interactive_summary.R: End premature ending message with a \n
+    * R/non_interactive_summary.R: Remove broken detection for tests ending prematurely
     * DESCRIPTION: Title should be in title-case
 
 2014-12-14  Jamie Lentin  <jm@ravingmantis.com>
