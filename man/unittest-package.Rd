@@ -32,7 +32,8 @@
 
 \section{Getting started}{
 
-  You have a simple function in the file \code{biggest.R} that looks something like this
+  You don't need to be writing a package to use unittest. Suppose you have a file \code{biggest.R}
+  with the following function
   \preformatted{
     biggest <- function(x,y) { max(c(x,y)) }
   }
@@ -112,8 +113,9 @@
 \section{Cookbook}{
 
   \subsection{Checking error conditions}{
-    Use \code{tryCatch}. In this example if your function returns a character vector then
-    its content will be displayed as part of the diagnostics.
+    Define a helper function \code{test_for_error} that uses \code{tryCatch}. If your test
+    results in an error that does not match, then the test fails and the actual error will
+    be included in your test results.
     \preformatted{
       test_for_error <- function(code, expected_regexp) {
           tryCatch({
