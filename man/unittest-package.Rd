@@ -15,7 +15,7 @@
   and prints \code{not ok} if the expression evaluates to anything else or results in a runtime error;
   this is the \code{TAP} format (\url{http://testanything.org/}) for reporting test results.
   The \code{\link{ok_group}} function is a convenience function for grouping related unit tests
-  and produces \code{TAP} complient comments in the output to seperate the unit test groups.
+  and produces \code{TAP} compliant comments in the output to separate the unit test groups.
 
   A unit test summary is produced at the end of a session when a set of unit tests are run in non-interactive
   mode, for example when the unit tests are run using \code{Rscript} or by \code{R CMD check}.
@@ -151,13 +151,13 @@
     }
   }
 
-  \subsection{Running package unittests as you develop the code}{
+  \subsection{Running package unit tests as you develop the code}{
     By far the simplest and safest way to do this is to make your changes,
     build the package and run 'R CMD check' against the built package.
 
     Since this can often be too much of an overhead or because you prefer the comfort of an
-    interactive \code{R} session we offer two possible alternative stratergies. Both these
-    stratergies come with the warning: \emph{here be dragons}.
+    interactive \code{R} session we offer two possible alternative strategies. Both these
+    strategies come with the warning: \emph{here be dragons}.
 
     \subsection{Editing functions in place}{
       In a new \code{R} session load the current version of your package in the usual way, then
