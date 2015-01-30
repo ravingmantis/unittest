@@ -55,10 +55,10 @@
     ok - two numbers
     ok - two vectors
   }
-  and that's it.\cr
-
+  and that's it.
+  \cr\cr
   Now each time you edit \code{biggest.R} re-sourcing \code{test_biggest.R}
-  reloads your function and runs your unit tests.\cr
+  reloads your function and runs your unit tests.
 }
 
 \section{I'm writing a package, how do I put tests in it?}{
@@ -67,13 +67,13 @@
     Suggests: unittest
   }
 
-  Then create a directory called \code{tests} in your package source, alongside your \code{R} directory.\cr
-
-  Any \code{.R} file in the tests directory will be run by \code{R CMD check}. The \code{unittest} package
+  Then create a directory called \code{tests} in your package source, alongside your \code{R} directory.
+  \cr\cr
+  Any \code{.R} file in the \code{tests} directory will be run by \code{R CMD check}. The \code{unittest} package
   \dQuote{knows} that it is being run by \code{CMD check} and so at the end of the tests will produce a
   summary and throw an error if any tests fail; throwing an error will in turn cause \code{CMD check} to
-  report the error and fail the \code{check}.\cr
-
+  report the error and fail the \code{check}.
+  \cr\cr
   Assuming your package contains (and \code{exports}) the \code{biggest()} function from
   \sQuote{Getting started}, we could add a \code{tests/test_biggest.R} that contains
   \preformatted{
