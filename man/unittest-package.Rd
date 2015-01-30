@@ -18,10 +18,8 @@
   and produces \code{TAP} compliant comments in the output to separate the unit test groups.
 
   A unit test summary is produced at the end of a session when a set of unit tests are run in non-interactive
-  mode, for example when the unit tests are run using \code{Rscript} or by \code{R CMD check}.
-
-  If you are writing an \code{R} package \code{unittest} is designed to integrate with \code{R CMD check};
-  see \sQuote{I'm writing a package, how do I put tests in it?}.
+  mode, for example when the unit tests are run using \code{Rscript} or by \code{R CMD check}. For
+  using with \code{R CMD check}, see \sQuote{I'm writing a package, how do I put tests in it?}.
 
   For a list of all documentation use \code{library(help="unittest")}.
 }
