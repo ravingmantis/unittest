@@ -33,7 +33,7 @@
   You don't need to be writing a package to use unittest. Suppose you have a file \code{biggest.R}
   with the following function
   \preformatted{
-    biggest <- function(x,y) { max(c(x,y)) }
+    biggest <- function(x,y) {max(c(x,y))}
   }
   To test this create a file called \code{test_biggest.R} in the same directory containing
   \preformatted{
@@ -41,8 +41,8 @@
 
     source('biggest.R')
 
-    ok( biggest(3,4) == 4, "two numbers" )    
-    ok( biggest(c(5,3),c(3,4)) == 5, "two vectors" )    
+    ok(biggest(3,4) == 4, "two numbers")    
+    ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")    
   }
   Now in an \code{R} session \code{source()} the test file
   \preformatted{
@@ -78,8 +78,8 @@
     library(mypackage)
     library(unittest, quietly = TRUE)
 
-    ok( biggest(3,4) == 4, "two numbers" )
-    ok( biggest(c(5,3),c(3,4)) == 5, "two vectors" )
+    ok(biggest(3,4) == 4, "two numbers")
+    ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
   }
   and that's it. \code{R CMD check} will run the tests and fail if any of the tests fail.
 }
@@ -89,12 +89,12 @@
   The \code{\link{ok_group}} function is used like this
   \preformatted{
     ok_group("Test addition", {
-      ok( 1 + 1 == 2, "Can add 1" )
-      ok( 1 + 3 == 4, "Can add 3" )
+      ok(1 + 1 == 2, "Can add 1")
+      ok(1 + 3 == 4, "Can add 3")
     })
     ok_group("Test subtraction", {
-      ok( 1 - 1 == 0, "Can subtract 1" )
-      ok( 1 - 3 == -2, "Can subtract 3" )
+      ok(1 - 1 == 0, "Can subtract 1")
+      ok(1 - 3 == -2, "Can subtract 3")
     })
   }
   which will produce output like this
@@ -126,12 +126,12 @@
           )
       }
 
-      add_four <- function( x ) {
+      add_four <- function(x) {
           if( ! is.numeric(x) ) stop("x must be numeric")
           return( x+4 )
       }
 
-      ok( test_for_error(add_four("a"), "must be numeric"), "add_four() argument not numeric correctly throws an error" )
+      ok(test_for_error(add_four("a"), "must be numeric"), "add_four() argument not numeric correctly throws an error")
     }
     this will result in the output
     \preformatted{
@@ -156,7 +156,7 @@
     \preformatted{
       a <- c(1,2,3)
       b <- 1:3
-      ok( all.equal(a,b), "a and b are equal" )
+      ok(all.equal(a,b), "a and b are equal")
     }
 
     Alternatively, the following helper function will give coloured output showing what's different

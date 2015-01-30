@@ -2,20 +2,20 @@ ok <- function(
     test,
     description
 ) {
-    if( missing(description) ) description <- strtrim(paste0(deparse(substitute(test)), collapse = " "), 60)
-    if( ! is.character(description) || length(description) > 1 ) stop('\'description\' must be of type \'chr\' and not a vector.')
+    if(missing(description)) description <- strtrim(paste0(deparse(substitute(test)), collapse = " "), 60)
+    if(! is.character(description) || length(description) > 1) stop('\'description\' must be of type \'chr\' and not a vector.')
 
     result <- tryCatch(test, error = function(e) e)
 
     outcome <- data.frame()
-    if( identical(result, TRUE) ) {
+    if(identical(result, TRUE) ) {
         outcome <- data.frame(
             status = TRUE,
             output = paste('ok -', description, collapse = " "),
             stringsAsFactors = FALSE
         )
     }
-    else if( inherits(result,'error') ) {
+    else if(inherits(result,'error')) {
         outcome <- data.frame(
             status = FALSE,
             output = paste(
@@ -27,7 +27,7 @@ ok <- function(
             stringsAsFactors = FALSE
         )
     }
-    else if( is.character(result) ) {
+    else if(is.character(result)) {
         outcome <- data.frame(
             status = FALSE,
             output = paste(
@@ -53,6 +53,6 @@ ok <- function(
     }
     assign_outcome(outcome)
     rv <- paste0(outcome['output'], "\n")
-    cat( rv )
-    invisible( result )
+    cat(rv)
+    invisible(result)
 }

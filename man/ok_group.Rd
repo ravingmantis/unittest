@@ -6,7 +6,7 @@
 \description{Group associated unit tests with TAP compliant comments separating the output.}
 
 \usage{
-  ok_group( message, tests )
+  ok_group(message, tests)
 }
 
 \arguments{
@@ -31,12 +31,12 @@
 \examples{
   \dontrun{
   ok_group("Test addition", {
-      ok( 1 + 1 == 2, "Can add 1" )
-      ok( 1 + 3 == 4, "Can add 3" )
+      ok(1 + 1 == 2, "Can add 1")
+      ok(1 + 3 == 4, "Can add 3")
   })
   ok_group("Test subtraction", {
-      ok( 1 - 1 == 0, "Can subtract 1" )
-      ok( 1 - 3 == -2, "Can subtract 3" )
+      ok(1 - 1 == 0, "Can subtract 1")
+      ok(1 - 3 == -2, "Can subtract 3")
   })
   # # Test addition
   # ok - Can add 1
@@ -47,8 +47,8 @@
 
   # Multiline group message 
   ok_group(c("Test multiplication", "but not division"),{
-      ok( 1 * 1 == 1, "Can multiply by 1" )
-      ok( 2 * 3 == 6, "Can multiply by 3" )
+      ok(1 * 1 == 1, "Can multiply by 1")
+      ok(2 * 3 == 6, "Can multiply by 3")
   })
   # # Test multiplication
   # # but not division

@@ -24,8 +24,8 @@ To test this create a file called `test_myfunction.R` in the same directory cont
     
     source('myfunction.R')
     
-    ok( biggest(3,4) == 4, "two numbers" )    
-    ok( biggest(c(5,3),c(3,4)) == 5, "two vectors" )    
+    ok(biggest(3,4) == 4, "two numbers")    
+    ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")    
 
 Now in an `R` session `source()` the test file
 

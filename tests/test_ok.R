@@ -13,26 +13,26 @@ library(unittest, quietly = TRUE)
 
 expect_success <- function( ok_call ) {
     output <- paste(capture.output(ok_call), collapse = " ")
-    if( ! grepl(x = output, pattern='^ok -', perl=TRUE) ) {
-        stop( paste('expected success, got: ', output) ) 
+    if(! grepl(x = output, pattern='^ok -', perl=TRUE)) {
+        stop(paste('expected success, got: ', output)) 
     }
-    invisible( TRUE )
+    invisible(TRUE)
 }
 
-expect_failure <- function( ok_call, exp_fail_regex = NULL ) {
+expect_failure <- function(ok_call, exp_fail_regex = NULL) {
     output <- paste(capture.output(ok_call), collapse = "\n")
-    if( ! grepl(x = output, pattern='^not ok -', perl=TRUE) ) {
-        stop( paste('expected failure, got: ', output) ) 
+    if(! grepl(x = output, pattern='^not ok -', perl=TRUE)) {
+        stop(paste('expected failure, got: ', output)) 
     }
-    if( ! is.null(exp_fail_regex) ) {
-        if( ! grepl(x = output, pattern = exp_fail_regex, perl=TRUE) ) {
-            stop( paste('\'exp_fail_regex\' did not match. Got: ', output, sep = "") )
+    if(! is.null(exp_fail_regex)) {
+        if(! grepl(x = output, pattern = exp_fail_regex, perl=TRUE)) {
+            stop(paste('\'exp_fail_regex\' did not match. Got: ', output, sep = ""))
         }
     }
-    invisible( TRUE )
+    invisible(TRUE)
 }
 
-expect_error <- function( ok_call, exp_err_regex = NULL ) {
+expect_error <- function(ok_call, exp_err_regex = NULL) {
     msg <- tryCatch({ok_call ; "No error returned"}, error = function(e) e$message)
     if(!grepl(exp_err_regex, msg)) {
         stop("'", msg, "' should contain '", exp_err_regex, "'")
@@ -103,7 +103,7 @@ expect_failure(
 # ------------------------
 
 expect_failure(
-    ok( c(1,2)==c(1,3), "directly compare vector" ),
+    ok(c(1,2)==c(1,3), "directly compare vector"),
     '# Test returned non-TRUE value:\n# \\[1\\]  TRUE FALSE'
 )
 
@@ -136,8 +136,8 @@ expect_failure(
 # -------------------
 
 printed <- capture.output( ok( 3==3 ) )
-if( ! grepl(x = printed, pattern = '3\\s*==\\s*3', perl=TRUE) ) {
-    stop( "ok() without description looks broken" )
+if(! grepl(x = printed, pattern = '3\\s*==\\s*3', perl=TRUE)) {
+    stop("ok() without description looks broken")
 }
 
 # ---------------------------------
@@ -163,9 +163,9 @@ expect_failure(
 # return value
 # ------------
 
-dev_null <- capture.output( rv <- ok( 2==2, "two equals two") )  # nothing else prints so neither should this
+dev_null <- capture.output(rv <- ok(2==2, "two equals two"))  # nothing else prints so neither should this
 if( ! identical(rv, TRUE) ) {
-    stop( "ok() return value looks wrong" )
+    stop("ok() return value looks wrong")
 }
 
 
@@ -173,7 +173,7 @@ if( ! identical(rv, TRUE) ) {
 # if we are being run by CMD check
 # ================================
 
-if( ! interactive() ) {
+if(! interactive()) {
     
     # we stored some results
     # this will fail if 'outcomes' does not exist

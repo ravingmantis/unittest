@@ -29,7 +29,7 @@ run_script <- function(script, expected_status, expected_out, description) {
         )
         stop( description )
     }
-    invisible( c(exit_status, actual) )
+    invisible(c(exit_status, actual))
 }
 
 # one test one success
