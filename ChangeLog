@@ -1,4 +1,6 @@
-    Unreleased
+2015-02-13  Jamie Lentin  <jm@ravingmantis.com>
+
+    Version 1.2-0
 
     * R/non_interactive_summary.R: Remove broken detection for tests ending prematurely.
     * R/*.R man/*.Rd tests/*.R: Make the use of white space within parentheses consistent.
