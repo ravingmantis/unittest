@@ -1,3 +1,5 @@
+    * NAMESPACE: Declare that we use utils::capture.output
+
 2015-02-13  Jamie Lentin  <jm@ravingmantis.com>
 
     Version 1.2-0

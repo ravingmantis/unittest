@@ -1,3 +1,4 @@
+importFrom("utils", "capture.output")
 export(ok)
 
 export(ok_group)
