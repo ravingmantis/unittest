@@ -1,3 +1,4 @@
 ^\.git
 ^Makefile
 ^[^/]+\.tar\.gz
+^\.bash_history\.*
