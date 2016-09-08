@@ -5,7 +5,7 @@ TARBALL=$(PACKAGE)_$(VERSION).tar.gz
 all: check
 
 install:
-	R CMD INSTALL --install-tests --html --example $(PACKAGE)
+	R CMD INSTALL --install-tests --html --example .
 
 build:
 	R CMD build .
