@@ -20,8 +20,10 @@ ok <- function(
             status = FALSE,
             output = paste(
                 paste('not ok -', description, collapse = " "),
-                paste("# Test resulted in error:", result$message, collapse = " "),
-                paste("#  ->", result$call, collapse = "\n"),
+                "# Test resulted in error:",
+                paste("# ", result$message, collapse = "\n"),
+                "# Whilst evaluating:",
+                paste("# ", deparse(result$call), collapse = "\n"),
                 sep = "\n", collapse = "\n"
             ),
             stringsAsFactors = FALSE

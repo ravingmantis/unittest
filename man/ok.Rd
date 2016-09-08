@@ -46,14 +46,13 @@
   ok(all.equal(c(1,2),c(1,2)), "compare vectors")
   # ok - compare vectors
 
-  ok(stop("oops"), "something with a coding error")
+  fn <- function () stop("oops")
+  ok(fn(), "something with a coding error")
   # not ok - something with a coding error
-  # # Test resulted in error: oops
-  # #  -> doTryCatch
-  # #  -> return(expr)
-  # #  -> name
-  # #  -> parentenv
-  # #  -> handler
+  # # Test resulted in error:
+  # #  oops
+  # # Whilst evaluating:
+  # #  fn()
 
   ok(c("Some diagnostic", "messages"), "A failure with diagnostic messages")
   # not ok - A failure with diagnostic messages

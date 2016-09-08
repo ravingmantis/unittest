@@ -88,13 +88,13 @@ expect_failure(
     '# Mean relative difference: 1'
 )
 
-# test produces an error
-fn <- function() {
+# on an error, we display the error and the failing call
+fn <- function(x) {
     stop("Oh no")
 }
 expect_failure(
-    ok(fn(), "Function that returns error"),
-    '# Test resulted in error: Oh no\n#  -> fn'
+    ok(fn(5), "Function that returns error"),
+    'Oh no(.|\n)*fn\\(5\\)'
 )
 
 
