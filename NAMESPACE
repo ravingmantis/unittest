@@ -1,4 +1,4 @@
-importFrom("utils", "capture.output")
+importFrom("utils", "capture.output", "head", "tail")
 export(ok)
 
 export(ok_group)

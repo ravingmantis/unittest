@@ -1,3 +1,4 @@
+    * R/ok.R (ok): Add stacktrace as well as final failing call
     * R/ok.R (ok): Deparse the call object correctly when handling test errors
     * NAMESPACE: Declare that we use utils::capture.output
 
