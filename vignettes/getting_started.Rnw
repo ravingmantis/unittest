@@ -1,0 +1,44 @@
+%% \VignetteIndexEntry{Getting Started}
+%% \VignettePackage{unittest}
+
+\title{Getting Started}
+
+\SweaveInput{common.tex}
+
+\begin{document}
+
+\maketitle
+
+You don't need to be writing a package to use unittest.
+
+Suppose you have a file \texttt{biggest.R} with the following function
+\begin{verbatim}
+    biggest <- function(x,y) {max(c(x,y))}
+\end{verbatim}
+
+To test this create a file called \texttt{test\_biggest.R} in the same directory containing
+\begin{verbatim}
+    library(unittest, quietly = TRUE)
+
+    source('biggest.R')
+
+    ok(biggest(3,4) == 4, "two numbers")
+    ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
+\end{verbatim}
+
+Now in an \verb@R@ session \verb@source@ the test file
+\begin{verbatim}
+    source('test_biggest.R')
+\end{verbatim}
+and you will see output like this
+\begin{verbatim}
+    ok - two numbers
+    ok - two vectors
+\end{verbatim}
+and that's it.
+
+Now each time you edit \verb@biggest.R@ re-sourcing \verb@test_biggest.R@
+reloads your function and runs your unit tests.
+
+
+\end{document}
