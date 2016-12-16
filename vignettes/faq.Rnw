@@ -22,7 +22,7 @@
 % ------------------------------------------
 \subsection{How do I test error conditions?}
 % ------------------------------------------
-Define a helper function \verb@test_for_error@ that uses \verb@tryCatch@.
+Define a helper function \textScode{test\_for\_error} that uses \textScode{tryCatch}.
 If your test results in an error that does not match, then the test fails and the actual error will be included in your test results.
 <<testing_for_errors>>=
 test_for_error <- function(code, expected_regexp) {
@@ -54,7 +54,7 @@ ok(test_for_error(add_four("a"), "must be numeric"), "add_four() argument not nu
 % --------------------------------------------
 \subsection{How do I test multivalue results?}
 % --------------------------------------------
-Use \verb@all.equal(...)@
+Use \textScode{all.equal(...)}
 
 <<>>=
 a <- c(1,2,3)
@@ -93,19 +93,19 @@ cmp <- function(a, b) {
 @
 To see the coloured output, try the following:
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 ok(cmp(1:3, 1:8))
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 
 
 
-% -----------------------------
-\subsection{Can I group tests?}
-% -----------------------------
+% -------------------------
+\subsection{Grouping tests}
+% -------------------------
 When dealing with many unit tests in one file it can be useful to group related unit tests.
 
-The \verb@ok_group@ function is used like this
+The \textScode{ok\_group()} function is used like this
 <<grouping_tests, results=hide>>=
 ok_group("Test addition", {
     ok(1 + 1 == 2, "Can add 1")
@@ -123,6 +123,10 @@ which produces the following output
 @
 
 
+% -----------------------------------------------------------------
+\subsection{I am sure I do not need to test my code. Is this true?}
+% -----------------------------------------------------------------
+No. Sit down and have a cup of tea. Hopefully the feeling will go away.
 
 
 % =============================
@@ -133,48 +137,48 @@ which produces the following output
 % -----------------------------------------------------------
 \subsection{I'm writing a package, how do I put tests in it?}
 % -----------------------------------------------------------
-Add the following line to the package \verb@DESCRIPTION@ file.
+Add the following line to the package \textScode{DESCRIPTION} file.
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 Suggests: unittest
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 
-Create a directory called \verb@tests@ in your package source, alongside your \verb@R@ directory.
+Create a directory called \textScode{tests} in your package source, alongside your \textScode{R} directory.
 
-Place your tests in a file with the extension \verb@.R@ and add the following lines to the top of the file (replacing \verb@mypackage@ with the name of your package).
+Place your tests in a file with the extension \textScode{.R} and add the following lines to the top of the file (replacing \textScode{mypackage} with the name of your package).
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 library(mypackage)
 library(unittest, quietly = TRUE)
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 
-That's it; \verb@R CMD check@ will run the tests and fail if any of the tests fail.
+That's it; \textScode{R CMD check} will run the tests and fail if any of the tests fail.
 
 \vspace{10pt}
-\textit{Any} \verb@.R@ file in the \verb@tests@ directory will be run by \verb@R CMD check@.\\
-When you use the \verb@unittest@ package the package ``knows'' that it is being run by \verb@CMD check@ and at the end of the tests it produces a summary of the results.
+\textit{Any} \textScode{.R} file in the \textScode{tests} directory will be run by \textScode{R CMD check}.\\
+When you use the \textScode{unittest} package the package ``knows'' that it is being run by \textScode{CMD check} and at the end of the tests it produces a summary of the results.
 The package will also throw an error if any tests fail;
-throwing an error will in turn cause \verb@CMD check@ to report the error and fail the \verb@check@.
+throwing an error will in turn cause \textScode{CMD check} to report the error and fail the \textScode{check}.
 
 \vspace{10pt}
 Here is a very simple example:\\
-Assuming your package contains (and \verb@exports@) the function \verb@biggest()@
+Assuming your package contains (and \textScode{exports}) the function \textScode{biggest()}
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 biggest <- function(x,y) {max(c(x,y))}
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
-then the \verb@tests/my_tests_for_biggest.R@ file could contain something like
+then the \textScode{tests/my\_tests\_for\_biggest.R} file could contain something like
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 library(mypackage)
 library(unittest, quietly = TRUE)
 
 ok(biggest(3,4) == 4, "two numbers")
 ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 
 
@@ -183,15 +187,15 @@ ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
 \subsection{How do I test un-exported package functions?}
 % -------------------------------------------------------
 If you have some unit tests which require access to un-exported functions,
-or un-exported S3 methods, you can use \verb@local@.
+or un-exported S3 methods, you can use \textScode{local}.
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 local({
     ok(internal_function() == 3)
     ok(another_internal_function() == 4)
     ok(final_internal_function() == 5)
 }, asNamespace('mypackage'))
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 
 

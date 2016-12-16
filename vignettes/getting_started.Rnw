@@ -9,44 +9,46 @@
 
 \maketitle
 
-You don't need to be writing a package to use unittest.
+\tableofcontents
 
-Suppose you have a file \texttt{biggest.R} with the following function
+\section{A very simple example}
+
+Suppose you have a file \textScode{biggest.R} with the following function
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 biggest <- function(x,y) {max(c(x,y))}
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 
-To test this create a file called \texttt{test\_biggest.R} in the same directory containing
+To test this create a file called \textScode{test\_biggest.R} in the same directory containing
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 library(unittest, quietly = TRUE)
 
 source('biggest.R')
 
 ok(biggest(3,4) == 4, "two numbers")
 ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 
-Now in an \verb@R@ session \verb@source@ the test file
+Now in an \texttt{R} session \textScode{source} the test file
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 source('test_biggest.R')
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 and you will see output like this
 \begin{Schunk}
-\begin{Rcode}
+\begin{Scode}
 ok - two numbers
 ok - two vectors
-\end{Rcode}
+\end{Scode}
 \end{Schunk}
 and that's it.
 
 \vspace{10pt}
-Now each time you edit \verb@biggest.R@ re-sourcing \verb@test_biggest.R@
+Now each time you edit \textScode{biggest.R} re-sourcing \textScode{test\_biggest.R}
 reloads your function and runs your unit tests.
 
 

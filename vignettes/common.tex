@@ -6,10 +6,10 @@
 \SweaveOpts{keep.source=TRUE}
 \DefineVerbatimEnvironment{Sinput}{Verbatim}{xleftmargin=1em, fontsize=\footnotesize}
 \DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=1.4em, fontsize=\footnotesize}
-\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=1em, fontsize=\footnotesize}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=1.4em, fontsize=\footnotesize}
 \renewenvironment{Schunk}{\vspace{10pt}}{\vspace{10pt}} 
 
-\DefineVerbatimEnvironment{Rcode}{Verbatim}{xleftmargin=1.4em, fontsize=\footnotesize}
+\DeclareTextFontCommand{\textScode}{\ttfamily\footnotesize}
 
 <<echo=false>>=
     options(width = 80)
