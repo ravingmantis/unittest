@@ -1,24 +1,22 @@
 \documentclass[9pt, cmss, a4paper]{scrartcl}
 
-\usepackage{xcolor}
+\usepackage[x11names]{xcolor}
+
 \usepackage{Sweave}
 \SweaveOpts{keep.source=TRUE}
-\DefineVerbatimEnvironment{Sinput}{Verbatim} {xleftmargin=1.5em}
-\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=1.5em}
-\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=1.5em}
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{xleftmargin=1em, fontsize=\footnotesize}
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=1.4em, fontsize=\footnotesize}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=1em, fontsize=\footnotesize}
 \renewenvironment{Schunk}{\vspace{10pt}}{\vspace{10pt}} 
 
-% more verticle seperation for the verbatim environment
-\usepackage{etoolbox}
-\makeatletter
-\preto{\@verbatim}{\topsep=15pt \partopsep=15pt }
-\makeatother
+\DefineVerbatimEnvironment{Rcode}{Verbatim}{xleftmargin=1em, fontsize=\footnotesize}
 
 <<echo=false>>=
-    options(width = 120)
+    options(width = 80)
+    options(continue = ' ', prompt = ' ')
 @
 
-\usepackage{hyperref}
+\usepackage[colorlinks=true,linkcolor=Blue4]{hyperref}
 \usepackage[utf8]{inputenc}
 \setlength{\parindent}{0pt}
 %% say no to serif

@@ -12,31 +12,40 @@
 You don't need to be writing a package to use unittest.
 
 Suppose you have a file \texttt{biggest.R} with the following function
-\begin{verbatim}
-    biggest <- function(x,y) {max(c(x,y))}
-\end{verbatim}
+\begin{Schunk}
+\begin{Rcode}
+biggest <- function(x,y) {max(c(x,y))}
+\end{Rcode}
+\end{Schunk}
 
 To test this create a file called \texttt{test\_biggest.R} in the same directory containing
-\begin{verbatim}
-    library(unittest, quietly = TRUE)
+\begin{Schunk}
+\begin{Rcode}
+library(unittest, quietly = TRUE)
 
-    source('biggest.R')
+source('biggest.R')
 
-    ok(biggest(3,4) == 4, "two numbers")
-    ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
-\end{verbatim}
+ok(biggest(3,4) == 4, "two numbers")
+ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
+\end{Rcode}
+\end{Schunk}
 
 Now in an \verb@R@ session \verb@source@ the test file
-\begin{verbatim}
-    source('test_biggest.R')
-\end{verbatim}
+\begin{Schunk}
+\begin{Rcode}
+source('test_biggest.R')
+\end{Rcode}
+\end{Schunk}
 and you will see output like this
-\begin{verbatim}
-    ok - two numbers
-    ok - two vectors
-\end{verbatim}
+\begin{Schunk}
+\begin{Rcode}
+ok - two numbers
+ok - two vectors
+\end{Rcode}
+\end{Schunk}
 and that's it.
 
+\vspace{10pt}
 Now each time you edit \verb@biggest.R@ re-sourcing \verb@test_biggest.R@
 reloads your function and runs your unit tests.
 

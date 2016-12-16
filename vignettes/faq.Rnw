@@ -46,7 +46,7 @@ add_four <- function(x) {
 @
 Then we can test the argument check like this
 <<>>=
-  ok(test_for_error(add_four("a"), "must be numeric"), "add_four() argument not numeric throws error")
+ok(test_for_error(add_four("a"), "must be numeric"), "add_four() argument not numeric throws error")
 @
 
 
@@ -91,10 +91,12 @@ cmp <- function(a, b) {
     ))
 }
 @
-%To see the coloured output, try the following:
-%<<>>=
-%ok(cmp(1:3, 1:8))
-%@
+To see the coloured output, try the following:
+\begin{Schunk}
+\begin{Rcode}
+ok(cmp(1:3, 1:8))
+\end{Rcode}
+\end{Schunk}
 
 
 
@@ -132,17 +134,21 @@ which produces the following output
 \subsection{I'm writing a package, how do I put tests in it?}
 % -----------------------------------------------------------
 Add the following line to the package \verb@DESCRIPTION@ file.
-\begin{verbatim}
-    Suggests: unittest
-\end{verbatim}
+\begin{Schunk}
+\begin{Rcode}
+Suggests: unittest
+\end{Rcode}
+\end{Schunk}
 
 Create a directory called \verb@tests@ in your package source, alongside your \verb@R@ directory.
 
 Place your tests in a file with the extension \verb@.R@ and add the following lines to the top of the file (replacing \verb@mypackage@ with the name of your package).
-\begin{verbatim}
-    library(mypackage)
-    library(unittest, quietly = TRUE)
-\end{verbatim}
+\begin{Schunk}
+\begin{Rcode}
+library(mypackage)
+library(unittest, quietly = TRUE)
+\end{Rcode}
+\end{Schunk}
 
 That's it; \verb@R CMD check@ will run the tests and fail if any of the tests fail.
 
@@ -155,17 +161,21 @@ throwing an error will in turn cause \verb@CMD check@ to report the error and fa
 \vspace{10pt}
 Here is a very simple example:\\
 Assuming your package contains (and \verb@exports@) the function \verb@biggest()@
-\begin{verbatim}
-    biggest <- function(x,y) {max(c(x,y))}
-\end{verbatim}
+\begin{Schunk}
+\begin{Rcode}
+biggest <- function(x,y) {max(c(x,y))}
+\end{Rcode}
+\end{Schunk}
 then the \verb@tests/my_tests_for_biggest.R@ file could contain something like
-\begin{verbatim}
-    library(mypackage)
-    library(unittest, quietly = TRUE)
+\begin{Schunk}
+\begin{Rcode}
+library(mypackage)
+library(unittest, quietly = TRUE)
 
-    ok(biggest(3,4) == 4, "two numbers")
-    ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
-\end{verbatim}
+ok(biggest(3,4) == 4, "two numbers")
+ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
+\end{Rcode}
+\end{Schunk}
 
 
 
@@ -174,13 +184,15 @@ then the \verb@tests/my_tests_for_biggest.R@ file could contain something like
 % -------------------------------------------------------
 If you have some unit tests which require access to un-exported functions,
 or un-exported S3 methods, you can use \verb@local@.
-\begin{verbatim}
-    local({
-        ok(internal_function() == 3)
-        ok(another_internal_function() == 4)
-        ok(final_internal_function() == 5)
-    }, asNamespace('mypackage'))
-\end{verbatim}
+\begin{Schunk}
+\begin{Rcode}
+local({
+    ok(internal_function() == 3)
+    ok(another_internal_function() == 4)
+    ok(final_internal_function() == 5)
+}, asNamespace('mypackage'))
+\end{Rcode}
+\end{Schunk}
 
 
 \end{document}
