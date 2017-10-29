@@ -4,6 +4,9 @@ CHANGES IN VERSION 1.3-0:
     * Getting Started
     * FAQ
 
+  NEW FEATURES:
+    * Show stack traces when functions being tested fail
+
 CHANGES IN VERSION 1.1-0:
 
   NEW FEATURES:
