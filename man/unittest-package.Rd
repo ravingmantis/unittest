@@ -39,7 +39,7 @@
 \concept{unit testing}
 
 \seealso{
-  \href{http://CRAN.R-project.org/package=testthat}{testthat},
-  \href{http://CRAN.R-project.org/package=RUnit}{RUnit},
-  \href{http://CRAN.R-project.org/package=svUnit}{svUnit}.
+  \href{https://CRAN.R-project.org/package=testthat}{testthat},
+  \href{https://CRAN.R-project.org/package=RUnit}{RUnit},
+  \href{https://CRAN.R-project.org/package=svUnit}{svUnit}.
 }

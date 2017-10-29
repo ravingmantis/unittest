@@ -9,7 +9,7 @@ If you are writing a package see the "I'm writing a package, how do I put tests 
 
 The package was inspired by Perl's [Test::Simple](http://search.cpan.org/perldoc?Test::Simple).
 
-If you want more features there are other unit testing packages out there; see [testthat](http://CRAN.R-project.org/package=testthat), [RUnit](http://CRAN.R-project.org/package=RUnit), [svUnit](http://CRAN.R-project.org/package=svUnit).
+If you want more features there are other unit testing packages out there; see [testthat](https://CRAN.R-project.org/package=testthat), [RUnit](https://CRAN.R-project.org/package=RUnit), [svUnit](https://CRAN.R-project.org/package=svUnit).
 
 A very simple example of usage
 ------------------------------
