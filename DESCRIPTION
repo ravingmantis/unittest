@@ -8,7 +8,7 @@ Authors@R:
     c(person('Jamie','Lentin',email='jm@ravingmantis.com',role=c('aut','cre')),
       person('Anthony','Hennessey',email='ah@ravingmantis.com',role=c('aut')))
 Description:
-    Concise TAP (http://testanything.org/) compliant unit testing package. Authored tests can be run using CMD check with minimal implementation overhead.
+    Concise TAP <http://testanything.org/> compliant unit testing package. Authored tests can be run using CMD check with minimal implementation overhead.
 License: GPL (>= 3)
 Depends:
     R (>= 3.0.0)
