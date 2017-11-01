@@ -3,7 +3,7 @@ Package: unittest
 Type: Package
 Title: TAP-Compliant Unit Testing
 Version: 1.3-0
-Date: 2016-12-03
+Date: 2017-11-01
 Authors@R:
     c(person('Jamie','Lentin',email='jm@ravingmantis.com',role=c('aut','cre')),
       person('Anthony','Hennessey',email='ah@ravingmantis.com',role=c('aut')))
