@@ -1,6 +1,7 @@
 [![CRAN version badge](https://img.shields.io/cran/v/unittest.svg)](https://cran.r-project.org/package=unittest)
 [![CRAN RStudio mirror total downloads badge](https://cranlogs.r-pkg.org/badges/grand-total/unittest?color=001577)](https://cran.r-project.org/package=unittest)
 [![CRAN RStudio mirror monthly downloads badge](https://cranlogs.r-pkg.org/badges/unittest?color=001577)](https://cran.r-project.org/package=unittest)
+[![Build Status](https://travis-ci.org/ravingmantis/unittest.svg?branch=master)](https://travis-ci.org/ravingmantis/unittest)
 
 unittest
 ========
