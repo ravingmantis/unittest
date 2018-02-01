@@ -1,4 +1,5 @@
 ^\.git
+^\.travis.yml
 ^Makefile
 ^[^/]+\.tar\.gz
 ^\.bash_history\.*
