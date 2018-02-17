@@ -1,14 +1,23 @@
 {
-    "title": "TAP-Compliant Unit Testing",
-    "description": "Concise TAP <http://testanything.org/> compliant unit testing package. Authored tests can be run using CMD check with minimal implementation overhead.",
+    "title": "unittest - R package",
+    "description": "<p>Concise <a href=\"http://testanything.org/\">TAP</a>&nbsp;compliant unit testing package. Authored tests can be run using CMD check with minimal implementation overhead.</p>",
+    "license": "GPL-3.0",
     "creators": [
         {
-            "name": "Jamie Lentin"
-        }, 
+            "name": "Lentin, Jamie",
+            "affiliation": "Shuttle Thread"
+        },
         {
-            "name": "Anthony Hennessey"
+            "name": "Hennessey, Anthony",
+            "affiliation": "University of Nottingham"
         }
     ], 
-    "license": "other-open",
-    "access_right": "open"
+    "access_right": "open",
+    "related_identifiers": [
+        {
+            "scheme": "url",
+            "identifier": "https://cran.r-project.org/package=unittest",
+            "relation": "isAlternateIdentifier"
+        }
+    ]
 }
