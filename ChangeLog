@@ -1,4 +1,6 @@
-2016-12-03  Jamie Lentin  <jm@ravingmantis.com>
+2017-11-01  Jamie Lentin  <jm@ravingmantis.com>
+
+    Version 1.3-0
 
     * R/ok.R (ok): Add stacktrace as well as final failing call
     * R/ok.R (ok): Deparse the call object correctly when handling test errors
