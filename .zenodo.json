@@ -1,0 +1,14 @@
+{
+    "title": "TAP-Compliant Unit Testing",
+    "description": "Concise TAP <http://testanything.org/> compliant unit testing package. Authored tests can be run using CMD check with minimal implementation overhead.",
+    "creators": [
+        {
+            "name": "Jamie Lentin"
+        }, 
+        {
+            "name": "Anthony Hennessey"
+        }
+    ], 
+    "license": "other-open",
+    "access_right": "open"
+}
