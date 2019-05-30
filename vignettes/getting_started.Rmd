@@ -1,0 +1,44 @@
+---
+title: "Getting Started"
+vignette: >
+  %\VignetteIndexEntry{Getting started}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## A very simple example
+
+Suppose you have a file ``biggest.R`` with the following function:
+
+```{r}
+biggest <- function(x,y) {max(c(x,y))}
+```
+
+To test this create a file called ``test_biggest.R`` in the same directory containing:
+
+```{r, eval=FALSE}
+library(unittest, quietly = TRUE)
+
+source('biggest.R')
+
+ok(biggest(3,4) == 4, "two numbers")
+ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
+```
+
+Now in an ``R`` session ``source`` the test file:
+
+```{r, eval=FALSE}
+source('test_biggest.R')
+```
+
+and you will see output like this
+
+```
+ok - two numbers
+ok - two vectors
+```
+
+and that's it.
+
+Now each time you edit ``biggest.R`` re-sourcing ``test_biggest.R``
+reloads your function and runs your unit tests.
