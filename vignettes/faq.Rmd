@@ -18,22 +18,7 @@ library(unittest)
 
 ### How do I test error conditions?
 
-Define a helper function ``test_for_error`` that uses ``tryCatch``.
-If your test results in an error that does not match, then the test fails and the actual error will be included in your test results:
-
-```{r}
-test_for_error <- function(code, expected_regexp) {
-    tryCatch({
-            code
-            return("No error returned")
-        }, error = function(e) {
-            if(grepl(expected_regexp, e$message)) return(TRUE)
-            return(c(e$message, "Did not match:-", expected_regexp))
-        }
-    )
-}
-```
-
+Use the ``ut_cmp_error`` function.
 For example, here is a function that will throw an error for a bad argument:
 
 ```{r}
@@ -43,10 +28,10 @@ add_four <- function(x) {
 }
 ```
 
-Then we can test the argument check like this:
+We can test the argument check like this:
 
 ```{r}
-ok(test_for_error(add_four("a"), "must be numeric"), "add_four() argument not numeric throws error")
+ok(ut_cmp_error(add_four("a"), "must be numeric"), "add_four() argument not numeric throws error")
 ```
 
 

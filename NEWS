@@ -1,3 +1,6 @@
+  NEW FEATURES:
+    * ut_cmp_error() function to simplify testing for errors.
+
 CHANGES IN VERSION 1.3-0:
 
   NEW VIGNETTES:

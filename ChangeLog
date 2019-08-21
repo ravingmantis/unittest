@@ -1,3 +1,4 @@
+    * ut_cmp_error: Graduate from example to included function
     * ok: Preserve empty lines in dignostic output
     * non_interactive_summary: Bail out message on fatal script errors
 
