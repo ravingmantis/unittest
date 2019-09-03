@@ -11,9 +11,29 @@ cmp_lines <- function (actual, ...) {
     return(actual)
 }
 
-ok_group("cmp_equal", {
+# Mock (fn) in namespace with (replacement) whilst (block) is being evaluated
+mock <- function (fn, replacement, block) {
+    # Get the name of the function from the unevaluated argument,
+    # assuming it's of the form package::name
+    fn_name <- as.character(as.list(sys.call()[[2]])[[3]])
+    ns <- environment(fn)
+
+    orig_fn <- get(fn_name, env = ns)
+    unlockBinding(fn_name, env = ns)
+    assign(fn_name, replacement, envir = ns)
+    on.exit(assign(fn_name, orig_fn, envir = ns), add = TRUE)
+
+    block
+}
+
+ok_group("cmp_equal", (function () {
     ok(isTRUE(cmp_equal(4, 4)), "Identical objects return true")
     ok(isTRUE(cmp_equal(as.integer(4), 4)), "Equivalent objects return true (i.e. integer vs. number)")
+
+    if (!file.exists(unittest:::git_binary())) {
+        ok(TRUE, "# skip git not available")
+        return()
+    }
 
     ok(cmp_lines(cmp_equal(c(2,4,2,8), c(5,4,2,1)),
         'Mean relative difference: 1',
@@ -60,13 +80,39 @@ ok_group("cmp_equal", {
         "[-'Ouch!' he said,-]{+Ooops!+}",
         'it was an [-iron bar.-]{+accident.+}',
         NULL), "Character vectors get compared one per line")
-})
+})())
 
-ok_group("cmp_identical", {
+# Mock git_binary(), so we don't find git even if it is available
+ok_group("cmp_equal:nogit", mock(unittest:::git_binary, function () "/not-here", {
+    ok(cmp_lines(cmp_equal(c(2,4,2,8), c(5,4,2,1)),
+        'Mean relative difference: 1',
+        '--- c(2, 4, 2, 8)',
+        '[1] 2 4 2 8',
+        '+++ c(5, 4, 2, 1)',
+        '[1] 5 4 2 1',
+        NULL), "No git available, so show outputs side by side")
+}))
+
+ok_group("cmp_identical", (function () {
+    if (!file.exists(unittest:::git_binary())) {
+        ok(TRUE, "# skip git not available")
+        return()
+    }
+
     ok(isTRUE(cmp_identical(4, 4)), "Identical objects return true")
     ok(cmp_lines(cmp_identical(as.integer(4), 4),
         '--- as.integer(4)',
         '+++ 4',
         ' [-int-]{+num+} 4',
         NULL), "Equivalent objects do not, unlike cmp_equal(). We also fall back to using str(), as print() will produce identical output")
-})
+})())
+
+ok_group("cmp_identical:nogit", mock(unittest:::git_binary, function () "/not-here", {
+    ok(isTRUE(cmp_identical(4, 4)), "Identical objects return true")
+    ok(cmp_lines(cmp_identical(as.integer(4), 4),
+        '--- as.integer(4)',
+        ' int 4',
+        '+++ 4',
+        ' num 4',
+        NULL), "Equivalent objects do not, unlike cmp_equal(). We also fall back to using str(), as print() will produce identical output")
+}))

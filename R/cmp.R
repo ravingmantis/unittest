@@ -41,10 +41,15 @@ cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL) {
     return(c(ae_output, diff_lines))
 }
 
+# Return location of git, separated so we can mock it
+git_binary <- function() {
+    Sys.which('git')
+}
+
 # Given 2 stdout-producing arguments, return human-readable word-diff lines, using git diff if available.
 output_diff <- function (a_out, b_out) {
     # Write 2 tempfiles, use git to compare
-    if (file.exists(Sys.which('git'))) {
+    if (file.exists(git_binary())) {
         a_path <- tempfile(pattern = "a.")
         utils::capture.output(a_out, file = a_path)
         on.exit(unlink(a_path))
