@@ -176,6 +176,11 @@ expect_failure(
     '# Test returned non-TRUE value:\n# A file that big\\?\n# It might be very useful\n# But now it is gone.'
 )
 
+expect_failure(
+    ok(c("A file that big?\n\nIt might be very useful", "", "But now it is gone."), "empty lines inbetween"),
+    '# Test returned non-TRUE value:\n# A file that big\\?\n# \n# It might be very useful\n# \n# But now it is gone.'
+)
+
 # ------------
 # return value
 # ------------

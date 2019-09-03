@@ -47,7 +47,7 @@ ok <- function(
             output = paste(
                 paste('not ok -', description, collapse = " "),
                 "# Test returned non-TRUE value:",
-                paste("#", unlist(strsplit(result, split = "\n")), collapse = "\n"),
+                paste("#", unlist(strsplit_with_emptystr(result, split = "\n")), collapse = "\n"),
                 sep = "\n", collapse = "\n"
             ),
             stringsAsFactors = FALSE
@@ -69,4 +69,13 @@ ok <- function(
     rv <- paste0(outcome['output'], "\n")
     cat(rv)
     invisible(result)
+}
+
+# strsplit doesn't preserve empty strings: strsplit("", "\\*") == list(character(0))
+# so put them back. NB: this doesn't solve trailing matches, e.g.
+# > strsplit("*M*A*S*H*", "\\*")[[1]]
+# [1] ""  "M" "A" "S" "H"
+# ... but in this case we don't care
+strsplit_with_emptystr <- function (...) {
+    lapply(strsplit(...), function (x) if(length(x) == 0) "" else x)
 }
