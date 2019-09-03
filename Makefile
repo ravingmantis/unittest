@@ -16,6 +16,10 @@ check: build
 check-as-cran: build
 	R CMD check --as-cran "$(TARBALL)"
 
+wincheck: build
+	# See https://win-builder.r-project.org/ for more information
+	curl --no-epsv -# -T "$(TARBALL)" ftp://win-builder.r-project.org/R-devel/
+
 # Release steps
 #  Update DESCRIPTION & ChangeLog with new version
 #  git commit -m "Release version "${VERSION} DESCRIPTION ChangeLog
