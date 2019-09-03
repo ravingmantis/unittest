@@ -1,8 +1,7 @@
 # Return TRUE if all.equal(a, b), otherwise show the difference with str().
 # like all.equal but with more diagnostic output
-cmp_equal <- function(a, b, filter = NULL) {
-    # TODO: Do we offer tolerance/scale?
-    cmp_inner(a, b, comparison_fn = all.equal, filter = filter)
+cmp_equal <- function(a, b, filter = NULL, ...) {
+    cmp_inner(a, b, comparison_fn = function (x, y) all.equal(x, y, ...), filter = filter)
 }
 
 # Same as cmp_equal(), but uses identical instead

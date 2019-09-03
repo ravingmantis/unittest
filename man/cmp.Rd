@@ -10,7 +10,7 @@
 }
 
 \usage{
-  cmp_equal(a, b, filter = NULL)
+  cmp_equal(a, b, filter = NULL, ...)
   cmp_identical(a, b, filter = NULL)
 }
 
@@ -18,6 +18,7 @@
   \item{a}{First item to compare, usually the result of whatever you are testing}
   \item{b}{Second item to compare, usually the expected output of whatever you are testing}
   \item{filter}{An optional filter function, taking one argument and printing a representation to stdout}
+  \item{...}{Other arguments passed directly to \code{\link{all.equal}}}
 }
 
 \details{
@@ -88,5 +89,9 @@
     # --- as.numeric(1)
     # +++ as.integer(1)
     #  [-num-]{+int+} 1
+
+    ## By passing all.equal arguments we can be very approximate
+    > ok(cmp_equal(0.01, 0.02, tolerance = 0.1))
+    ok - cmp_equal(0.01, 0.02, tolerance = 0.1)
   }
 }

@@ -29,6 +29,7 @@ mock <- function (fn, replacement, block) {
 ok_group("cmp_equal", (function () {
     ok(isTRUE(cmp_equal(4, 4)), "Identical objects return true")
     ok(isTRUE(cmp_equal(as.integer(4), 4)), "Equivalent objects return true (i.e. integer vs. number)")
+    ok(isTRUE(cmp_equal(0.01, 0.02, tolerance = 0.1)), "Additional arguments passed through to all.equal")
 
     if (!file.exists(unittest:::git_binary())) {
         ok(TRUE, "# skip git not available")
