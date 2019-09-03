@@ -36,7 +36,7 @@ ok_group("cmp_equal", {
         "+++ list(c(1, 2, 3), c(2, 3, 2), 10, 11, 12, 13)",
         "[[1]]",
         "[1] 1 2 [-8-]{+3+}",
-        "",  # TODO: The empty lines are getting lost in actual ok() output, which feels like a bug
+        "",
         "[[2]]",
         "[1] 2 3 2",
         "",
@@ -51,7 +51,6 @@ ok_group("cmp_equal", {
         "",
         "[[6]]",
         "[1] 13",
-        "",
         NULL), "We return the whole file as context, not just the usual 3 lines")
     
     ok(cmp_lines(cmp_equal(c("'Ouch!' he said,", "it was an iron bar."), c("Ooops!", "it was an accident.")),

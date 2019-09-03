@@ -70,6 +70,11 @@ output_diff <- function (a_out, b_out) {
         # Replace temp filenames with the expression cmp was called with
         out <- gsub(paste0("a", a_path), deparse(sys.call(-2)[[2]], nlines = 1), out, fixed = TRUE)
         out <- gsub(paste0("b", b_path), deparse(sys.call(-2)[[3]], nlines = 1), out, fixed = TRUE)
+
+        # Remove any trailing newline
+        if (length(out) > 0 && out[length(out)] == "") {
+            out <- head(out, -1)
+        }
         return(out)
     }
 
