@@ -22,6 +22,8 @@ cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL) {
             filter,
             # Strings can be compared directly using writeLines
             ifelse(is.character(a) && is.character(b), writeLines, 'ignore'),
+            # Convert environments to list, print that
+            ifelse(is.environment(a) && is.environment(b), function (x) print(as.list(x)), 'ignore'),
             # print will pick up any generics defined for custom types
             print,
             # Fall back to parsing with str

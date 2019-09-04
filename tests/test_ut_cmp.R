@@ -1,3 +1,5 @@
+options(useFancyQuotes = FALSE)  # Force to stabilise all.equal output
+
 library(unittest)
 
 # Compare character output of a (failing) cmp function, ignoring colors
@@ -84,6 +86,21 @@ ok_group("ut_cmp_equal", (function () {
         "[-'Ouch!' he said,-]{+Ooops!+}",
         'it was an [-iron bar.-]{+accident.+}',
         NULL), "Character vectors get compared one per line")
+
+    ok(cmp_lines(ut_cmp_equal(as.environment(list(a=3, b=4)), as.environment(list(a=5, b=4, c=9))),
+        'Length mismatch: comparison on first 2 components',
+        'Component "a": Mean relative difference: 0.6666667',
+        '--- as.environment(list(a = 3, b = 4))',
+        '+++ as.environment(list(a = 5, b = 4, c = 9))',
+        '{+$c+}',
+        '{+[1] 9+}',
+        '',
+        '$b',
+        '[1] 4',
+        '',
+        '$a',
+        '[1] [-3-]{+5+}',
+        NULL), "Environments get converted to lists")
 })())
 
 # Mock git_binary(), so we don't find git even if it is available
@@ -95,6 +112,28 @@ ok_group("ut_cmp_equal:nogit", mock(unittest:::git_binary, function () "/not-her
         '+++ c(5, 4, 2, 1)',
         '[1] 5 4 2 1',
         NULL), "No git available, so show outputs side by side")
+
+    ok(cmp_lines(ut_cmp_equal(as.environment(list(a=3, b=4)), as.environment(list(a=5, b=4, c=9))),
+        'Length mismatch: comparison on first 2 components',
+        'Component "a": Mean relative difference: 0.6666667',
+        '--- as.environment(list(a = 3, b = 4))',
+        '$b',
+        '[1] 4',
+        '',
+        '$a',
+        '[1] 3',
+        '',
+        '+++ as.environment(list(a = 5, b = 4, c = 9))',
+        '$c',
+        '[1] 9',
+        '',
+        '$b',
+        '[1] 4',
+        '',
+        '$a',
+        '[1] 5',
+        '',
+        NULL), "Environments get converted to lists")
 }))
 
 ok_group("ut_cmp_identical", (function () {

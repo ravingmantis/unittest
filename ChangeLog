@@ -1,3 +1,4 @@
+    * ut_cmp_*: Support comparing environments
     * ut_cmp_*: Graduate from example to included function
     * ut_cmp_error: Graduate from example to included function
     * ok: Preserve empty lines in dignostic output
