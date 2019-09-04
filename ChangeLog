@@ -1,3 +1,4 @@
+    * cmp: Support comparing environments
     * cmp: Graduate from example to included function
     * test_for_error: Graduate from example to included function
 
