@@ -35,53 +35,35 @@ ok(ut_cmp_error(add_four("a"), "must be numeric"), "add_four() argument not nume
 ```
 
 
-### How do I test multivalue results?
+### How do I test multivalue results, or see differences?
 
-Use ``all.equal(...)``:
+Use ``ut_cmp_equal(...)`` or ``ut_cmp_identical(...)`` as replacements for ``all.equal(...)`` and ``identical(...)`` respectively:
 
 ```{r}
 a <- c(1,2,3)
 b <- 1:3
-ok(all.equal(a,b), "a and b are equal")
+ok(ut_cmp_equal(a,b), "a and b are equal")
 ```
 
-Alternatively, the following helper function will give coloured output showing what's different
+``ut_cmp_identical`` will make sure your objects are identical, and is more
+useful when comparing e.g. a list of strings which should be exactly the same.
 
-```{r}
-cmp <- function(a, b) {
-    if(identical(all.equal(a,b), TRUE)) return(TRUE)
+``ut_cmp_equal`` will test for ‘near equality’, and is more useful when
+comparing numeric values which may be slightly different due to floating-point
+accuracy.
 
-    if (file.exists(Sys.which('git'))) {
-        totmp <- function(x) {
-            f <- tempfile(pattern = "str.")
-            capture.output(str(x,
-                vec.len = 1000,
-                digits.d = 5,
-                nchar.max = 1000), file = f)
-            return(f)
-        }
+Either way, if your test fails you will get verbose output showing you how they
+differ, and if you have git installed the output will be coloured. For example:
 
-        return(suppressWarnings(system2(
-            Sys.which('git'),
-            c("diff", "--no-index", "--color-words", totmp(a), totmp(b)),
-            input = "",
-            stdout = TRUE, stderr = TRUE)))
-    }
-
-    return(c(
-        capture.output(str(a)),
-        "... does not equal...",
-        capture.output(str(b))
-    ))
-}
-```
-
-To see the coloured output, try the following:
-
-```{r, eval=FALSE}
-ok(cmp(1:3, 1:8))
-```
-
+<pre>
+> ok(ut_cmp_equal(c(1,2,3,4,5), c(1,8,8,4,5)))
+not ok - ut_cmp_equal(c(1, 2, 3, 4, 5), c(1, 8, 8, 4, 5))
+# Test returned non-TRUE value:
+# Mean relative difference: 2.2
+# --- c(1, 2, 3, 4, 5)
+# +++ c(1, 8, 8, 4, 5)
+# [1] 1 <span style="color:red;font-weight:bold">[-2 3-]</span><span style="color:green;font-weight:bold">{+8 8+}</span> 4 5
+</pre>
 
 ### Grouping tests
 

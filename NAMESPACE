@@ -1,7 +1,11 @@
-importFrom("utils", "capture.output", "head", "tail")
+importFrom("utils", "capture.output", "head", "str", "tail")
 export(ok)
 
 export(ok_group)
+
+# R/cmp.R
+export(ut_cmp_equal)
+export(ut_cmp_identical)
 
 # R/ut_cmp_error.R
 export(ut_cmp_error)
