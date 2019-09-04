@@ -48,6 +48,16 @@ git_binary <- function() {
 
 # Given 2 stdout-producing arguments, return human-readable word-diff lines, using git diff if available.
 output_diff <- function (a_out, b_out) {
+    path_join <- function(letter, path) {
+        # On UNIX a diff path will look like a/tmp/Rtmp...
+        out <- paste0(letter, if (substring(path, 1, 1) == '/') '' else '/', path)
+        if (grepl("\\", out, fixed = TRUE)) {
+            # On Windows a diff path will look like "a/D:\\temp\\Rtmp..."
+            out <- paste0('"', gsub("\\", "\\\\", out, fixed = TRUE), '"')
+        }
+        out
+    }
+
     # Write 2 tempfiles, use git to compare
     if (file.exists(git_binary())) {
         a_path <- tempfile(pattern = "a.")
@@ -73,8 +83,8 @@ output_diff <- function (a_out, b_out) {
         out <- grep("^(\033\\[.*?m)?(index|diff|@@) ", out, value = TRUE, invert = TRUE, perl = TRUE)
 
         # Replace temp filenames with the expression cmp was called with
-        out <- gsub(paste0("a", a_path), deparse(sys.call(-2)[[2]], nlines = 1), out, fixed = TRUE)
-        out <- gsub(paste0("b", b_path), deparse(sys.call(-2)[[3]], nlines = 1), out, fixed = TRUE)
+        out <- gsub(path_join("a", a_path), deparse(sys.call(-2)[[2]], nlines = 1), out, fixed = TRUE)
+        out <- gsub(path_join("b", b_path), deparse(sys.call(-2)[[3]], nlines = 1), out, fixed = TRUE)
 
         # Remove any trailing newline
         if (length(out) > 0 && out[length(out)] == "") {
