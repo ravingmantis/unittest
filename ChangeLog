@@ -1,3 +1,5 @@
+    * non_interactive_summary: Bail out message on fatal script errors
+
 2017-11-01  Jamie Lentin  <jm@ravingmantis.com>
 
     Version 1.3-0
