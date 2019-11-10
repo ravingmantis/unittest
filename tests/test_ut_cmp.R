@@ -28,17 +28,17 @@ mock <- function (fn, replacement, block) {
     block
 }
 
-ok_group("cmp_equal", (function () {
-    ok(isTRUE(cmp_equal(4, 4)), "Identical objects return true")
-    ok(isTRUE(cmp_equal(as.integer(4), 4)), "Equivalent objects return true (i.e. integer vs. number)")
-    ok(isTRUE(cmp_equal(0.01, 0.02, tolerance = 0.1)), "Additional arguments passed through to all.equal")
+ok_group("ut_cmp_equal", (function () {
+    ok(isTRUE(ut_cmp_equal(4, 4)), "Identical objects return true")
+    ok(isTRUE(ut_cmp_equal(as.integer(4), 4)), "Equivalent objects return true (i.e. integer vs. number)")
+    ok(isTRUE(ut_cmp_equal(0.01, 0.02, tolerance = 0.1)), "Additional arguments passed through to all.equal")
 
     if (!file.exists(unittest:::git_binary())) {
         ok(TRUE, "# skip git not available")
         return()
     }
 
-    ok(cmp_lines(cmp_equal(c(2,4,2,8), c(5,4,2,1)),
+    ok(cmp_lines(ut_cmp_equal(c(2,4,2,8), c(5,4,2,1)),
         'Mean relative difference: 1',
         '--- c(2, 4, 2, 8)',
         '+++ c(5, 4, 2, 1)',
@@ -46,14 +46,14 @@ ok_group("cmp_equal", (function () {
         NULL), "Vectors filtered by str, individual differences highlighted")
 
     do_a_thing <- function (x) seq(x)
-    ok(cmp_lines(cmp_equal(do_a_thing(4), do_a_thing(1 + 2)),
+    ok(cmp_lines(ut_cmp_equal(do_a_thing(4), do_a_thing(1 + 2)),
         'Numeric: lengths (4, 3) differ',
         '--- do_a_thing(4)',
         '+++ do_a_thing(1 + 2)',
         '[1] 1 2 3[-4-]',
-        NULL), "The ---/+++ lines show expressions handed to cmp_equal()")
+        NULL), "The ---/+++ lines show expressions handed to ut_cmp_equal()")
 
-    ok(cmp_lines(cmp_equal(list(c(1, 2, 8), c(2, 3, 2), 10, 11, 12, 13), list(c(1, 2, 3), c(2, 3, 2), 10, 11, 12, 13)),
+    ok(cmp_lines(ut_cmp_equal(list(c(1, 2, 8), c(2, 3, 2), 10, 11, 12, 13), list(c(1, 2, 3), c(2, 3, 2), 10, 11, 12, 13)),
         "Component 1: Mean relative difference: 0.625",
         "--- list(c(1, 2, 8), c(2, 3, 2), 10, 11, 12, 13)",
         "+++ list(c(1, 2, 3), c(2, 3, 2), 10, 11, 12, 13)",
@@ -76,7 +76,7 @@ ok_group("cmp_equal", (function () {
         "[1] 13",
         NULL), "We return the whole file as context, not just the usual 3 lines")
     
-    ok(cmp_lines(cmp_equal(c("'Ouch!' he said,", "it was an iron bar."), c("Ooops!", "it was an accident.")),
+    ok(cmp_lines(ut_cmp_equal(c("'Ouch!' he said,", "it was an iron bar."), c("Ooops!", "it was an accident.")),
         '2 string mismatches',
         '--- c("\'Ouch!\' he said,", "it was an iron bar.")',
         '+++ c("Ooops!", "it was an accident.")',
@@ -84,7 +84,7 @@ ok_group("cmp_equal", (function () {
         'it was an [-iron bar.-]{+accident.+}',
         NULL), "Character vectors get compared one per line")
 
-    ok(cmp_lines(cmp_equal(as.environment(list(a=3, b=4)), as.environment(list(a=5, b=4, c=9))),
+    ok(cmp_lines(ut_cmp_equal(as.environment(list(a=3, b=4)), as.environment(list(a=5, b=4, c=9))),
         'Length mismatch: comparison on first 2 components',
         'Component "a": Mean relative difference: 0.6666667',
         '--- as.environment(list(a = 3, b = 4))',
@@ -101,8 +101,8 @@ ok_group("cmp_equal", (function () {
 })())
 
 # Mock git_binary(), so we don't find git even if it is available
-ok_group("cmp_equal:nogit", mock(unittest:::git_binary, function () "/not-here", {
-    ok(cmp_lines(cmp_equal(c(2,4,2,8), c(5,4,2,1)),
+ok_group("ut_cmp_equal:nogit", mock(unittest:::git_binary, function () "/not-here", {
+    ok(cmp_lines(ut_cmp_equal(c(2,4,2,8), c(5,4,2,1)),
         'Mean relative difference: 1',
         '--- c(2, 4, 2, 8)',
         '[1] 2 4 2 8',
@@ -110,7 +110,7 @@ ok_group("cmp_equal:nogit", mock(unittest:::git_binary, function () "/not-here",
         '[1] 5 4 2 1',
         NULL), "No git available, so show outputs side by side")
 
-    ok(cmp_lines(cmp_equal(as.environment(list(a=3, b=4)), as.environment(list(a=5, b=4, c=9))),
+    ok(cmp_lines(ut_cmp_equal(as.environment(list(a=3, b=4)), as.environment(list(a=5, b=4, c=9))),
         'Length mismatch: comparison on first 2 components',
         'Component "a": Mean relative difference: 0.6666667',
         '--- as.environment(list(a = 3, b = 4))',
@@ -133,26 +133,26 @@ ok_group("cmp_equal:nogit", mock(unittest:::git_binary, function () "/not-here",
         NULL), "Environments get converted to lists")
 }))
 
-ok_group("cmp_identical", (function () {
+ok_group("ut_cmp_identical", (function () {
     if (!file.exists(unittest:::git_binary())) {
         ok(TRUE, "# skip git not available")
         return()
     }
 
-    ok(isTRUE(cmp_identical(4, 4)), "Identical objects return true")
-    ok(cmp_lines(cmp_identical(as.integer(4), 4),
+    ok(isTRUE(ut_cmp_identical(4, 4)), "Identical objects return true")
+    ok(cmp_lines(ut_cmp_identical(as.integer(4), 4),
         '--- as.integer(4)',
         '+++ 4',
         ' [-int-]{+num+} 4',
-        NULL), "Equivalent objects do not, unlike cmp_equal(). We also fall back to using str(), as print() will produce identical output")
+        NULL), "Equivalent objects do not, unlike ut_cmp_equal(). We also fall back to using str(), as print() will produce identical output")
 })())
 
-ok_group("cmp_identical:nogit", mock(unittest:::git_binary, function () "/not-here", {
-    ok(isTRUE(cmp_identical(4, 4)), "Identical objects return true")
-    ok(cmp_lines(cmp_identical(as.integer(4), 4),
+ok_group("ut_cmp_identical:nogit", mock(unittest:::git_binary, function () "/not-here", {
+    ok(isTRUE(ut_cmp_identical(4, 4)), "Identical objects return true")
+    ok(cmp_lines(ut_cmp_identical(as.integer(4), 4),
         '--- as.integer(4)',
         ' int 4',
         '+++ 4',
         ' num 4',
-        NULL), "Equivalent objects do not, unlike cmp_equal(). We also fall back to using str(), as print() will produce identical output")
+        NULL), "Equivalent objects do not, unlike ut_cmp_equal(). We also fall back to using str(), as print() will produce identical output")
 }))

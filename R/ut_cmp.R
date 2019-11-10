@@ -1,11 +1,11 @@
 # Return TRUE if all.equal(a, b), otherwise show the difference with str().
 # like all.equal but with more diagnostic output
-cmp_equal <- function(a, b, filter = NULL, ...) {
+ut_cmp_equal <- function(a, b, filter = NULL, ...) {
     cmp_inner(a, b, comparison_fn = function (x, y) all.equal(x, y, ...), filter = filter)
 }
 
-# Same as cmp_equal(), but uses identical instead
-cmp_identical <- function(a, b, filter = NULL) {
+# Same as ut_cmp_equal(), but uses identical instead
+ut_cmp_identical <- function(a, b, filter = NULL) {
     cmp_inner(a, b, comparison_fn = identical, filter = filter)
 }
 

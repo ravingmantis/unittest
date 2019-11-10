@@ -4,7 +4,7 @@ export(ok)
 export(ok_group)
 
 # R/cmp.R
-export(cmp_equal)
-export(cmp_identical)
+export(ut_cmp_equal)
+export(ut_cmp_identical)
 
 export(ut_cmp_error)
