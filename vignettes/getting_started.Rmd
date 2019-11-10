@@ -42,3 +42,58 @@ and that's it.
 
 Now each time you edit ``biggest.R`` re-sourcing ``test_biggest.R``
 reloads your function and runs your unit tests.
+
+## Comparing results
+
+Suppose our ``biggest`` function was broken, for example:
+
+```{r}
+biggest <- function(x,y) { 4 }
+```
+
+Our tests from earlier would return:
+
+```
+ok - two numbers
+not ok - two vectors
+# Test returned non-TRUE value:
+# [1] FALSE
+```
+
+It would be more useful if we saw what ``biggest()`` actually returned, to help
+work out the problem.
+
+To help with this we can use ``ut_cmp_equal``. If we rewrite our test to:
+
+```{r, eval=FALSE}
+library(unittest, quietly = TRUE)
+
+source('biggest.R')
+
+ok(ut_cmp_equal(biggest(3,4), 4), "two numbers")
+ok(ut_cmp_equal(biggest(c(5,3),c(3,4)), 5), "two vectors")
+```
+
+Now the test output shows what we did get (in red) and what we expected (in green):
+
+<pre>
+ok - two numbers
+not ok - two vectors
+# Test returned non-TRUE value:
+# Mean relative difference: 0.25
+# --- biggest(c(5, 3), c(3, 4))
+# +++ 5
+# [1] <span style="color:red;font-weight:bold">[-4-]</span><span style="color:green;font-weight:bold">{+5+}</span>
+</pre>
+
+This is particularly useful when there are many values returned:
+
+<pre>
+> ok(ut_cmp_equal(c(1,2,3,4,5), c(1,8,8,4,5)))
+not ok - ut_cmp_equal(c(1, 2, 3, 4, 5), c(1, 8, 8, 4, 5))
+# Test returned non-TRUE value:
+# Mean relative difference: 2.2
+# --- c(1, 2, 3, 4, 5)
+# +++ c(1, 8, 8, 4, 5)
+# [1] 1 <span style="color:red;font-weight:bold">[-2 3-]</span><span style="color:green;font-weight:bold">{+8 8+}</span> 4 5
+</pre>
