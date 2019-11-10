@@ -1,6 +1,6 @@
     * cmp: Support comparing environments
     * cmp: Graduate from example to included function
-    * test_for_error: Graduate from example to included function
+    * ut_cmp_error: Graduate from example to included function
 
 2017-11-01  Jamie Lentin  <jm@ravingmantis.com>
 

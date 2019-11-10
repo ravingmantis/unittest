@@ -7,4 +7,4 @@ export(ok_group)
 export(cmp_equal)
 export(cmp_identical)
 
-export(test_for_error)
+export(ut_cmp_error)

@@ -1,6 +1,6 @@
 # Code block (exp) is assumed to throw an error, to be compared against (expected_regexp)
 # All other options are handed to grepl()
-test_for_error <- function(code, expected_regexp, ignore.case = FALSE, perl = FALSE, fixed = FALSE) {
+ut_cmp_error <- function(code, expected_regexp, ignore.case = FALSE, perl = FALSE, fixed = FALSE) {
     tryCatch({
         code
         return("No error returned")
