@@ -45,6 +45,16 @@ b <- 1:3
 ok(ut_cmp_equal(a,b), "a and b are equal")
 ```
 
+``ut_cmp_identical`` will make sure your objects are identical, and is more
+useful when comparing e.g. a list of strings which should be exactly the same.
+
+``ut_cmp_equal`` will test for ‘near equality’, and is more useful when
+comparing numeric values which may be slightly different due to floating-point
+accuracy.
+
+Either way, if your test fails you will get verbose output showing you how they
+differ, and if you have git installed the output will be coloured.
+
 ### Grouping tests
 
 When dealing with many unit tests in one file it can be useful to group related unit tests.
