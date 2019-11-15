@@ -90,7 +90,12 @@
     # +++ as.integer(1)
     #  [-num-]{+int+} 1
 
-    ## By passing all.equal arguments we can be very approximate
+    ## all.equal() takes a tolerance parameter, for example:
+    > all.equal(0.01, 0.02, tolerance = 0.1)
+    [1] TRUE
+
+    ## ...we can also give this to to ut_cmp_equal if we want a very
+    ## approximate comparison
     > ok(ut_cmp_equal(0.01, 0.02, tolerance = 0.1))
     ok - ut_cmp_equal(0.01, 0.02, tolerance = 0.1)
   }
