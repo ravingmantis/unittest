@@ -17,30 +17,29 @@
 \arguments{
   \item{a}{First item to compare, usually the result of whatever you are testing}
   \item{b}{Second item to compare, usually the expected output of whatever you are testing}
-  \item{filter}{An optional filter function, taking one argument and printing a representation to stdout}
+  \item{filter}{An optional filter function, that turns either a or b into text, and prints this out}
   \item{...}{Other arguments passed directly to \code{\link{all.equal}}}
 }
 
 \details{
-  Both functions process the input in several steps:
+  For both functions, \code{a} and \code{b} are first passed to
+  \code{\link{all.equal}} (for \code{ut_cmp_equal()}) or
+  \code{\link{identical}} (for \code{ut_cmp_identical()}). If they match, then
+  the function returns TRUE and your test passes.
 
-  \enumerate{
-    \item Run \code{a} & \code{b} through \code{\link{all.equal}} (for \code{ut_cmp_equal()})
-    or \code{\link{identical}} (for \code{ut_cmp_identical()}). If they match,
-    then return TRUE.
+  If this fails, then we then turn both \code{a} and \code{b} into text, and
+  then use \code{git diff} to compare the 2 outputs. If you do not have git
+  installed, then the 2 outputs will be shown side-by-side.
 
-    \item \code{a} & \code{b} through a "filter function", which takes one of
-    the objects and turns it into a character vector
+  The step of turning into text is done with the filter function. There are
+  several of these built-in, and it will choose the one that produces the
+  simplest output. This may mean that the output will be from the \code{\link{print}}
+  function if the differences are obvious, or \code{\link{str}} with many
+  decimal places if there are subtle differences between the 2.
 
-    \item Use \code{git diff} to compare the 2 and pick out any word
-    differences. If there aren't any, try another filter function.
-  }
-
-  There are a list of filter functions built-in, ordered high-level (e.g.
-  \code{\link{print}}) to low-level (e.g. \code{\link{str}}). If you want to
-  add your own, use the \code{filter} option, e.g.
-  \code{filter = function (x) str(x, vec.len = 1000)} to use \code{\link{str}}
-  but make sure your vector doesn't get truncated.
+  You can also provide your own filter function if there's a particular way
+  you would like to see the data when comparing, for example you can use
+  \code{write.table} if your data is easiest to understand in tabular output.
 }
 
 \value{
