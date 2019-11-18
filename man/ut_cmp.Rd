@@ -27,8 +27,8 @@
   \code{\link{identical}} (for \code{ut_cmp_identical()}). If they match, then
   the function returns TRUE and your test passes.
 
-  If this fails, then we then turn both \code{a} and \code{b} into text, and
-  then use \code{git diff} to compare the 2 outputs. If you do not have git
+  If this fails, then we turn both \code{a} and \code{b} into text, and then
+  use \code{git diff} to compare the 2 outputs. If you do not have git
   installed, then the 2 outputs will be shown side-by-side.
 
   The step of turning into text is done with the filter function. There are
