@@ -24,11 +24,29 @@ serve-vignettes:
 	 # NB: Requires servr to be installed
 	 Rscript -e 'servr::vign(host = "0.0.0.0", port = 8123)'
 
+release:
+	[ -n "$(NEW_VERSION)" ]  # NEW_VERSION variable should be set
+	sed -i 's/^Version: .*/Version: $(NEW_VERSION)/' DESCRIPTION
+	#
+	mv ChangeLog ChangeLog.o
+	echo "$$(date +%Y-%m-%d) $$(git config user.name)  <$$(git config user.email)>" > ChangeLog
+	echo "" >> ChangeLog
+	echo "    Version $(NEW_VERSION)" >> ChangeLog
+	echo "" >> ChangeLog
+	cat ChangeLog.o >> ChangeLog
+	rm ChangeLog.o
+	#
+	mv NEWS NEWS.o
+	[ "$$(head -c 7 NEWS.o)" = "CHANGES" ] || /bin/echo -e "CHANGES IN VERSION $(NEW_VERSION):\n" > NEWS
+	cat NEWS.o >> NEWS
+	rm NEWS.o
+	#
+	git commit -m "Release version $(NEW_VERSION)" DESCRIPTION ChangeLog
+	git tag -am "Release version $(NEW_VERSION)" v$(NEW_VERSION)
+
 # Release steps
-#  Update DESCRIPTION & ChangeLog with new version
-#  git commit -m "Release version "${VERSION} DESCRIPTION ChangeLog
-#  git tag -am "Release version "${VERSION} v${VERSION}
+#  make release NEW_VERSION=1.3-0
 #  Upload to CRAN
 #  git push && git push --tags
 
-.PHONY: all install build check check-as-cran serve-vignettes
+.PHONY: all install build check check-as-cran serve-vignettes release
