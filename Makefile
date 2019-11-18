@@ -20,6 +20,10 @@ wincheck: build
 	# See https://win-builder.r-project.org/ for more information
 	curl --no-epsv -# -T "$(TARBALL)" ftp://win-builder.r-project.org/R-devel/
 
+serve-vignettes:
+	 # NB: Requires servr to be installed
+	 Rscript -e 'servr::vign(host = "0.0.0.0", port = 8123)'
+
 # Release steps
 #  Update DESCRIPTION & ChangeLog with new version
 #  git commit -m "Release version "${VERSION} DESCRIPTION ChangeLog
@@ -27,4 +31,4 @@ wincheck: build
 #  Upload to CRAN
 #  git push && git push --tags
 
-.PHONY: all install build check check-as-cran
+.PHONY: all install build check check-as-cran serve-vignettes
