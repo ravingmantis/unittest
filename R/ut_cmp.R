@@ -36,9 +36,13 @@ cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL) {
             }
         }
     }
+    diff_lines <- c(ae_output, diff_lines)
 
-    # Return both all.equal and diff output lines
-    return(c(ae_output, diff_lines))
+    if (interactive() && sys.nframe() == 2) {
+        # Interactive and called at a top-level, so print the output nicely
+        writeLines(diff_lines)
+    }
+    invisible(diff_lines)
 }
 
 # Return location of git, separated so we can mock it

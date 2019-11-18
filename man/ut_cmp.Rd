@@ -44,7 +44,11 @@
 
 \value{
   Returns \code{TRUE} if \code{a} & \code{b} are \code{\link{all.equal}} (for \code{ut_cmp_equal()}) or \code{\link{identical}} (for \code{ut_cmp_identical()}).
-  Otherwise, returns a character vector of diagnostic strings helping you find where the difference is.
+  Otherwise, returns an \code{invisible()} character vector of diagnostic
+  strings helping you find where the difference is.
+
+  If called directly in an interactive R session, this output will be printed
+  to the console.
 }
 
 \examples{

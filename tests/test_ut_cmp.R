@@ -45,6 +45,9 @@ ok_group("ut_cmp_equal", (function () {
         '[1] [-2-]{+5+} 4 2 [-8-]{+1+}',
         NULL), "Vectors filtered by str, individual differences highlighted")
 
+    ok(!withVisible(ut_cmp_equal("apples", "oranges"))$visible,
+        "Output of comparision isn't visible (we should print it at a real console though)")
+
     do_a_thing <- function (x) seq(x)
     ok(cmp_lines(ut_cmp_equal(do_a_thing(4), do_a_thing(1 + 2)),
         'Numeric: lengths (4, 3) differ',
