@@ -22,8 +22,8 @@
   using with \code{R CMD check}, see \sQuote{I'm writing a package, how do I put tests in it?}.
 
   For a list of all documentation use \code{library(help="unittest")}.
-  Good places to start are the \sQuote{\href{../doc/getting_started.pdf}{Getting Started}}
-  and \sQuote{\href{../doc/faq.pdf}{FAQ}}vignettes.
+  Good places to start are the \sQuote{\href{../doc/getting_started.html}{Getting Started}}
+  and \sQuote{\href{../doc/faq.html}{FAQ}}vignettes.
   You can see these by typing \code{vignette('getting_started', package='unittest')} and
   \code{vignette('faq', package='unittest')} respectively.
 }
