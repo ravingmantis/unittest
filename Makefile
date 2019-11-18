@@ -7,6 +7,11 @@ all: check
 install:
 	R CMD INSTALL --install-tests --html --example .
 
+# Some things aren't installed by "make install", vignettes for example.
+# This is slower, but more accurate.
+full-install: build
+	R CMD INSTALL --install-tests --html --example "$(TARBALL)"
+
 build:
 	R CMD build .
 
@@ -49,4 +54,4 @@ release:
 #  Upload to CRAN
 #  git push && git push --tags
 
-.PHONY: all install build check check-as-cran serve-vignettes release
+.PHONY: all install full-install build check check-as-cran serve-vignettes release
