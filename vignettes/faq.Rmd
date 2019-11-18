@@ -53,7 +53,17 @@ comparing numeric values which may be slightly different due to floating-point
 accuracy.
 
 Either way, if your test fails you will get verbose output showing you how they
-differ, and if you have git installed the output will be coloured.
+differ, and if you have git installed the output will be coloured. For example:
+
+<pre>
+> ok(ut_cmp_equal(c(1,2,3,4,5), c(1,8,8,4,5)))
+not ok - ut_cmp_equal(c(1, 2, 3, 4, 5), c(1, 8, 8, 4, 5))
+# Test returned non-TRUE value:
+# Mean relative difference: 2.2
+# --- c(1, 2, 3, 4, 5)
+# +++ c(1, 8, 8, 4, 5)
+# [1] 1 <span style="color:red;font-weight:bold">[-2 3-]</span><span style="color:green;font-weight:bold">{+8 8+}</span> 4 5
+</pre>
 
 ### Grouping tests
 
