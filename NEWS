@@ -1,3 +1,5 @@
+CHANGES IN VERSION 1.4-0:
+
   NEW FEATURES:
     * ut_cmp_equal() and ut_cmp_identical() for comparing outputs.
     * ut_cmp_error() function to simplify testing for errors.
