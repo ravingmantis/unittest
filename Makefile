@@ -32,6 +32,7 @@ serve-vignettes:
 release:
 	[ -n "$(NEW_VERSION)" ]  # NEW_VERSION variable should be set
 	sed -i 's/^Version: .*/Version: $(NEW_VERSION)/' DESCRIPTION
+	sed -i "s/^Date: .*/Date: $$(date +%Y-%m-%d)/" DESCRIPTION
 	#
 	mv ChangeLog ChangeLog.o
 	echo "$$(date +%Y-%m-%d) $$(git config user.name)  <$$(git config user.email)>" > ChangeLog
@@ -46,7 +47,7 @@ release:
 	cat NEWS.o >> NEWS
 	rm NEWS.o
 	#
-	git commit -m "Release version $(NEW_VERSION)" DESCRIPTION ChangeLog
+	git commit -m "Release version $(NEW_VERSION)" DESCRIPTION ChangeLog NEWS
 	git tag -am "Release version $(NEW_VERSION)" v$(NEW_VERSION)
 
 # Release steps
