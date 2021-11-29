@@ -30,7 +30,10 @@ cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL) {
             function (x) utils::str(x, vec.len = 1000, digits.d = 5, nchar.max = 1000),
             NULL)) {
         if (is.function(f)) {
-            diff_lines <- output_diff(f(a), f(b))
+            diff_lines <- output_diff(
+                f(a), f(b),
+                a_label = deparse1(sys.call(-1)[[2]], nlines = 1),
+                b_label = deparse1(sys.call(-1)[[3]], nlines = 1))
             if (length(diff_lines) > 0) {
                 break
             }
@@ -51,7 +54,7 @@ git_binary <- function() {
 }
 
 # Given 2 stdout-producing arguments, return human-readable word-diff lines, using git diff if available.
-output_diff <- function (a_out, b_out) {
+output_diff <- function (a_out, b_out, a_label, b_label) {
     path_join <- function(letter, path) {
         # On UNIX a diff path will look like a/tmp/Rtmp...
         out <- paste0(letter, if (substring(path, 1, 1) == '/') '' else '/', path)
@@ -87,8 +90,8 @@ output_diff <- function (a_out, b_out) {
         out <- grep("^(\033\\[.*?m)?(index|diff|@@) ", out, value = TRUE, invert = TRUE, perl = TRUE)
 
         # Replace temp filenames with the expression cmp was called with
-        out <- gsub(path_join("a", a_path), deparse(sys.call(-2)[[2]], nlines = 1), out, fixed = TRUE)
-        out <- gsub(path_join("b", b_path), deparse(sys.call(-2)[[3]], nlines = 1), out, fixed = TRUE)
+        out[grepl(paste0('\\-\\-\\-.*', a_path), out)] <- paste0("--- ", a_label)
+        out[grepl(paste0('\\+\\+\\+.*', b_path), out)] <- paste0("+++ ", b_label)
 
         # Remove any trailing newline
         if (length(out) > 0 && out[length(out)] == "") {
@@ -104,7 +107,7 @@ output_diff <- function (a_out, b_out) {
         return(c())
     } else {
         return(c(
-            paste0("--- ", deparse(sys.call(-2)[[2]], nlines = 1)), a_repr,
-            paste0("+++ ", deparse(sys.call(-2)[[3]], nlines = 1)), b_repr))
+            paste0("--- ", a_label), a_repr,
+            paste0("+++ ", b_label), b_repr))
     }
 }
