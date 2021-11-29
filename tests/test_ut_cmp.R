@@ -10,7 +10,7 @@ cmp_lines <- function (actual, ...) {
         return(TRUE)
     }
     # utils::str(no_color, vec.len = 1000, digits.d = 5, nchar.max = 1000)
-    return(actual)
+    return(c(c(...)[!is.null(c(...))], '----', actual))
 }
 
 # Mock (fn) in namespace with (replacement) whilst (block) is being evaluated
