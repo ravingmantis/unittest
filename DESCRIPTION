@@ -18,4 +18,3 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 BugReports: https://github.com/ravingmantis/unittest/issues
-LazyData: yes
