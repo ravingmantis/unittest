@@ -13,7 +13,7 @@ The workhorse of the `unittest` package is the `ok` function which prints "ok" w
 
 If you are writing a package see the "I'm writing a package, how do I put tests in it?" section in the package documentation.
 
-The package was inspired by Perl's [Test::Simple](http://search.cpan.org/perldoc?Test::Simple).
+The package was inspired by Perl's [Test::Simple](https://metacpan.org/pod/Test::Simple).
 
 If you want more features there are other unit testing packages out there; see [testthat](https://CRAN.R-project.org/package=testthat), [RUnit](https://CRAN.R-project.org/package=RUnit), [svUnit](https://CRAN.R-project.org/package=svUnit).
 

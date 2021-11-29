@@ -33,7 +33,7 @@
 }
 
 \references{
-  Inspired by Perl's Test::Simple (\url{http://search.cpan.org/perldoc?Test::Simple}).
+  Inspired by Perl's Test::Simple (\url{https://metacpan.org/pod/Test::Simple}).
 }
 
 \concept{unit testing}
