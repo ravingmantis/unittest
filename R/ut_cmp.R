@@ -55,23 +55,15 @@ git_binary <- function() {
 
 # Given 2 stdout-producing arguments, return human-readable word-diff lines, using git diff if available.
 output_diff <- function (a_out, b_out, a_label, b_label) {
-    path_join <- function(letter, path) {
-        # On UNIX a diff path will look like a/tmp/Rtmp...
-        out <- paste0(letter, if (substring(path, 1, 1) == '/') '' else '/', path)
-        if (grepl("\\", out, fixed = TRUE)) {
-            # On Windows a diff path will look like "a/D:\\temp\\Rtmp..."
-            out <- paste0('"', gsub("\\", "\\\\", out, fixed = TRUE), '"')
-        }
-        out
-    }
-
     # Write 2 tempfiles, use git to compare
     if (file.exists(git_binary())) {
-        a_path <- tempfile(pattern = "a.")
+        # NB: Make sure we use / under windows, since this is what git will do
+        a_path <- normalizePath(tempfile(pattern = "a."), winslash = "/", mustWork = FALSE)
         utils::capture.output(a_out, file = a_path)
         on.exit(unlink(a_path))
 
-        b_path <- tempfile(pattern = "b.")
+        # NB: Make sure we use / under windows, since this is what git will do
+        b_path <- normalizePath(tempfile(pattern = "b."), winslash = "/", mustWork = FALSE)
         utils::capture.output(b_out, file = b_path)
         on.exit(unlink(b_path))
 
@@ -90,8 +82,8 @@ output_diff <- function (a_out, b_out, a_label, b_label) {
         out <- grep("^(\033\\[.*?m)?(index|diff|@@) ", out, value = TRUE, invert = TRUE, perl = TRUE)
 
         # Replace temp filenames with the expression cmp was called with
-        out[grepl(paste0('\\-\\-\\-.*', a_path), out)] <- paste0("--- ", a_label)
-        out[grepl(paste0('\\+\\+\\+.*', b_path), out)] <- paste0("+++ ", b_label)
+        out <- gsub(gsub("^/*", "a/", a_path), a_label, out, fixed = TRUE)
+        out <- gsub(gsub("^/*", "b/", b_path), b_label, out, fixed = TRUE)
 
         # Remove any trailing newline
         if (length(out) > 0 && out[length(out)] == "") {
