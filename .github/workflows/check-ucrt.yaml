@@ -25,3 +25,6 @@ jobs:
           toolchain-type: full
       - uses: r-lib/actions/setup-r-dependencies@v1
       - uses: kalibera/R-actions/pkg-check@master
+      - name: SSH session after a failure
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
