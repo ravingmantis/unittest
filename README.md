@@ -1,4 +1,5 @@
 [![CRAN version badge](https://img.shields.io/cran/v/unittest.svg)](https://cran.r-project.org/package=unittest)
+[![CRAN Checks](https://cranchecks.info/badges/summary/unittest)](https://cran.r-project.org/web/checks/check_results_unittest.html)
 [![CRAN RStudio mirror total downloads badge](https://cranlogs.r-pkg.org/badges/grand-total/unittest?color=001577)](https://cran.r-project.org/package=unittest)
 [![CRAN RStudio mirror monthly downloads badge](https://cranlogs.r-pkg.org/badges/unittest?color=001577)](https://cran.r-project.org/package=unittest)
 [![R-CMD-check](https://github.com/ravingmantis/unittest/workflows/R-CMD-check/badge.svg)](https://github.com/ravingmantis/unittest/actions)
