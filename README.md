@@ -1,7 +1,7 @@
 [![CRAN version badge](https://img.shields.io/cran/v/unittest.svg)](https://cran.r-project.org/package=unittest)
 [![CRAN RStudio mirror total downloads badge](https://cranlogs.r-pkg.org/badges/grand-total/unittest?color=001577)](https://cran.r-project.org/package=unittest)
 [![CRAN RStudio mirror monthly downloads badge](https://cranlogs.r-pkg.org/badges/unittest?color=001577)](https://cran.r-project.org/package=unittest)
-[![Build Status](https://travis-ci.org/ravingmantis/unittest.svg?branch=master)](https://travis-ci.org/ravingmantis/unittest)
+[![R-CMD-check](https://github.com/ravingmantis/unittest/workflows/R-CMD-check/badge.svg)](https://github.com/ravingmantis/unittest/actions)
 [![DOI](https://zenodo.org/badge/23253323.svg)](https://zenodo.org/badge/latestdoi/23253323)
 
 unittest
