@@ -10,14 +10,18 @@
 }
 
 \usage{
-  ut_cmp_equal(a, b, filter = NULL, ...)
-  ut_cmp_identical(a, b, filter = NULL)
+  ut_cmp_equal(a, b, filter = NULL, deparse_frame = -1, ...)
+  ut_cmp_identical(a, b, filter = NULL, deparse_frame = -1)
 }
 
 \arguments{
   \item{a}{First item to compare, usually the result of whatever you are testing}
   \item{b}{Second item to compare, usually the expected output of whatever you are testing}
   \item{filter}{An optional filter function, that turns either a or b into text, and prints this out}
+  \item{deparse_frame}{
+    Tell \code{\link{sys.call}} which frame to deparse to get original expressions.
+    Set to \code{-2} when making a helper function, see examples.
+  }
   \item{...}{Other arguments passed directly to \code{\link{all.equal}}}
 }
 
@@ -101,5 +105,22 @@
     ## approximate comparison
     > ok(ut_cmp_equal(0.01, 0.02, tolerance = 0.1))
     ok - ut_cmp_equal(0.01, 0.02, tolerance = 0.1)
+
+    ## We can make a comparison function of our own, and use
+    ## deparse_depth to show the right expression in diff output
+    > cmp_noorder <- function (a, b) {
+    +     sortlist <- function (x) if (length(x) > 0) x[order(names(x))] else x
+    +     ut_cmp_identical(sortlist(a), sortlist(b), deparse_depth = -2)
+    + }
+    > ok(cmp_noorder(list(a=1, b=2), list(b=2, a=3)))
+    not ok - cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3))
+    # Test returned non-TRUE value:
+    # --- list(a = 1, b = 2)
+    # +++ list(b = 2, a = 3)
+    # $a
+    # [1] [-1-]{+3+}
+    #
+    # $b
+    # [1] 2
   }
 }

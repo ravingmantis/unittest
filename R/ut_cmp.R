@@ -1,15 +1,17 @@
 # Return TRUE if all.equal(a, b), otherwise show the difference with str().
 # like all.equal but with more diagnostic output
-ut_cmp_equal <- function(a, b, filter = NULL, ...) {
-    cmp_inner(a, b, comparison_fn = function (x, y) all.equal(x, y, ...), filter = filter)
+ut_cmp_equal <- function(a, b, filter = NULL, deparse_frame = -1, ...) {
+    cmp_inner(a, b, comparison_fn = function (x, y) all.equal(x, y, ...), filter = filter, deparse_frame = deparse_frame)
 }
 
 # Same as ut_cmp_equal(), but uses identical instead
-ut_cmp_identical <- function(a, b, filter = NULL) {
-    cmp_inner(a, b, comparison_fn = identical, filter = filter)
+ut_cmp_identical <- function(a, b, filter = NULL, deparse_frame = -1) {
+    cmp_inner(a, b, comparison_fn = identical, filter = filter, deparse_frame = deparse_frame)
 }
 
-cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL) {
+cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL, deparse_frame = -1) {
+    stopifnot(is.numeric(deparse_frame) && deparse_frame < 0)
+
     # Compare inputs, if equal then we're done
     ae_output <- comparison_fn(a, b)
     if (isTRUE(ae_output)) return(TRUE)
@@ -35,8 +37,8 @@ cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL) {
         if (is.function(f)) {
             diff_lines <- output_diff(
                 f(a), f(b),
-                a_label = deparse1(sys.call(-1)[[2]], nlines = 1),
-                b_label = deparse1(sys.call(-1)[[3]], nlines = 1))
+                a_label = deparse1(sys.call(deparse_frame)[[2]], nlines = 1),
+                b_label = deparse1(sys.call(deparse_frame)[[3]], nlines = 1))
             if (length(diff_lines) > 0) {
                 break
             }
@@ -44,7 +46,7 @@ cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL) {
     }
     diff_lines <- c(ae_output, diff_lines)
 
-    if (interactive() && sys.nframe() == 2) {
+    if (interactive() && sys.nframe() == 1 - deparse_frame) {
         # Interactive and called at a top-level, so print the output nicely
         writeLines(diff_lines)
     }

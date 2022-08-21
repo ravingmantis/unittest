@@ -1,3 +1,4 @@
+    * ut_cmp_*: Add deparse_frame option for nicer comparision helpers
     * ut_cmp_*: Show more digits in diff output when required
     * ut_cmp_*: Windows path-related bugfixes
 
