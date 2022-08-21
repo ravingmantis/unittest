@@ -94,6 +94,12 @@ output_diff <- function (a_out, b_out, a_label, b_label) {
         if (length(out) > 0 && out[length(out)] == "") {
             out <- head(out, -1)
         }
+
+        # Duck problems with r-devel-windows-x86_64-new-UL,
+        # stray \r characters that shouldn't be there
+        # See https://github.com/ravingmantis/unittest/issues/3
+        if(.Platform$OS.type == "windows") out <- gsub("\r", "", out)
+
         return(out)
     }
 
