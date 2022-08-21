@@ -1,3 +1,4 @@
+    * ut_cmp_*: Show more digits in diff output when required
     * ut_cmp_*: Windows path-related bugfixes
 
 2019-11-19 Jamie Lentin  <jm@ravingmantis.com>

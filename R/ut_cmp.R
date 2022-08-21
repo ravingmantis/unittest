@@ -27,7 +27,10 @@ cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL) {
             # print will pick up any generics defined for custom types
             print,
             # Fall back to parsing with str
-            function (x) utils::str(x, vec.len = 1000, digits.d = 5, nchar.max = 1000),
+            function (x) utils::str(x),
+            function (x) utils::str(x, vec.len = 1e3, digits.d = 5, nchar.max = 1e3, list.len = 1e3),
+            function (x) utils::str(x, vec.len = 1e3, digits.d = 10, nchar.max = 1e3, list.len = 1e3),
+            function (x) utils::str(x, vec.len = 1e3, digits.d = 22, nchar.max = 1e3, list.len = 1e3),
             NULL)) {
         if (is.function(f)) {
             diff_lines <- output_diff(

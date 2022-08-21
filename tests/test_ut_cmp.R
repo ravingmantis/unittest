@@ -148,6 +148,18 @@ ok_group("ut_cmp_identical", (function () {
         '+++ 4',
         ' [-int-]{+num+} 4',
         NULL), "Equivalent objects do not, unlike ut_cmp_equal(). We also fall back to using str(), as print() will produce identical output")
+
+    ok(cmp_lines(ut_cmp_identical(1, 1 + 1e-10),
+        '--- 1',
+        '+++ 1 + 1e-10',
+        ' num [-1-]{+1.000000000100000008274+}',
+        NULL), "Increase str() digits to 22 show a difference")
+
+    ok(cmp_lines(ut_cmp_identical(1 + 1e-10, 1 + 1e-7),
+        '--- 1 + 1e-10',
+        '+++ 1 + 1e-07',
+        ' num [-1-]{+1.0000001+}',
+        NULL), "Increase str() digits (7 is enough) show a difference")
 })())
 
 ok_group("ut_cmp_identical:nogit", mock(unittest:::git_binary, function () "/not-here", {
