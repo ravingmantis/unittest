@@ -15,6 +15,15 @@ full-install: build
 build:
 	R CMD build .
 
+examples: install
+	Rscript -e 'devtools::run_examples(run_donttest = FALSE, run_dontrun = FALSE, document = FALSE)'
+
+vignettes: install
+	Rscript -e 'tools::buildVignettes(dir=".")'
+
+test: install
+	for f in tests/test*.R; do echo "=== $$f ============="; Rscript $$f || exit 1; done
+
 check: build
 	R CMD check "$(TARBALL)"
 
@@ -55,4 +64,4 @@ release:
 #  Upload to CRAN
 #  git push && git push --tags
 
-.PHONY: all install full-install build check check-as-cran serve-vignettes release
+.PHONY: all install full-install examples vignettes test build check check-as-cran serve-vignettes release
