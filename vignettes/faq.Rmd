@@ -107,6 +107,7 @@ Place your tests in a file with the extension ``.R`` and add the following lines
 ```{r, eval = FALSE}
 library(mypackage)
 library(unittest, quietly = TRUE)
+if (!interactive()) options(warn=2, error = function() { sink(stderr()) ; traceback(3) ; q(status = 1) })
 ```
 
 That's it; ``R CMD check`` will run the tests and fail if any of the tests fail.
@@ -116,6 +117,9 @@ That's it; ``R CMD check`` will run the tests and fail if any of the tests fail.
 When you use the ``unittest`` package the package 'knows' that it is being run by ``CMD check`` and at the end of the tests it produces a summary of the results.
 The package will also throw an error if any tests fail;
 throwing an error will in turn cause ``CMD check`` to report the error and fail the ``check``.
+
+The ``if (!interactive()) ...`` line makes sure that, when run as a script, any warnings are errors, so they don't go unnoticed.
+We also enable a traceback so you can see where any errors occured.
 
 Here is a very simple example:
 
@@ -130,6 +134,7 @@ then the ``tests/my_tests_for_biggest.R`` file could contain something like
 ```{r, eval = FALSE}
 library(mypackage)
 library(unittest, quietly = TRUE)
+if (!interactive()) options(warn=2, error = function() { sink(stderr()) ; traceback(3) ; q(status = 1) })
 
 ok(biggest(3,4) == 4, "two numbers")
 ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
