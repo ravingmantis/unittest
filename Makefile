@@ -58,6 +58,11 @@ release:
 	#
 	git commit -m "Release version $(NEW_VERSION)" DESCRIPTION ChangeLog NEWS
 	git tag -am "Release version $(NEW_VERSION)" v$(NEW_VERSION)
+	#
+	R CMD build .
+	#
+	sed -i 's/^Version: .*/Version: '"$(NEW_VERSION)-999"'/' DESCRIPTION
+	git commit -m "Development version $(NEW_VERSION)-999" DESCRIPTION
 
 # Release steps
 #  make release NEW_VERSION=1.3-0
