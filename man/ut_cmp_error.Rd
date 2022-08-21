@@ -24,9 +24,13 @@
 }
 
 \examples{
-  \dontrun{
-    ok(ut_cmp_error({
-      stop("Hammer time")
-    }, "hammer", ignore.case = TRUE), "Returned a hammer-based error")
+  ok(ut_cmp_error({
+    stop("Hammer time")
+  }, "hammer", ignore.case = TRUE), "Returned a hammer-based error")
+
+  \dontshow{
+    # Clear unittest result log, so our unittest failues don't fail example-building
+    rm('outcomes', pos = unittest:::pkg_vars)
+    rm('errors', pos = unittest:::pkg_vars)
   }
 }

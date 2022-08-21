@@ -29,7 +29,6 @@
 }
 
 \examples{
-  \dontrun{
   ok_group("Test addition", {
       ok(1 + 1 == 2, "Can add 1")
       ok(1 + 3 == 4, "Can add 3")
@@ -54,5 +53,10 @@
   # # but not division
   # ok - Can multiply by 1
   # ok - Can multiply by 3
+
+  \dontshow{
+    # Clear unittest result log, so our unittest failues don't fail example-building
+    rm('outcomes', pos = unittest:::pkg_vars)
+    rm('errors', pos = unittest:::pkg_vars)
   }
 }

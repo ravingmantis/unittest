@@ -31,7 +31,6 @@
 }
 
 \examples{
-  \dontrun{
   ok(1==1, "1 equals 1")
   # ok - 1 equals 1
 
@@ -59,5 +58,10 @@
   # # Test returned non-TRUE value:
   # # Some diagnostic
   # # messages
+
+  \dontshow{
+    # Clear unittest result log, so our unittest failues don't fail example-building
+    rm('outcomes', pos = unittest:::pkg_vars)
+    rm('errors', pos = unittest:::pkg_vars)
   }
 }
