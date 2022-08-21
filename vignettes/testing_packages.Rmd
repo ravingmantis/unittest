@@ -1,0 +1,126 @@
+---
+title: "Adding Tests to Packages"
+output:
+  html_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Adding Tests to Packages}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, message=FALSE, echo=FALSE}
+library(unittest)
+```
+
+Whilst you can use unittest with scripts and ad-hoc code, the main use-case is for adding tests to packages.
+
+For the following example we'll assume you're developing a package called ``mypackage``.
+
+## Adding unittest to your package
+
+Add the following line to the package ``DESCRIPTION`` file, to declare that your package optionally depends on ``unittest``:
+
+```
+Suggests: unittest
+```
+
+Create a directory called ``tests`` in your package source, alongside your ``R`` directory.
+
+## Testing functions exported by your package
+
+Let's say we want to test the following package function, in ``R/biggest.R``:
+
+```{r}
+biggest <- function(x,y) {max(c(x,y))}
+```
+
+Create a corresponding ``tests/test_biggest.R`` in your package source (the file name isn't important, but it helps to be consistent):
+
+```{r, eval = FALSE}
+#!/usr/bin/Rscript --vanilla
+
+library(mypackage)
+library(unittest, quietly = TRUE)
+if (!interactive()) options(warn=2, error = function() { sink(stderr()) ; traceback(3) ; q(status = 1) })
+
+ok(ut_cmp_equal( biggest(3,4), 4), "two numbers")
+ok(ut_cmp_equal( biggest(c(5,3),c(3,4)), 5), "two vectors")
+```
+
+The ``if (!interactive()) ...`` line makes sure that, when run as a script, any warnings are errors, so they don't go unnoticed.
+We also enable a traceback so you can see where any errors occured.
+
+Finally, we use ``ok`` to test the output of the function works as we expect.
+
+## Running your tests
+
+There are many ways you can then run your tests:
+
+* ``R CMD check`` will run everything it finds in the ``tests`` directory, and will fail if any of the tests fail.
+* ``source('tests/test_biggest.R')`` within R will run individual tests in your current R session.
+* ``Rscript --vanilla tests/test_biggest.R`` will run the test outside of R.
+* ``tests/test_biggest.R`` will also run the test outside of R, if the file is marked as executable (i.e. ``chmod a+x tests/test_biggest.R``).
+
+``unittest`` detects when it's been run as a script and if so will produce a summary of a results.
+The package will also throw an error if any tests fail;
+throwing an error will in turn cause ``CMD check`` to report the error and fail the ``check``.
+
+To run all your tests as part of a bash script, you can do so with:
+
+```{bash, eval=FALSE}
+for f in tests/*.R; do echo "=== $f"; Rscript --vanilla $f || break; done
+```
+
+## Testing functions not exported by your package
+
+Sometimes it's necessary to test functions that aren't exported by your package.
+Because they aren't exported they cannot be directly referenced in tests.
+To get around this, use ``local()`` as follows:
+
+```{r, eval = FALSE}
+var <- 4
+
+local({
+    ok(ut_cmp_equal(internal_function(3), 3))
+    ok(ut_cmp_equal(internal_function(var), 4))
+
+    # NB: Regular assignment (<-) won't work here,
+    # but using <<- to refer to variables outside local() will
+    var <<- 5
+    ok(ut_cmp_equal(internal_function(var), 5))
+}, asNamespace('mypackage'))
+```
+
+## Embedding tests in vignettes
+
+At the start of your vignette, load unittest but customise ``ok()`` so it's output goes to stderr:
+
+````{verbatim, lang = "markdown"}
+```{r, message=FALSE, echo=FALSE}
+library(unittest)
+# Redirect ok() output to stderr
+ok <- function(...) capture.output(unittest::ok(...), file = stderr())
+library(mypackage)
+```
+````
+
+Then, include hidden blocks for your tests, for example:
+
+````{verbatim, lang = "markdown"}
+Our biggest function will return the highest number:
+
+```{r}
+out <- biggest(3,4)
+out
+```
+
+```{r, message=FALSE, echo=FALSE}
+ok(ut_cmp_equal(out, 4), "biggest(3,4) is 4")
+```
+````
+
+Here, the reader sees the first block, and the output of ``biggest()``, and the hidden block ensures the output is as we expect.
+
+To run the tests, build the vignettes with, e.g. ``tools::buildVignettes(dir=".")``.
+Test output will be shown as part of the rebuild process.
