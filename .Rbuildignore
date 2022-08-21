@@ -1,5 +1,6 @@
 ^\.git
 ^Makefile
 ^[^/]+\.tar\.gz
+^docs$
 ^\.bash_history\.*
 ^.zenodo.json$
