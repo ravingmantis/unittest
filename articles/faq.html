@@ -55,6 +55,9 @@
     <li>
       <a href="../articles/getting_started.html">Getting Started</a>
     </li>
+    <li>
+      <a href="../articles/testing_packages.html">Adding Tests to Packages</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -153,49 +156,6 @@ not ok - ut_cmp_equal(c(1, 2, 3, 4, 5), c(1, 8, 8, 4, 5))
 <h3 id="i-am-sure-i-do-not-need-to-test-my-code--is-this-true">I am sure I do not need to test my code. Is this true?<a class="anchor" aria-label="anchor" href="#i-am-sure-i-do-not-need-to-test-my-code--is-this-true"></a>
 </h3>
 <p>No. Sit down and have a cup of tea. Hopefully the feeling will go away.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="working-with-packages">Working with packages<a class="anchor" aria-label="anchor" href="#working-with-packages"></a>
-</h2>
-<div class="section level3">
-<h3 id="im-writing-a-package-how-do-i-put-tests-in-it">I’m writing a package, how do I put tests in it?<a class="anchor" aria-label="anchor" href="#im-writing-a-package-how-do-i-put-tests-in-it"></a>
-</h3>
-<p>Add the following line to the package <code>DESCRIPTION</code> file.</p>
-<pre><code><span><span class="va">Suggests</span><span class="op">:</span> <span class="va">unittest</span></span></code></pre>
-<p>Create a directory called <code>tests</code> in your package source, alongside your <code>R</code> directory.</p>
-<p>Place your tests in a file with the extension <code>.R</code> and add the following lines to the top of the file (replacing <code>mypackage</code> with the name of your package).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mypackage</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">unittest</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>warn<span class="op">=</span><span class="fl">2</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/sink.html" class="external-link">sink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stderr</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> ; <span class="fu"><a href="https://rdrr.io/r/base/traceback.html" class="external-link">traceback</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> ; <span class="fu"><a href="https://rdrr.io/r/base/quit.html" class="external-link">q</a></span><span class="op">(</span>status <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>That’s it; <code>R CMD check</code> will run the tests and fail if any of the tests fail.</p>
-<p><em>Any</em> <code>.R</code> file in the <code>tests</code> directory will be run by <code>R CMD check</code>.</p>
-<p>When you use the <code>unittest</code> package the package ‘knows’ that it is being run by <code>CMD check</code> and at the end of the tests it produces a summary of the results. The package will also throw an error if any tests fail; throwing an error will in turn cause <code>CMD check</code> to report the error and fail the <code>check</code>.</p>
-<p>The <code>if (!interactive()) ...</code> line makes sure that, when run as a script, any warnings are errors, so they don’t go unnoticed. We also enable a traceback so you can see where any errors occured.</p>
-<p>Here is a very simple example:</p>
-<p>Assuming your package contains (and <code>exports</code>) the function <code>biggest()</code></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">biggest</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<p>then the <code>tests/my_tests_for_biggest.R</code> file could contain something like</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mypackage</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">unittest</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>warn<span class="op">=</span><span class="fl">2</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/sink.html" class="external-link">sink</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stderr</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> ; <span class="fu"><a href="https://rdrr.io/r/base/traceback.html" class="external-link">traceback</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> ; <span class="fu"><a href="https://rdrr.io/r/base/quit.html" class="external-link">q</a></span><span class="op">(</span>status <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu">biggest</span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span> <span class="op">==</span> <span class="fl">4</span>, <span class="st">"two numbers"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu">biggest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">3</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">5</span>, <span class="st">"two vectors"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="how-do-i-test-un-exported-package-functions">How do I test un-exported package functions?<a class="anchor" aria-label="anchor" href="#how-do-i-test-un-exported-package-functions"></a>
-</h3>
-<p>If you have some unit tests which require access to un-exported functions, or un-exported S3 methods, you can use <code>local</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu">internal_function</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu">another_internal_function</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">4</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu">final_internal_function</span><span class="op">(</span><span class="op">)</span> <span class="op">==</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="op">}</span>, <span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">asNamespace</a></span><span class="op">(</span><span class="st">'mypackage'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>

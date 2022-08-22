@@ -37,6 +37,9 @@
     <li>
       <a href="../articles/getting_started.html">Getting Started</a>
     </li>
+    <li>
+      <a href="../articles/testing_packages.html">Adding Tests to Packages</a>
+    </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/ravingmantis/unittest/" class="external-link">
@@ -119,11 +122,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Whilst evaluating:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #  fn()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Stacktrace:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; saveRDS(do.call(do.call, c(readRDS("/tmp/RtmpMGmTym/callr-fun-d94a468df0c"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; saveRDS(do.call(do.call, c(readRDS("/tmp/Rtmpmmmk3E/callr-fun-da077fe63130"), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     list(envir = .GlobalEnv, quote = TRUE)), envir = .GlobalEnv, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE), file = "/tmp/RtmpMGmTym/callr-res-d94a4a5333fc", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE), file = "/tmp/Rtmpmmmk3E/callr-res-da073d8267b5", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     compress = FALSE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; do.call(do.call, c(readRDS("/tmp/RtmpMGmTym/callr-fun-d94a468df0c"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; do.call(do.call, c(readRDS("/tmp/Rtmpmmmk3E/callr-fun-da077fe63130"), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     list(envir = .GlobalEnv, quote = TRUE)), envir = .GlobalEnv, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; (function (what, args, quote = FALSE, envir = parent.frame()) </span>
@@ -731,19 +734,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         name = character(0), file_out = character(0), title = character(0), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         pagetitle = character(0), url = character(0)), class = c("tbl_df", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     "tbl", "data.frame"), row.names = integer(0)), vignettes = structure(list(</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         name = structure(c("faq", "getting_started"), class = c("fs_path", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "character")), file_in = structure(c("vignettes/faq.Rmd", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "vignettes/getting_started.Rmd"), class = c("fs_path", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "character")), file_out = structure(c("articles/faq.html", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "articles/getting_started.html"), class = c("fs_path", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "character")), title = c("Frequently Asked Questions", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "Getting Started"), description = c(NA_character_, NA_character_</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         ), depth = c(1L, 1L)), class = c("tbl_df", "tbl", "data.frame"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     ), row.names = c(NA, -2L)), bs_version = 3, prefix = ""), class = "pkgdown"), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     examples = TRUE, run_dont_run = FALSE, seed = 1014, lazy = FALSE, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     override = list(), install = FALSE, preview = FALSE, new_process = FALSE, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     devel = FALSE, cli_colors = 1L, pkgdown_internet = TRUE)), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     envir = base::quote(&lt;environment&gt;), quote = base::quote(TRUE))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         name = structure(c("faq", "getting_started", "testing_packages"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         ), class = c("fs_path", "character")), file_in = structure(c("vignettes/faq.Rmd", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "vignettes/getting_started.Rmd", "vignettes/testing_packages.Rmd"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         ), class = c("fs_path", "character")), file_out = structure(c("articles/faq.html", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "articles/getting_started.html", "articles/testing_packages.html"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         ), class = c("fs_path", "character")), title = c("Frequently Asked Questions", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "Getting Started", "Adding Tests to Packages"), description = c(NA_character_, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         NA_character_, NA_character_), depth = c(1L, 1L, 1L)), class = c("tbl_df", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     "tbl", "data.frame"), row.names = c(NA, -3L)), bs_version = 3, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     prefix = ""), class = "pkgdown"), examples = TRUE, run_dont_run = FALSE, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     seed = 1014, lazy = FALSE, override = list(), install = FALSE, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     preview = FALSE, new_process = FALSE, devel = FALSE, cli_colors = 1L, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     pkgdown_internet = TRUE)), envir = base::quote(&lt;environment&gt;), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = base::quote(TRUE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; (function (..., cli_colors, pkgdown_internet) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     options(cli.num_colors = cli_colors, crayon.colors = cli_colors, </span>
@@ -1342,17 +1346,18 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         name = character(0), file_out = character(0), title = character(0), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         pagetitle = character(0), url = character(0)), class = c("tbl_df", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     "tbl", "data.frame"), row.names = integer(0)), vignettes = structure(list(</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         name = structure(c("faq", "getting_started"), class = c("fs_path", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "character")), file_in = structure(c("vignettes/faq.Rmd", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "vignettes/getting_started.Rmd"), class = c("fs_path", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "character")), file_out = structure(c("articles/faq.html", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "articles/getting_started.html"), class = c("fs_path", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "character")), title = c("Frequently Asked Questions", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         "Getting Started"), description = c(NA_character_, NA_character_</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         ), depth = c(1L, 1L)), class = c("tbl_df", "tbl", "data.frame"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     ), row.names = c(NA, -2L)), bs_version = 3, prefix = ""), class = "pkgdown")), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     examples = base::quote(TRUE), run_dont_run = base::quote(FALSE), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     seed = base::quote(1014), lazy = base::quote(FALSE), override = base::quote(list()), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         name = structure(c("faq", "getting_started", "testing_packages"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         ), class = c("fs_path", "character")), file_in = structure(c("vignettes/faq.Rmd", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "vignettes/getting_started.Rmd", "vignettes/testing_packages.Rmd"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         ), class = c("fs_path", "character")), file_out = structure(c("articles/faq.html", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "articles/getting_started.html", "articles/testing_packages.html"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         ), class = c("fs_path", "character")), title = c("Frequently Asked Questions", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "Getting Started", "Adding Tests to Packages"), description = c(NA_character_, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         NA_character_, NA_character_), depth = c(1L, 1L, 1L)), class = c("tbl_df", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     "tbl", "data.frame"), row.names = c(NA, -3L)), bs_version = 3, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     prefix = ""), class = "pkgdown")), examples = base::quote(TRUE), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     run_dont_run = base::quote(FALSE), seed = base::quote(1014), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     lazy = base::quote(FALSE), override = base::quote(list()), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     install = base::quote(FALSE), preview = base::quote(FALSE), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     new_process = base::quote(FALSE), devel = base::quote(FALSE), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     cli_colors = base::quote(1L), pkgdown_internet = base::quote(TRUE))</span>
