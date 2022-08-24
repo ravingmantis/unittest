@@ -100,6 +100,9 @@
 <p>If this fails, then we turn both <code>a</code> and <code>b</code> into text, and then
   use <code>git diff</code> to compare the 2 outputs. If you do not have git
   installed, then the 2 outputs will be shown side-by-side.</p>
+<p>When using <code>git diff</code>, we turn colored output on when outputting to a
+  terminal. You can force this on or off using <code>options("cli.num_colors" = 1)</code>
+  or the <code>NO_COLOR</code> environment variable.</p>
 <p>The step of turning into text is done with the filter function. There are
   several of these built-in, and it will choose the one that produces the
   simplest output. This may mean that the output will be from the <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></code>
@@ -210,11 +213,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Whilst evaluating:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #  ut_cmp_identical(sortlist(a), sortlist(b), deparse_depth = -2)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Stacktrace:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; saveRDS(do.call(do.call, c(readRDS("/tmp/Rtmpmmmk3E/callr-fun-da077fe63130"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; saveRDS(do.call(do.call, c(readRDS("/tmp/RtmpPpX3It/callr-fun-d9666dbf0e18"), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     list(envir = .GlobalEnv, quote = TRUE)), envir = .GlobalEnv, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE), file = "/tmp/Rtmpmmmk3E/callr-res-da073d8267b5", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE), file = "/tmp/RtmpPpX3It/callr-res-d9661bcc183e", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     compress = FALSE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; do.call(do.call, c(readRDS("/tmp/Rtmpmmmk3E/callr-fun-da077fe63130"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; do.call(do.call, c(readRDS("/tmp/RtmpPpX3It/callr-fun-d9666dbf0e18"), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     list(envir = .GlobalEnv, quote = TRUE)), envir = .GlobalEnv, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; (function (what, args, quote = FALSE, envir = parent.frame()) </span>
@@ -303,6 +306,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure(list(structure(list(structure("unittest", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag"))), class = c("tag_link", "tag"))), class = c("tag_code", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure(" package documentation.\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("\n", class = c("TEXT", "tag")), structure("  The ", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure(list(structure("unittest.output", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag"))), class = c("tag_code", "tag")), structure(" option tells unittest where output should be sent.\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  This is most useful for vignettes, where sending output to\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  ", class = c("TEXT", "tag")), structure(list(</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             structure(list(structure("stderr", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_link", "tag"))), class = c("tag_code", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure(" separates the unittest output from the vignette itself.\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag"))), class = c("tag_details", "tag")), structure("\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     "tag")), structure("\n", class = c("TEXT", "tag")), structure(list(</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         structure("\n", class = c("RCODE", "tag")), structure("  ok(1==1, \"1 equals 1\")\n", class = c("RCODE", </span>
@@ -331,6 +342,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  # # Test returned non-TRUE value:\n", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  # # Some diagnostic\n", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  # # messages\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("\n", class = c("RCODE", "tag")), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         structure("  ## Send unittest output to stderr()\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  options(unittest.output = stderr())\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  ok(ut_cmp_equal(4, 5), \"4 == 5? Probably not\")\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("\n", class = c("RCODE", "tag")), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         structure("  ## Reset unittest output to default (stdout())\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  options(unittest.output = NULL)\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  ok(ut_cmp_equal(4, 5), \"4 == 5? Probably not\")\n", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("\n", class = c("RCODE", "tag")), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         structure("  ", class = c("RCODE", "tag")), structure(list(</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             structure("\n", class = c("RCODE", "tag")), structure("    # Clear unittest result log, so our unittest failues don't fail example-building\n", class = c("RCODE", </span>
@@ -616,6 +635,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             )), structure(list(structure("git diff", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(" to compare the 2 outputs. If you do not have git\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  installed, then the 2 outputs will be shown side-by-side.\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("\n", class = c("TEXT", "tag")), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             structure("  When using ", class = c("TEXT", "tag"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             )), structure(list(structure("git diff", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(", we turn colored output on when outputting to a\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  terminal. You can force this on or off using ", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure(list(structure("options(\"cli.num_colors\" = 1)", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure("\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  or the ", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure(list(structure("NO_COLOR", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(" environment variable.\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("\n", class = c("TEXT", "tag")), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             structure("  The step of turning into text is done with the filter function. There are\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  several of these built-in, and it will choose the one that produces the\n", class = c("TEXT", </span>
@@ -915,6 +944,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure(list(structure(list(structure("unittest", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag"))), class = c("tag_link", "tag"))), class = c("tag_code", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure(" package documentation.\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("\n", class = c("TEXT", "tag")), structure("  The ", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure(list(structure("unittest.output", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag"))), class = c("tag_code", "tag")), structure(" option tells unittest where output should be sent.\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  This is most useful for vignettes, where sending output to\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  ", class = c("TEXT", "tag")), structure(list(</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             structure(list(structure("stderr", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_link", "tag"))), class = c("tag_code", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure(" separates the unittest output from the vignette itself.\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag"))), class = c("tag_details", "tag")), structure("\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     "tag")), structure("\n", class = c("TEXT", "tag")), structure(list(</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         structure("\n", class = c("RCODE", "tag")), structure("  ok(1==1, \"1 equals 1\")\n", class = c("RCODE", </span>
@@ -943,6 +980,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  # # Test returned non-TRUE value:\n", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  # # Some diagnostic\n", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  # # messages\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("\n", class = c("RCODE", "tag")), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         structure("  ## Send unittest output to stderr()\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  options(unittest.output = stderr())\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  ok(ut_cmp_equal(4, 5), \"4 == 5? Probably not\")\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("\n", class = c("RCODE", "tag")), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         structure("  ## Reset unittest output to default (stdout())\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  options(unittest.output = NULL)\n", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("  ok(ut_cmp_equal(4, 5), \"4 == 5? Probably not\")\n", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         "tag")), structure("\n", class = c("RCODE", "tag")), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #         structure("  ", class = c("RCODE", "tag")), structure(list(</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             structure("\n", class = c("RCODE", "tag")), structure("    # Clear unittest result log, so our unittest failues don't fail example-building\n", class = c("RCODE", </span>
@@ -1228,6 +1273,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             )), structure(list(structure("git diff", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(" to compare the 2 outputs. If you do not have git\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  installed, then the 2 outputs will be shown side-by-side.\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("\n", class = c("TEXT", "tag")), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             structure("  When using ", class = c("TEXT", "tag"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             )), structure(list(structure("git diff", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(", we turn colored output on when outputting to a\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  terminal. You can force this on or off using ", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure(list(structure("options(\"cli.num_colors\" = 1)", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure("\n", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  or the ", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure(list(structure("NO_COLOR", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(" environment variable.\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("\n", class = c("TEXT", "tag")), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             structure("  The step of turning into text is done with the filter function. There are\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  several of these built-in, and it will choose the one that produces the\n", class = c("TEXT", </span>

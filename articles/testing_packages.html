@@ -161,7 +161,7 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="bn">```{r, message=FALSE, echo=FALSE}</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="bn">library(unittest)</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="bn"># Redirect ok() output to stderr</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="bn">ok &lt;- function(...) capture.output(unittest::ok(...), file = stderr())</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="bn">options(unittest.output = stderr())</span></span>
 <span id="cb6-5"><a href="#cb6-5"></a><span class="bn">library(mypackage)</span></span>
 <span id="cb6-6"><a href="#cb6-6"></a><span class="bn">```</span></span></code></pre></div>
 <p>Then, include hidden blocks for your tests, for example:</p>
