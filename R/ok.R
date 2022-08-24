@@ -67,7 +67,7 @@ ok <- function(
     }
     assign_outcome(outcome)
     rv <- paste0(outcome['output'], "\n")
-    cat(rv)
+    cat(rv, file = output_fh(), append = TRUE)
     invisible(result)
 }
 

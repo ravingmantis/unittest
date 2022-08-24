@@ -100,7 +100,7 @@ At the start of your vignette, load unittest but customise ``ok()`` so it's outp
 ```{r, message=FALSE, echo=FALSE}
 library(unittest)
 # Redirect ok() output to stderr
-ok <- function(...) capture.output(unittest::ok(...), file = stderr())
+options(unittest.output = stderr())
 library(mypackage)
 ```
 ````

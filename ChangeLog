@@ -1,3 +1,4 @@
+    * options: options(unittest.output = ...) to redirect unittest output
     * ut_cmp_*: Support for r-devel-windows-x86_64-new-UL
     * ut_cmp_*: Add deparse_frame option for nicer comparision helpers
     * ut_cmp_*: Show more digits in diff output when required

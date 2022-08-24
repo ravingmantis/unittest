@@ -28,6 +28,10 @@
 
 \details{
   See \code{\link{unittest}} package documentation.
+
+  The \code{unittest.output} option tells unittest where output should be sent.
+  This is most useful for vignettes, where sending output to
+  \code{\link{stderr}} separates the unittest output from the vignette itself.
 }
 
 \examples{
@@ -58,6 +62,14 @@
   # # Test returned non-TRUE value:
   # # Some diagnostic
   # # messages
+
+  ## Send unittest output to stderr()
+  options(unittest.output = stderr())
+  ok(ut_cmp_equal(4, 5), "4 == 5? Probably not")
+
+  ## Reset unittest output to default (stdout())
+  options(unittest.output = NULL)
+  ok(ut_cmp_equal(4, 5), "4 == 5? Probably not")
 
   \dontshow{
     # Clear unittest result log, so our unittest failues don't fail example-building
