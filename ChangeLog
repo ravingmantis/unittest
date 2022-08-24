@@ -1,3 +1,4 @@
+    * options: Disable git-diff colors where appropriate
     * options: options(unittest.output = ...) to redirect unittest output
     * ut_cmp_*: Support for r-devel-windows-x86_64-new-UL
     * ut_cmp_*: Add deparse_frame option for nicer comparision helpers

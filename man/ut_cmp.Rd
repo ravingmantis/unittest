@@ -35,6 +35,10 @@
   use \code{git diff} to compare the 2 outputs. If you do not have git
   installed, then the 2 outputs will be shown side-by-side.
 
+  When using \code{git diff}, we turn colored output on when outputting to a
+  terminal. You can force this on or off using \code{options("cli.num_colors" = 1)}
+  or the \code{NO_COLOR} environment variable.
+
   The step of turning into text is done with the filter function. There are
   several of these built-in, and it will choose the one that produces the
   simplest output. This may mean that the output will be from the \code{\link{print}}

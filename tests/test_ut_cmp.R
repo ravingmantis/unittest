@@ -177,6 +177,19 @@ ok_group("ut_cmp_identical", (function () {
         NULL), "A helper function can up deparse_frame to improve output")
 })())
 
+ok_group("output_diff", (function () {
+    if (!file.exists(unittest:::git_binary())) {
+        ok(TRUE, "# skip git not available")
+        return()
+    }
+
+    options("cli.num_colors" = 256)
+    ok(any(grepl('\033\\[.*?m', ut_cmp_identical(1L, 2L), perl = TRUE)), "cli.num_colors honoured (escape code in output)")
+
+    options("cli.num_colors" = 1)
+    ok(!all(grepl('\033\\[.*?m', ut_cmp_identical(1L, 2L), perl = TRUE)), "cli.num_colors honoured (no escape code in output)")
+})())
+
 ok_group("ut_cmp_identical:nogit", mock(unittest:::git_binary, function () "/not-here", {
     ok(isTRUE(ut_cmp_identical(4, 4)), "Identical objects return true")
     ok(cmp_lines(ut_cmp_identical(as.integer(4), 4),

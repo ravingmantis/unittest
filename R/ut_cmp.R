@@ -75,7 +75,7 @@ output_diff <- function (a_out, b_out, a_label, b_label) {
         out <- suppressWarnings(system2(Sys.which('git'), c(
             "diff",
             "--no-index",
-            "--color",
+            paste0("--color=", if (output_ansi_color()) "always" else "never"),
             "--word-diff=plain",
             "--minimal",
             "-U100000000",  # Lines of context, assuming output is no longer than this
