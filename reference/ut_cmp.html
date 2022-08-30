@@ -102,7 +102,7 @@
   installed, then the 2 outputs will be shown side-by-side.</p>
 <p>When using <code>git diff</code>, we turn colored output on when outputting to a
   terminal. You can force this on or off using <code>options("cli.num_colors" = 1)</code>
-  or the <code>NO_COLOR</code> environment variable.</p>
+  or the <code>NO_COLOR</code> or <code>R_CLI_NUM_COLORS</code> environment variable.</p>
 <p>The step of turning into text is done with the filter function. There are
   several of these built-in, and it will choose the one that produces the
   simplest output. This may mean that the output will be from the <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></code>
@@ -213,11 +213,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Whilst evaluating:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #  ut_cmp_identical(sortlist(a), sortlist(b), deparse_depth = -2)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Stacktrace:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; saveRDS(do.call(do.call, c(readRDS("/tmp/RtmpPpX3It/callr-fun-d9666dbf0e18"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; saveRDS(do.call(do.call, c(readRDS("/tmp/RtmpYlxml8/callr-fun-d9be306a6970"), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     list(envir = .GlobalEnv, quote = TRUE)), envir = .GlobalEnv, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE), file = "/tmp/RtmpPpX3It/callr-res-d9661bcc183e", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE), file = "/tmp/RtmpYlxml8/callr-res-d9be60148abb", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     compress = FALSE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; do.call(do.call, c(readRDS("/tmp/RtmpPpX3It/callr-fun-d9666dbf0e18"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; do.call(do.call, c(readRDS("/tmp/RtmpYlxml8/callr-fun-d9be306a6970"), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     list(envir = .GlobalEnv, quote = TRUE)), envir = .GlobalEnv, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #     quote = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; (function (what, args, quote = FALSE, envir = parent.frame()) </span>
@@ -644,6 +644,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure("\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  or the ", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure(list(structure("NO_COLOR", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(" or ", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure(list(structure("R_CLI_NUM_COLORS", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(" environment variable.\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("\n", class = c("TEXT", "tag")), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             structure("  The step of turning into text is done with the filter function. There are\n", class = c("TEXT", </span>
@@ -1282,6 +1284,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure("\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("  or the ", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure(list(structure("NO_COLOR", class = c("RCODE", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(" or ", class = c("TEXT", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure(list(structure("R_CLI_NUM_COLORS", class = c("RCODE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag"))), class = c("tag_code", "tag")), structure(" environment variable.\n", class = c("TEXT", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             "tag")), structure("\n", class = c("TEXT", "tag")), </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #             structure("  The step of turning into text is done with the filter function. There are\n", class = c("TEXT", </span>
