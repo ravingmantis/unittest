@@ -37,7 +37,7 @@
 
   When using \code{git diff}, we turn colored output on when outputting to a
   terminal. You can force this on or off using \code{options("cli.num_colors" = 1)}
-  or the \code{NO_COLOR} environment variable.
+  or the \code{NO_COLOR} or \code{R_CLI_NUM_COLORS} environment variable.
 
   The step of turning into text is done with the filter function. There are
   several of these built-in, and it will choose the one that produces the

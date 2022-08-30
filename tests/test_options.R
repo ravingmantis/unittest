@@ -57,5 +57,43 @@ expect_equal({
     "# +++ 9",
     "# [1] [-8-]{+9+}"))
 
+test_output_ansi_color <- function (x) {
+    old_env <- c("NO_COLOR", "R_CLI_NUM_COLORS") ; names(old_env) <- old_env
+    old_env <- lapply(old_env, Sys.getenv)
+    on.exit(do.call(Sys.setenv, old_env))
+
+    old_opts <- c("cli.num_colors") ; names(old_opts) <- old_opts
+    old_opts <- lapply(old_opts, getOption)
+    on.exit(do.call(options, old_opts))
+
+    Sys.unsetenv(c("NO_COLOR", "R_CLI_NUM_COLORS"))
+    options("cli.num_colors" = NULL)
+
+    x
+}
+
+test_output_ansi_color({
+    Sys.setenv(NO_COLOR=1)
+    stopifnot(isFALSE(unittest:::output_ansi_color()))
+})
+
+test_output_ansi_color({
+    Sys.setenv(R_CLI_NUM_COLORS=8)
+    stopifnot(isTRUE(unittest:::output_ansi_color()))
+})
+test_output_ansi_color({
+    Sys.setenv(R_CLI_NUM_COLORS=1)
+    stopifnot(isFALSE(unittest:::output_ansi_color()))
+})
+
+test_output_ansi_color({
+    options("cli.num_colors" = 8)
+    stopifnot(isTRUE(unittest:::output_ansi_color()))
+})
+test_output_ansi_color({
+    options("cli.num_colors" = 1)
+    stopifnot(isFALSE(unittest:::output_ansi_color()))
+})
+
 # Clear results of expected test failures
 if (!interactive()) rm('outcomes', pos = unittest:::pkg_vars)

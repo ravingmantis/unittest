@@ -72,6 +72,17 @@ To run all your tests as part of a bash script, you can do so with:
 for f in tests/*.R; do echo "=== $f"; Rscript --vanilla $f || break; done
 ```
 
+### Forcing test output color
+
+unittest will output colored diff output if it thinks it will be supported.
+By default it assumes that they are not supported in ``R CMD check``.
+If you would like to see a log in color you can do the following:
+
+```{bash}
+R_CLI_NUM_COLORS=256 R CMD check ...
+less -R 00check.log
+```
+
 ## Testing functions not exported by your package
 
 Sometimes it's necessary to test functions that aren't exported by your package.
