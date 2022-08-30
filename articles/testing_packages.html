@@ -142,16 +142,13 @@
 <p>unittest will output colored diff output if it thinks it will be supported. By default it assumes that they are not supported in <code>R CMD check</code>. If you would like to see a log in color you can do the following:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="va">R_CLI_NUM_COLORS=</span>256 <span class="ex">R</span> CMD check ...</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">less</span> -R 00check.log</span></code></pre></div>
-<pre><code><span><span class="co">## Warning: ‘...’ is neither a file nor directory, skipping</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## 00check.log: No such file or directory</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="testing-functions-not-exported-by-your-package">Testing functions not exported by your package<a class="anchor" aria-label="anchor" href="#testing-functions-not-exported-by-your-package"></a>
 </h2>
 <p>Sometimes it’s necessary to test functions that aren’t exported by your package. Because they aren’t exported they cannot be directly referenced in tests. To get around this, use <code><a href="https://rdrr.io/r/base/eval.html" class="external-link">local()</a></code> as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">var</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">local</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -168,23 +165,23 @@
 <h2 id="embedding-tests-in-vignettes">Embedding tests in vignettes<a class="anchor" aria-label="anchor" href="#embedding-tests-in-vignettes"></a>
 </h2>
 <p>At the start of your vignette, load unittest but customise <code><a href="../reference/ok.html">ok()</a></code> so it’s output goes to stderr:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="bn">```{r, message=FALSE, echo=FALSE}</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="bn">library(unittest)</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="bn"># Redirect ok() output to stderr</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="bn">options(unittest.output = stderr())</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="bn">library(mypackage)</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="bn">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="bn">```{r, message=FALSE, echo=FALSE}</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="bn">library(unittest)</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="bn"># Redirect ok() output to stderr</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="bn">options(unittest.output = stderr())</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="bn">library(mypackage)</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="bn">```</span></span></code></pre></div>
 <p>Then, include hidden blocks for your tests, for example:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a>Our biggest function will return the highest number:</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="bn">```{r}</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="bn">out &lt;- biggest(3,4)</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="bn">out</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="bn">```</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a></span>
-<span id="cb9-8"><a href="#cb9-8"></a><span class="bn">```{r, message=FALSE, echo=FALSE}</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="bn">ok(ut_cmp_equal(out, 4), "biggest(3,4) is 4")</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="bn">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a>Our biggest function will return the highest number:</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="bn">```{r}</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="bn">out &lt;- biggest(3,4)</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="bn">out</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="bn">```</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="bn">```{r, message=FALSE, echo=FALSE}</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="bn">ok(ut_cmp_equal(out, 4), "biggest(3,4) is 4")</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="bn">```</span></span></code></pre></div>
 <p>Here, the reader sees the first block, and the output of <code>biggest()</code>, and the hidden block ensures the output is as we expect.</p>
 <p>To run the tests, build the vignettes with, e.g. <code>tools::buildVignettes(dir=".")</code>. Test output will be shown as part of the rebuild process.</p>
 </div>
