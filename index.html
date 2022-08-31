@@ -118,30 +118,9 @@
 <div class="section level1">
 <h1 id="installing-the-latest-development-version-directly-from-github">Installing the latest development version directly from GitHub<a class="anchor" aria-label="anchor" href="#installing-the-latest-development-version-directly-from-github"></a>
 </h1>
-<div class="section level2">
-<h2 id="linux">Linux<a class="anchor" aria-label="anchor" href="#linux"></a>
-</h2>
-<p>In an R session type:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>pkg_file &lt;-<span class="st"> </span><span class="kw">tempfile</span>()</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">download.file</span>(<span class="dt">url =</span> <span class="st">'https://github.com/ravingmantis/unittest/archive/master.tar.gz'</span>, <span class="dt">mode =</span> <span class="st">'wb'</span>, <span class="dt">method =</span> <span class="st">'wget'</span>, <span class="dt">destfile =</span> pkg_file)</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">install.packages</span>(pkg_file, <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> <span class="st">'source'</span>)</span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="mac-osx--windows">Mac OSX / Windows<a class="anchor" aria-label="anchor" href="#mac-osx--windows"></a>
-</h2>
-<p><code>download.file</code> may not support fetching <code>https</code> URLs. Alternatively, you can use the the CRAN package <a href="https://CRAN.R-project.org/package=downloader" class="external-link">downloader</a> to fetch the archive instead:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># install.packages("downloader")</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>pkg_file &lt;-<span class="st"> </span><span class="kw">tempfile</span>()</span>
-<span id="cb6-3"><a href="#cb6-3"></a>downloader<span class="op">::</span><span class="kw">download</span>(<span class="dt">url =</span> <span class="st">'https://github.com/ravingmantis/unittest/archive/master.tar.gz'</span>, <span class="dt">mode =</span> <span class="st">'wb'</span>, <span class="dt">destfile =</span> pkg_file)</span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">install.packages</span>(pkg_file, <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> <span class="st">'source'</span>)</span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="alternatively-use-the-devtools-cran-package">Alternatively use the <code>devtools</code> CRAN package<a class="anchor" aria-label="anchor" href="#alternatively-use-the-devtools-cran-package"></a>
-</h2>
-<p>If you have the CRAN package <a href="https://CRAN.R-project.org/package=devtools" class="external-link">devtools</a> you can use this to install directly from github:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># install.packages("devtools")</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"ravingmantis/unittest"</span>)</span></code></pre></div>
-</div>
+<p>To install the latest development version, use <a href="https://CRAN.R-project.org/package=remotes" class="external-link">remotes</a>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"ravingmantis/unittest"</span>)</span></code></pre></div>
 </div>
 
   </div>
