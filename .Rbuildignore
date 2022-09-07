@@ -1,6 +1,7 @@
 ^\.git
 ^Makefile
 ^[^/]+\.tar\.gz
+^cran-comments$
 ^docs$
 ^\.bash_history\.*
 ^.zenodo.json$
