@@ -1,5 +1,38 @@
 # https://cran.r-project.org/submit.html
 
+==== 1.5-1
+
+* Update NEWS format to NEWS.md
+
+As well as changes from the un-uploaded 1.5-0:
+
+* Fixes to support r-devel-windows-x86_64-new-UL
+* Disable git-diff colors where appropriate
+* options(unittest.output = ...) to redirect unittest output
+* Show more digits in diff output when required
+
+Tested on R-release Win/MacOS/Ubuntu and R-devel Ubuntu.
+CI test reports can be found here:
+
+  https://github.com/ravingmantis/unittest/actions/runs/3008432199
+  https://win-builder.r-project.org/C6kAzMcQPB3O/
+
+The source to build the package can be found here, along with the README:
+
+  https://github.com/ravingmantis/unittest/tree/v1.5-1
+
+Full history can be found in the ChangeLog:
+
+  https://github.com/ravingmantis/unittest/blob/v1.5-1/ChangeLog
+
+Differences since the previous submission:
+
+  https://github.com/ravingmantis/unittest/compare/v1.4-0...v1.5-1
+
+Built documentation can be found here:
+
+  https://ravingmantis.github.io/unittest/
+
 ==== 1.5-0
 
 * Fixes to support r-devel-windows-x86_64-new-UL
