@@ -39,7 +39,7 @@ serve-vignettes: vignettes
 	 Rscript -e 'servr::vign(host = "0.0.0.0", port = 8123)'
 
 release: release-description release-changelog release-news
-	git commit -m "Release version $(NEW_VERSION)" DESCRIPTION ChangeLog NEWS
+	git commit -m "Release version $(NEW_VERSION)" DESCRIPTION ChangeLog NEWS.md
 	git tag -am "Release version $(NEW_VERSION)" v$(NEW_VERSION)
 	#
 	R CMD build .
@@ -63,11 +63,11 @@ release-changelog:
 	rm ChangeLog.o
 
 release-news:
-	#
-	mv NEWS NEWS.o
-	[ "$$(head -c 7 NEWS.o)" = "CHANGES" ] || /bin/echo -e "CHANGES IN VERSION $(NEW_VERSION):\n" > NEWS
-	cat NEWS.o >> NEWS
-	rm NEWS.o
+	[ -n "$(NEW_VERSION)" ]  # NEW_VERSION variable should be set
+	mv NEWS.md NEWS.md.o
+	head -1 NEWS.md.o | grep -E '^\# $(PACKAGE) ' || /bin/echo -e "# $(PACKAGE) $(NEW_VERSION):\n" > NEWS.md
+	cat NEWS.md.o >> NEWS.md
+	rm NEWS.md.o
 
 # Release steps
 #  make release NEW_VERSION=1.3-0
