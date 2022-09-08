@@ -12,7 +12,7 @@ This is a concise, [TAP](http://testanything.org/)-compliant, R package for writ
 
 The workhorse of the `unittest` package is the `ok` function which prints "ok" when the expression provided evaluates to `TRUE` and "not ok" if the expression evaluates to anything else or results in an error.
 
-If you are writing a package see the ["Adding Tests to Packages" vignette](https://ravingmantis.github.io/unittest/articles/testing_packages.html).
+If you are writing a package see the ["Adding Tests to Packages" vignette](https://cran.r-project.org/web/packages/unittest/vignettes/testing_packages.html).
 
 The package was inspired by Perl's [Test::Simple](https://metacpan.org/pod/Test::Simple).
 
