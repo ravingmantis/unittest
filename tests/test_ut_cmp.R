@@ -157,10 +157,13 @@ ok_group("ut_cmp_identical", (function () {
         ' [-int-]{+num+} 4',
         NULL), "Equivalent objects do not, unlike ut_cmp_equal(). We also fall back to using str(), as print() will produce identical output")
 
-    ok(cmp_lines(ut_cmp_identical(1, 1 + 1e-10),
+    # NB: On r-oldrel-windows-ix86+x86_64 this produces 1.0000000001,
+    #     not 1.000000000100000008274, regardless expecting this much
+    #     numerical consistency is a bit enthusiastic.
+    ok(cmp_lines(gsub("1.0000000001[0-9]+", "1.0000000001", ut_cmp_identical(1, 1 + 1e-10)),
         '--- 1',
         '+++ 1 + 1e-10',
-        ' num [-1-]{+1.000000000100000008274+}',
+        ' num [-1-]{+1.0000000001+}',
         NULL), "Increase str() digits to 22 show a difference")
 
     ok(cmp_lines(ut_cmp_identical(1 + 1e-10, 1 + 1e-7),
