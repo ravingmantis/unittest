@@ -1,3 +1,7 @@
+2022-09-25 Jamie Lentin  <jm@lentin.co.uk>
+
+    Version 1.5-2
+
     * ut_cmp_*: Fix test failure on r-oldrel-windows-ix86+x86_64
 
 2022-09-07 Jamie Lentin  <jm@lentin.co.uk>
