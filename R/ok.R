@@ -1,3 +1,12 @@
+lineref <- function () {
+    # This only works in source(), not Rscript
+    # Workaroundable with: Rscript --vanilla -e 'source("tests/test-x.R", keep.source = T)'
+    # Turning keep.source within the script on appears to help, but then you just get a line number in the ok_group()
+    x <- sys.call(-1)
+    if (length(getSrcFilename(x)) == 0) return("")
+    paste0(" at ", getSrcFilename(x), ":", getSrcLocation(x))
+}
+
 ok <- function(
     test,
     description
@@ -26,11 +35,12 @@ ok <- function(
         )
     }
     else if(inherits(result,'error')) {
+        lr <- lineref()  # NB: Keep it outside paste() to avoid stacktrace size varying
         outcome <- data.frame(
             status = FALSE,
             output = paste(
                 paste('not ok -', description, collapse = " "),
-                "# Test resulted in error:",
+                paste0("# Test", lr, " resulted in error:"),
                 paste("# ", result$message, collapse = "\n"),
                 "# Whilst evaluating:",
                 paste("# ", deparse(result$call), collapse = "\n"),
@@ -42,11 +52,12 @@ ok <- function(
         )
     }
     else if(is.character(result)) {
+        lr <- lineref()  # NB: Keep it outside paste() to avoid stacktrace size varying
         outcome <- data.frame(
             status = FALSE,
             output = paste(
                 paste('not ok -', description, collapse = " "),
-                "# Test returned non-TRUE value:",
+                paste0("# Test", lr, " returned non-TRUE value:"),
                 paste("#", unlist(strsplit_with_emptystr(result, split = "\n")), collapse = "\n"),
                 sep = "\n", collapse = "\n"
             ),
@@ -54,11 +65,12 @@ ok <- function(
         )
     }
     else {
+        lr <- lineref()  # NB: Keep it outside paste() to avoid stacktrace size varying
         outcome <- data.frame(
             status = FALSE,
             output = paste(
                 paste('not ok -', description, collapse = " "),
-                "# Test returned non-TRUE value:",
+                paste0("# Test", lr, "returned non-TRUE value:"),
                 paste("#", capture.output( print(result) ), collapse = "\n"),
                 sep = "\n", collapse = "\n"
             ),
