@@ -32,7 +32,7 @@ check-as-cran: build
 
 wincheck: build
 	# See https://win-builder.r-project.org/ for more information
-	curl --no-epsv -# -T "$(TARBALL)" ftp://win-builder.r-project.org/R-devel/
+	curl -# -T "$(TARBALL)" ftp://win-builder.r-project.org/R-devel/
 
 serve-vignettes: vignettes
 	 # NB: Requires servr to be installed
