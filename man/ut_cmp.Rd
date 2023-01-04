@@ -65,49 +65,25 @@
 
   ## Get it right, and test passes:
   ok(ut_cmp_equal(fn(3), c(1,2,3)))
-  # ok - ut_cmp_equal(fn(3), c(1, 2, 3))
 
   ## Get it wrong, and we get told where in the output things are different:
   ok(ut_cmp_equal(fn(3), c(1,4,3)))
-  # not ok - ut_cmp_equal(fn(3), c(1, 4, 3))
-  # # Test returned non-TRUE value:
-  # # Mean relative difference: 1
-  # # --- fn(3)
-  # # +++ c(1, 4, 3)
-  # # [1] 1 [-2-]{+4+} 3
 
   ## Using a custom filter, we can format the output with write.table:
   ok(ut_cmp_equal(fn(3), c(1,4,3), filter = write.table))
-  # not ok - ut_cmp_equal(fn(3), c(1, 4, 3), filter = write.table)
-  # # Test returned non-TRUE value:
-  # # Mean relative difference: 1
-  # # --- fn(3)
-  # # +++ c(1, 4, 3)
-  # # "x"
-  # # "1" 1
-  # # "2" [-2-]{+4+}
-  # # "3" 3
 
   ## With ut_cmp_equal, an integer 1 is the same as a numeric 1
   ok(ut_cmp_equal(as.numeric(1), as.integer(1)))
-  # ok - ut_cmp_equal(as.numeric(1), as.integer(1))
 
   ## With ut_cmp_identical, they're not
   ok(ut_cmp_identical(as.numeric(1), as.integer(1)))
-  # not ok - ut_cmp_identical(as.numeric(1), as.integer(1))
-  # # Test returned non-TRUE value:
-  # # --- as.numeric(1)
-  # # +++ as.integer(1)
-  # #  [-num-]{+int+} 1
 
   ## all.equal() takes a tolerance parameter, for example:
   all.equal(0.01, 0.02, tolerance = 0.1)
-  # [1] TRUE
 
   ## ...we can also give this to to ut_cmp_equal if we want a very
   ## approximate comparison
   ok(ut_cmp_equal(0.01, 0.02, tolerance = 0.1))
-  # ok - ut_cmp_equal(0.01, 0.02, tolerance = 0.1)
 
   ## We can make a comparison function of our own, and use
   ## deparse_frame to show the right expression in diff output
@@ -116,15 +92,6 @@
       ut_cmp_identical(sortlist(a), sortlist(b), deparse_frame = -2)
   }
   ok(cmp_noorder(list(a=1, b=2), list(b=2, a=3)))
-  # not ok - cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3))
-  # # Test returned non-TRUE value:
-  # # --- list(a = 1, b = 2)
-  # # +++ list(b = 2, a = 3)
-  # # $a
-  # # [1] [-1-]{+3+}
-  # #
-  # # $b
-  # # [1] 2
 
   \dontshow{
     # Clear unittest result log, so our unittest failues don't fail example-building

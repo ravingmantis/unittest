@@ -33,26 +33,17 @@
       ok(1 + 1 == 2, "Can add 1")
       ok(1 + 3 == 4, "Can add 3")
   })
+
   ok_group("Test subtraction", {
       ok(1 - 1 == 0, "Can subtract 1")
       ok(1 - 3 == -2, "Can subtract 3")
   })
-  # # Test addition
-  # ok - Can add 1
-  # ok - Can add 3
-  # # Test subtraction
-  # ok - Can subtract 1
-  # ok - Can subtract 3
 
-  # Multiline group message 
+  # Multiline group message
   ok_group(c("Test multiplication", "but not division"),{
       ok(1 * 1 == 1, "Can multiply by 1")
       ok(2 * 3 == 6, "Can multiply by 3")
   })
-  # # Test multiplication
-  # # but not division
-  # ok - Can multiply by 1
-  # ok - Can multiply by 3
 
   \dontshow{
     # Clear unittest result log, so our unittest failues don't fail example-building
