@@ -110,10 +110,10 @@
   # ok - ut_cmp_equal(0.01, 0.02, tolerance = 0.1)
 
   ## We can make a comparison function of our own, and use
-  ## deparse_depth to show the right expression in diff output
+  ## deparse_frame to show the right expression in diff output
   cmp_noorder <- function (a, b) {
       sortlist <- function (x) if (length(x) > 0) x[order(names(x))] else x
-      ut_cmp_identical(sortlist(a), sortlist(b), deparse_depth = -2)
+      ut_cmp_identical(sortlist(a), sortlist(b), deparse_frame = -2)
   }
   ok(cmp_noorder(list(a=1, b=2), list(b=2, a=3)))
   # not ok - cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3))
