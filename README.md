@@ -35,25 +35,9 @@ There are several ``ut_cmp_*`` helpers designed to work with `ok`:
 * ``ok(ut_cmp_identical( biggest("c", "d") ), "two strings")``: Uses [identical](https://stat.ethz.ch/R-manual/R-devel/library/base/html/identical.html) to make sure outputs are identical.
 * ``ok(ut_cmp_error(biggest(3), '"y".*missing'), "single argument is an error")``: Make sure the code produces an error matching the regular expression.
 
-In all cases you get detailed output on what the difference is, for example ``ok(ut_cmp_identical(list(1,3,3,4), list(1,2,3,4)))``:
+In all cases you get detailed, colourised output on what the difference is, for example:
 
-```diff
-not ok - ut_cmp_identical(list(1, 3, 3, 4), list(1, 2, 3, 4))
-# Test returned non-TRUE value:
-# --- list(1, 3, 3, 4)
-# +++ list(1, 2, 3, 4)
-# [[1]]
-# [1] 1
-#
-# [[2]]
-# [1] [-3-]{+2+}
-#
-# [[3]]
-# [1] 3
-#
-# [[4]]
-# [1] 4
-```
+![Output of `ok(ut_cmp_identical(list(1,3,3,4), list(1,2,3,4)))`](man/figures/ut_cmp_identical_example.svg)
 
 The package was inspired by Perl's [Test::Simple](https://metacpan.org/pod/Test::Simple).
 
