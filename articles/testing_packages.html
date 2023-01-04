@@ -81,7 +81,7 @@
 
       
 
-      </header><script src="testing_packages_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Adding Tests to Packages</h1>
@@ -94,22 +94,30 @@
 
     
     
-<p>Whilst you can use unittest with scripts and ad-hoc code, the main use-case is for adding tests to packages.</p>
-<p>For the following example we’ll assume you’re developing a package called <code>mypackage</code>.</p>
+<p>Whilst you can use unittest with scripts and ad-hoc code, the main
+use-case is for adding tests to packages.</p>
+<p>For the following example we’ll assume you’re developing a package
+called <code>mypackage</code>.</p>
 <div class="section level2">
 <h2 id="adding-unittest-to-your-package">Adding unittest to your package<a class="anchor" aria-label="anchor" href="#adding-unittest-to-your-package"></a>
 </h2>
-<p>Add the following line to the package <code>DESCRIPTION</code> file, to declare that your package optionally depends on <code>unittest</code>:</p>
+<p>Add the following line to the package <code>DESCRIPTION</code> file,
+to declare that your package optionally depends on
+<code>unittest</code>:</p>
 <pre><code><span><span class="va">Suggests</span><span class="op">:</span> <span class="va">unittest</span></span></code></pre>
-<p>Create a directory called <code>tests</code> in your package source, alongside your <code>R</code> directory.</p>
+<p>Create a directory called <code>tests</code> in your package source,
+alongside your <code>R</code> directory.</p>
 </div>
 <div class="section level2">
 <h2 id="testing-functions-exported-by-your-package">Testing functions exported by your package<a class="anchor" aria-label="anchor" href="#testing-functions-exported-by-your-package"></a>
 </h2>
-<p>Let’s say we want to test the following package function, in <code>R/biggest.R</code>:</p>
+<p>Let’s say we want to test the following package function, in
+<code>R/biggest.R</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biggest</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<p>Create a corresponding <code>tests/test_biggest.R</code> in your package source (the file name isn’t important, but it helps to be consistent):</p>
+<p>Create a corresponding <code>tests/test_biggest.R</code> in your
+package source (the file name isn’t important, but it helps to be
+consistent):</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#!/usr/bin/Rscript --vanilla</span></span>
 <span></span>
@@ -119,8 +127,11 @@
 <span></span>
 <span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span> <span class="fu">biggest</span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"two numbers"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span> <span class="fu">biggest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">3</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"two vectors"</span><span class="op">)</span></span></code></pre></div>
-<p>The <code>if (!interactive()) ...</code> line makes sure that, when run as a script, any warnings are errors, so they don’t go unnoticed. We also enable a traceback so you can see where any errors occured.</p>
-<p>Finally, we use <code>ok</code> to test the output of the function works as we expect.</p>
+<p>The <code>if (!interactive()) ...</code> line makes sure that, when
+run as a script, any warnings are errors, so they don’t go unnoticed. We
+also enable a traceback so you can see where any errors occured.</p>
+<p>Finally, we use <code>ok</code> to test the output of the function
+works as we expect.</p>
 </div>
 <div class="section level2">
 <h2 id="running-your-tests">Running your tests<a class="anchor" aria-label="anchor" href="#running-your-tests"></a>
@@ -128,29 +139,46 @@
 <p>There are many ways you can then run your tests:</p>
 <ul>
 <li>
-<code>R CMD check</code> will run everything it finds in the <code>tests</code> directory, and will fail if any of the tests fail.</li>
+<code>R CMD check</code> will run everything it finds in the
+<code>tests</code> directory, and will fail if any of the tests
+fail.</li>
 <li>
-<code>source('tests/test_biggest.R')</code> within R will run individual tests in your current R session.</li>
+<code>source('tests/test_biggest.R')</code> within R will run
+individual tests in your current R session.</li>
 <li>
-<code>Rscript --vanilla tests/test_biggest.R</code> will run the test outside of R.</li>
+<code>Rscript --vanilla tests/test_biggest.R</code> will run the
+test outside of R.</li>
 <li>
-<code>tests/test_biggest.R</code> will also run the test outside of R, if the file is marked as executable (i.e. <code>chmod a+x tests/test_biggest.R</code>).</li>
+<code>tests/test_biggest.R</code> will also run the test outside of
+R, if the file is marked as executable
+(i.e. <code>chmod a+x tests/test_biggest.R</code>).</li>
 </ul>
-<p><code>unittest</code> detects when it’s been run as a script and if so will produce a summary of a results. The package will also throw an error if any tests fail; throwing an error will in turn cause <code>CMD check</code> to report the error and fail the <code>check</code>.</p>
-<p>To run all your tests as part of a bash script, you can do so with:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">for</span> <span class="ex">f</span> in tests/*.R<span class="kw">;</span> <span class="kw">do</span> <span class="bu">echo</span> <span class="st">"=== </span><span class="va">$f</span><span class="st">"</span><span class="kw">;</span> <span class="ex">Rscript</span> --vanilla <span class="va">$f</span> <span class="kw">||</span> <span class="bu">break</span><span class="kw">;</span> <span class="kw">done</span></span></code></pre></div>
+<p><code>unittest</code> detects when it’s been run as a script and if
+so will produce a summary of a results. The package will also throw an
+error if any tests fail; throwing an error will in turn cause
+<code>CMD check</code> to report the error and fail the
+<code>check</code>.</p>
+<p>To run all your tests as part of a bash script, you can do so
+with:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> tests/<span class="pp">*</span>.R<span class="kw">;</span> <span class="cf">do</span> <span class="bu">echo</span> <span class="st">"=== </span><span class="va">$f</span><span class="st">"</span><span class="kw">;</span> <span class="ex">Rscript</span> <span class="at">--vanilla</span> <span class="va">$f</span> <span class="kw">||</span> <span class="cf">break</span><span class="kw">;</span> <span class="cf">done</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="forcing-test-output-color">Forcing test output color<a class="anchor" aria-label="anchor" href="#forcing-test-output-color"></a>
 </h3>
-<p>unittest will output colored diff output if it thinks it will be supported. By default it assumes that they are not supported in <code>R CMD check</code>. If you would like to see a log in color you can do the following:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="va">R_CLI_NUM_COLORS=</span>256 <span class="ex">R</span> CMD check ...</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">less</span> -R 00check.log</span></code></pre></div>
+<p>unittest will output colored diff output if it thinks it will be
+supported. By default it assumes that they are not supported in
+<code>R CMD check</code>. If you would like to see a log in color you
+can do the following:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">R_CLI_NUM_COLORS</span><span class="op">=</span>256 <span class="ex">R</span> CMD check ...</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-R</span> 00check.log</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="testing-functions-not-exported-by-your-package">Testing functions not exported by your package<a class="anchor" aria-label="anchor" href="#testing-functions-not-exported-by-your-package"></a>
 </h2>
-<p>Sometimes it’s necessary to test functions that aren’t exported by your package. Because they aren’t exported they cannot be directly referenced in tests. To get around this, use <code><a href="https://rdrr.io/r/base/eval.html" class="external-link">local()</a></code> as follows:</p>
+<p>Sometimes it’s necessary to test functions that aren’t exported by
+your package. Because they aren’t exported they cannot be directly
+referenced in tests. To get around this, use <code><a href="https://rdrr.io/r/base/eval.html" class="external-link">local()</a></code> as
+follows:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">var</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span></span>
@@ -167,26 +195,31 @@
 <div class="section level2">
 <h2 id="embedding-tests-in-vignettes">Embedding tests in vignettes<a class="anchor" aria-label="anchor" href="#embedding-tests-in-vignettes"></a>
 </h2>
-<p>At the start of your vignette, load unittest but customise <code><a href="../reference/ok.html">ok()</a></code> so it’s output goes to stderr:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="bn">```{r, message=FALSE, echo=FALSE}</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="bn">library(unittest)</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="bn"># Redirect ok() output to stderr</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="bn">options(unittest.output = stderr())</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="bn">library(mypackage)</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="bn">```</span></span></code></pre></div>
+<p>At the start of your vignette, load unittest but customise
+<code><a href="../reference/ok.html">ok()</a></code> so it’s output goes to stderr:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE, echo=FALSE}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="in">library(unittest)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in"># Redirect ok() output to stderr</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">options(unittest.output = stderr())</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">library(mypackage)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>Then, include hidden blocks for your tests, for example:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a>Our biggest function will return the highest number:</span>
-<span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="bn">```{r}</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="bn">out &lt;- biggest(3,4)</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="bn">out</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="bn">```</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="bn">```{r, message=FALSE, echo=FALSE}</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="bn">ok(ut_cmp_equal(out, 4), "biggest(3,4) is 4")</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="bn">```</span></span></code></pre></div>
-<p>Here, the reader sees the first block, and the output of <code>biggest()</code>, and the hidden block ensures the output is as we expect.</p>
-<p>To run the tests, build the vignettes with, e.g. <code>tools::buildVignettes(dir=".")</code>. Test output will be shown as part of the rebuild process.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="an">Our biggest function will return the highest number:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="in">out &lt;- biggest(3,4)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="in">out</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, message=FALSE, echo=FALSE}</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="in">ok(ut_cmp_equal(out, 4), "biggest(3,4) is 4")</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p>Here, the reader sees the first block, and the output of
+<code>biggest()</code>, and the hidden block ensures the output is as we
+expect.</p>
+<p>To run the tests, build the vignettes with,
+e.g. <code>tools::buildVignettes(dir=".")</code>. Test output will be
+shown as part of the rebuild process.</p>
 </div>
   </div>
 
@@ -207,7 +240,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

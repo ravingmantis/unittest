@@ -87,43 +87,57 @@
 
 
 <div class="section level1">
-<div class="page-header"><h1 id="unittest">unittest<a class="anchor" aria-label="anchor" href="#unittest"></a>
+<div class="page-header"><h1 id="unittest-concise-tap-compliant-r-package-for-writing-unit-tests">unittest: Concise, <a href="http://testanything.org/" class="external-link">TAP</a>-compliant, R package for writing unit tests<a class="anchor" aria-label="anchor" href="#unittest-concise-tap-compliant-r-package-for-writing-unit-tests"></a>
 </h1></div>
-<p>This is a concise, <a href="http://testanything.org/" class="external-link">TAP</a>-compliant, R package for writing unit tests. Authored tests can be run with <code>R CMD check</code> with minimal implementation overhead.</p>
-<p>The workhorse of the <code>unittest</code> package is the <code>ok</code> function which prints “ok” when the expression provided evaluates to <code>TRUE</code> and “not ok” if the expression evaluates to anything else or results in an error.</p>
-<p>If you are writing a package see the <a href="https://cran.r-project.org/package=unittest/vignettes/testing_packages.html" class="external-link">“Adding Tests to Packages” vignette</a>.</p>
+<p>Given a simple function you’d like to test in the file <code>myfunction.R</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>biggest <span class="ot">&lt;-</span> <span class="cf">function</span>(x,y) { <span class="fu">max</span>(<span class="fu">c</span>(x,y)) }</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   </span></code></pre></div>
+<p>A test script for this function <code>test_myfunction.R</code> would be:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(unittest)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'myfunction.R'</span>)  <span class="co"># Or library(mypackage) if part of a package</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ok</span>(<span class="fu">biggest</span>(<span class="dv">3</span>,<span class="dv">4</span>) <span class="sc">==</span> <span class="dv">4</span>, <span class="st">"two numbers"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ok</span>(<span class="fu">biggest</span>(<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">3</span>),<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)) <span class="sc">==</span> <span class="dv">5</span>, <span class="st">"two vectors"</span>)</span></code></pre></div>
+<p>You can then run this test in several ways:</p>
+<ul>
+<li>
+<code>source('test_myfunction.R')</code> from R</li>
+<li>
+<code>Rscript --vanilla test_myfunction.R</code> from the command prompt</li>
+<li>
+<code>R CMD check</code>, if <code>test_myfunction.R</code> is inside the <code>tests</code> directory of <code>mypackage</code> being tested. <code>unittest</code> doesn’t require any further setup in your package.</li>
+</ul>
+<p>If writing tests as part of a package, see the <a href="https://cran.r-project.org/package=unittest/vignettes/testing_packages.html" class="external-link">“Adding Tests to Packages” vignette</a> for more information.</p>
+<p>The workhorse of the <code>unittest</code> package is the <code>ok</code> function which prints “ok” when the expression provided evaluates to <code>TRUE</code> and “not ok” if the expression evaluates to anything else or results in an error. There are several <code>ut_cmp_*</code> helpers designed to work with <code>ok</code>:</p>
+<ul>
+<li>
+<code>ok(ut_cmp_equal( biggest(1/3, 2/6), 2/6), "two floating point numbers")</code>: Uses <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/all.equal.html" class="external-link">all.equal</a> to compare within a tolerance.</li>
+<li>
+<code>ok(ut_cmp_identical( biggest("c", "d") ), "two strings")</code>: Uses <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/identical.html" class="external-link">identical</a> to make sure outputs are identical.</li>
+<li>
+<code>ok(ut_cmp_error(biggest(3), '"y".*missing'), "single argument is an error")</code>: Make sure the code produces an error matching the regular expression.</li>
+</ul>
+<p>In all cases you get detailed, colourised output on what the difference is, for example:</p>
+<div class="figure">
+<img src="reference/figures/ut_cmp_identical_example.svg" alt=""><p class="caption">Output of <code>ok(ut_cmp_identical(list(1,3,3,4), list(1,2,3,4)))</code></p>
+</div>
 <p>The package was inspired by Perl’s <a href="https://metacpan.org/pod/Test::Simple" class="external-link">Test::Simple</a>.</p>
 <p>If you want more features there are other unit testing packages out there; see <a href="https://CRAN.R-project.org/package=testthat" class="external-link">testthat</a>, <a href="https://CRAN.R-project.org/package=RUnit" class="external-link">RUnit</a>, <a href="https://CRAN.R-project.org/package=svUnit" class="external-link">svUnit</a>.</p>
 <div class="section level2">
-<h2 id="a-very-simple-example-of-usage">A very simple example of usage<a class="anchor" aria-label="anchor" href="#a-very-simple-example-of-usage"></a>
+<h2 id="installing-from-cran">Installing from CRAN<a class="anchor" aria-label="anchor" href="#installing-from-cran"></a>
 </h2>
-<p>You have a simple function in the file <code>myfunction.R</code> that looks something like this</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>biggest &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) { <span class="kw">max</span>(<span class="kw">c</span>(x,y)) }</span>
-<span id="cb1-2"><a href="#cb1-2"></a>   </span></code></pre></div>
-<p>To test this create a file called <code>test_myfunction.R</code> in the same directory containing</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(unittest, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">source</span>(<span class="st">'myfunction.R'</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">ok</span>(<span class="kw">biggest</span>(<span class="dv">3</span>,<span class="dv">4</span>) <span class="op">==</span><span class="st"> </span><span class="dv">4</span>, <span class="st">"two numbers"</span>)    </span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">ok</span>(<span class="kw">biggest</span>(<span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)) <span class="op">==</span><span class="st"> </span><span class="dv">5</span>, <span class="st">"two vectors"</span>)    </span></code></pre></div>
-<p>Now in an <code>R</code> session <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> the test file</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">source</span>(<span class="st">'test_myfunction.R'</span>)</span></code></pre></div>
-<p>and you will see the test results. That’s it. Now each time you edit <code>myfunction.R</code> re-sourcing <code>test_myfunction.R</code> reloads your function and runs your unit tests.</p>
-</div>
-</div>
-<div class="section level1">
-<h1 id="installing-from-cran">Installing from CRAN<a class="anchor" aria-label="anchor" href="#installing-from-cran"></a>
-</h1>
 <p>In an R session type</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">install.packages</span>(<span class="st">'unittest'</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'unittest'</span>)</span></code></pre></div>
+<p>Or add <code>Suggests: unittest</code> to your package’s <code>DESCRIPTION</code> file.</p>
 </div>
-<div class="section level1">
-<h1 id="installing-the-latest-development-version-directly-from-github">Installing the latest development version directly from GitHub<a class="anchor" aria-label="anchor" href="#installing-the-latest-development-version-directly-from-github"></a>
-</h1>
+<div class="section level2">
+<h2 id="installing-the-latest-development-version-directly-from-github">Installing the latest development version directly from GitHub<a class="anchor" aria-label="anchor" href="#installing-the-latest-development-version-directly-from-github"></a>
+</h2>
 <p>To install the latest development version, use <a href="https://CRAN.R-project.org/package=remotes" class="external-link">remotes</a>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># install.packages("remotes")</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"ravingmantis/unittest"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"ravingmantis/unittest"</span>)</span></code></pre></div>
+</div>
 </div>
 
   </div>
@@ -184,7 +198,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

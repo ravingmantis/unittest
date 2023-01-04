@@ -81,7 +81,7 @@
 
       
 
-      </header><script src="getting_started_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting Started</h1>
@@ -97,10 +97,12 @@
 <div class="section level2">
 <h2 id="a-very-simple-example">A very simple example<a class="anchor" aria-label="anchor" href="#a-very-simple-example"></a>
 </h2>
-<p>Suppose you have a file <code>biggest.R</code> with the following function:</p>
+<p>Suppose you have a file <code>biggest.R</code> with the following
+function:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biggest</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
-<p>To test this create a file called <code>test_biggest.R</code> in the same directory containing:</p>
+<p>To test this create a file called <code>test_biggest.R</code> in the
+same directory containing:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">unittest</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -108,19 +110,23 @@
 <span></span>
 <span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu">biggest</span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span> <span class="op">==</span> <span class="fl">4</span>, <span class="st">"two numbers"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu">biggest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">3</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">5</span>, <span class="st">"two vectors"</span><span class="op">)</span></span></code></pre></div>
-<p>Now in an <code>R</code> session <code>source</code> the test file:</p>
+<p>Now in an <code>R</code> session <code>source</code> the test
+file:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">'test_biggest.R'</span><span class="op">)</span></span></code></pre></div>
 <p>and you will see output like this</p>
 <pre><code>ok - two numbers
 ok - two vectors</code></pre>
 <p>and that’s it.</p>
-<p>Now each time you edit <code>biggest.R</code> re-sourcing <code>test_biggest.R</code> reloads your function and runs your unit tests.</p>
+<p>Now each time you edit <code>biggest.R</code> re-sourcing
+<code>test_biggest.R</code> reloads your function and runs your unit
+tests.</p>
 </div>
 <div class="section level2">
 <h2 id="comparing-results">Comparing results<a class="anchor" aria-label="anchor" href="#comparing-results"></a>
 </h2>
-<p>Suppose our <code>biggest</code> function was broken, for example:</p>
+<p>Suppose our <code>biggest</code> function was broken, for
+example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biggest</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="op">{</span> <span class="fl">4</span> <span class="op">}</span></span></code></pre></div>
 <p>Our tests from earlier would return:</p>
@@ -128,8 +134,10 @@ ok - two vectors</code></pre>
 not ok - two vectors
 # Test returned non-TRUE value:
 # [1] FALSE</code></pre>
-<p>It would be more useful if we saw what <code>biggest()</code> actually returned, to help work out the problem.</p>
-<p>To help with this we can use <code>ut_cmp_equal</code>. If we rewrite our test to:</p>
+<p>It would be more useful if we saw what <code>biggest()</code>
+actually returned, to help work out the problem.</p>
+<p>To help with this we can use <code>ut_cmp_equal</code>. If we rewrite
+our test to:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">unittest</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -137,7 +145,8 @@ not ok - two vectors
 <span></span>
 <span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="fu">biggest</span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"two numbers"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="fu">biggest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">3</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"two vectors"</span><span class="op">)</span></span></code></pre></div>
-<p>Now the test output shows what we did get (in red) and what we expected (in green):</p>
+<p>Now the test output shows what we did get (in red) and what we
+expected (in green):</p>
 <pre>
 ok - two numbers
 not ok - two vectors
@@ -177,7 +186,7 @@ not ok - ut_cmp_equal(c(1, 2, 3, 4, 5), c(1, 8, 8, 4, 5))
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
