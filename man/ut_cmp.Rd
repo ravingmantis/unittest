@@ -60,41 +60,41 @@
 }
 
 \examples{
-  ## A function to test:
-  fn <- function(x) { seq(x) }
+## A function to test:
+fn <- function(x) { seq(x) }
 
-  ## Get it right, and test passes:
-  ok(ut_cmp_equal(fn(3), c(1,2,3)))
+## Get it right, and test passes:
+ok(ut_cmp_equal(fn(3), c(1,2,3)))
 
-  ## Get it wrong, and we get told where in the output things are different:
-  ok(ut_cmp_equal(fn(3), c(1,4,3)))
+## Get it wrong, and we get told where in the output things are different:
+ok(ut_cmp_equal(fn(3), c(1,4,3)))
 
-  ## Using a custom filter, we can format the output with write.table:
-  ok(ut_cmp_equal(fn(3), c(1,4,3), filter = write.table))
+## Using a custom filter, we can format the output with write.table:
+ok(ut_cmp_equal(fn(3), c(1,4,3), filter = write.table))
 
-  ## With ut_cmp_equal, an integer 1 is the same as a numeric 1
-  ok(ut_cmp_equal(as.numeric(1), as.integer(1)))
+## With ut_cmp_equal, an integer 1 is the same as a numeric 1
+ok(ut_cmp_equal(as.numeric(1), as.integer(1)))
 
-  ## With ut_cmp_identical, they're not
-  ok(ut_cmp_identical(as.numeric(1), as.integer(1)))
+## With ut_cmp_identical, they're not
+ok(ut_cmp_identical(as.numeric(1), as.integer(1)))
 
-  ## all.equal() takes a tolerance parameter, for example:
-  all.equal(0.01, 0.02, tolerance = 0.1)
+## all.equal() takes a tolerance parameter, for example:
+all.equal(0.01, 0.02, tolerance = 0.1)
 
-  ## ...we can also give this to to ut_cmp_equal if we want a very
-  ## approximate comparison
-  ok(ut_cmp_equal(0.01, 0.02, tolerance = 0.1))
+## ...we can also give this to to ut_cmp_equal if we want a very
+## approximate comparison
+ok(ut_cmp_equal(0.01, 0.02, tolerance = 0.1))
 
-  ## We can make a comparison function of our own, and use
-  ## deparse_frame to show the right expression in diff output
-  cmp_noorder <- function (a, b) {
-      sortlist <- function (x) if (length(x) > 0) x[order(names(x))] else x
-      ut_cmp_identical(sortlist(a), sortlist(b), deparse_frame = -2)
-  }
-  ok(cmp_noorder(list(a=1, b=2), list(b=2, a=3)))
+## We can make a comparison function of our own, and use
+## deparse_frame to show the right expression in diff output
+cmp_noorder <- function (a, b) {
+    sortlist <- function (x) if (length(x) > 0) x[order(names(x))] else x
+    ut_cmp_identical(sortlist(a), sortlist(b), deparse_frame = -2)
+}
+ok(cmp_noorder(list(a=1, b=2), list(b=2, a=3)))
 
-  \dontshow{
-    # Clear unittest result log, so our unittest failues don't fail example-building
-    unittest:::clear_outcomes()
-  }
+\dontshow{
+  # Clear unittest result log, so our unittest failues don't fail example-building
+  unittest:::clear_outcomes()
+}
 }

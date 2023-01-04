@@ -35,29 +35,29 @@
 }
 
 \examples{
-  ok(1==1, "1 equals 1")
+ok(1==1, "1 equals 1")
 
-  ok(1==1)
+ok(1==1)
 
-  ok(1==2, "1 equals 2")
+ok(1==2, "1 equals 2")
 
-  ok(all.equal(c(1,2),c(1,2)), "compare vectors")
+ok(all.equal(c(1,2),c(1,2)), "compare vectors")
 
-  fn <- function () stop("oops")
-  ok(fn(), "something with a coding error")
+fn <- function () stop("oops")
+ok(fn(), "something with a coding error")
 
-  ok(c("Some diagnostic", "messages"), "A failure with diagnostic messages")
+ok(c("Some diagnostic", "messages"), "A failure with diagnostic messages")
 
-  ## Send unittest output to stderr()
-  options(unittest.output = stderr())
-  ok(ut_cmp_equal(4, 5), "4 == 5? Probably not")
+## Send unittest output to stderr()
+options(unittest.output = stderr())
+ok(ut_cmp_equal(4, 5), "4 == 5? Probably not")
 
-  ## Reset unittest output to default (stdout())
-  options(unittest.output = NULL)
-  ok(ut_cmp_equal(4, 5), "4 == 5? Probably not")
+## Reset unittest output to default (stdout())
+options(unittest.output = NULL)
+ok(ut_cmp_equal(4, 5), "4 == 5? Probably not")
 
-  \dontshow{
-    # Clear unittest result log, so our unittest failues don't fail example-building
-    unittest:::clear_outcomes()
-  }
+\dontshow{
+  # Clear unittest result log, so our unittest failues don't fail example-building
+  unittest:::clear_outcomes()
+}
 }
