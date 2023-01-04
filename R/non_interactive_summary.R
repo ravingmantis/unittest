@@ -2,6 +2,12 @@
 
 pkg_vars <- new.env()
 
+# Clear out pkg_vars so any test failures aren't reported
+clear_outcomes <- function () {
+    if (exists('outcomes', where = pkg_vars)) rm('outcomes', pos = pkg_vars)
+    if (exists('errors', where = pkg_vars)) rm('errors', pos = pkg_vars)
+}
+
 assign_outcome <- function(outcome) {
     if (interactive()) return()
     # as per assign() invoked for side effect
