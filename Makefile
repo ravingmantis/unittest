@@ -21,6 +21,10 @@ examples: install
 vignettes: install
 	Rscript -e 'tools::buildVignettes(dir=".")'
 
+serve-docs:
+	[ -d docs ] && rm -r docs || true
+	Rscript -e "pkgdown::build_site() ; servr::httd(dir='docs', host='0.0.0.0', port='8000')"
+
 test: install
 	for f in tests/test*.R; do echo "=== $$f ============="; Rscript $$f || exit 1; done
 
@@ -33,10 +37,6 @@ check-as-cran: build
 wincheck: build
 	# See https://win-builder.r-project.org/ for more information
 	curl -# -T "$(TARBALL)" ftp://win-builder.r-project.org/R-devel/
-
-serve-vignettes: vignettes
-	 # NB: Requires servr to be installed
-	 Rscript -e 'servr::vign(host = "0.0.0.0", port = 8123)'
 
 release: release-description release-changelog release-news
 	git commit -m "Release version $(NEW_VERSION)" DESCRIPTION ChangeLog NEWS.md
@@ -74,4 +74,4 @@ release-news:
 #  Upload to CRAN
 #  git push && git push --tags
 
-.PHONY: all install full-install examples vignettes test build check check-as-cran serve-vignettes release release-description release-changelog release-news
+.PHONY: all install full-install examples vignettes serve-docs test build check check-as-cran release release-description release-changelog release-news
