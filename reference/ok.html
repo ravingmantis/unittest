@@ -100,126 +100,44 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">1</span>, <span class="st">"1 equals 1"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">1</span>, <span class="st">"1 equals 1"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ok - 1 equals 1</span>
-<span class="r-in"><span>  <span class="co"># ok - 1 equals 1</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ok - 1 == 1</span>
-<span class="r-in"><span>  <span class="co"># ok - 1 == 1</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">2</span>, <span class="st">"1 equals 2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">2</span>, <span class="st">"1 equals 2"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not ok - 1 equals 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # [1] FALSE</span>
-<span class="r-in"><span>  <span class="co"># not ok - 1 equals 2</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Test returned non-TRUE value:</span></span></span>
-<span class="r-in"><span>  <span class="co"># # [1] FALSE</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="st">"compare vectors"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="st">"compare vectors"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ok - compare vectors</span>
-<span class="r-in"><span>  <span class="co"># ok - compare vectors</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="va">fn</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"oops"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu">ok</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="op">)</span>, <span class="st">"something with a coding error"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fn</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"oops"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="op">)</span>, <span class="st">"something with a coding error"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not ok - something with a coding error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test resulted in error:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #  oops</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Whilst evaluating:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #  fn()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Stacktrace:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; .f(.x[[i]], ...)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; withCallingHandlers(data_reference_topic(topic, pkg, examples_env = examples_env, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     run_dont_run = run_dont_run), error = function(err) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     msg &lt;- c(paste0("Failed to parse Rd in ", topic$file_in), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         i = err$message)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     abort(msg, parent = err)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # })</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; data_reference_topic(topic, pkg, examples_env = examples_env, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     run_dont_run = run_dont_run)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; run_examples(tags$tag_examples[[1]], env = if (is.null(examples_env)) NULL else new.env(parent = examples_env), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     topic = tools::file_path_sans_ext(topic$file_in), run_dont_run = run_dont_run)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; highlight_examples(code, topic, env = env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; downlit::evaluate_and_highlight(code, fig_save = fig_save_topic, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     env = child_env(env), output_handler = evaluate::new_output_handler(value = pkgdown_print))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; evaluate::evaluate(code, child_env(env), new_device = TRUE, output_handler = output_handler)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     debug = debug, last = i == length(out), use_try = stop_on_error != </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         2L, keep_warning = keep_warning, keep_message = keep_message, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     output_handler = output_handler, include_timing = include_timing)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; timing_fn(handle(ev &lt;- withCallingHandlers(withVisible(eval_with_user_handlers(expr, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     envir, enclos, user_handlers)), warning = wHandler, error = eHandler, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     message = mHandler)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; handle(ev &lt;- withCallingHandlers(withVisible(eval_with_user_handlers(expr, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     envir, enclos, user_handlers)), warning = wHandler, error = eHandler, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     message = mHandler))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; try(f, silent = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatch(expr, error = function(e) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     call &lt;- conditionCall(e)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     if (!is.null(call)) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         if (identical(call[[1L]], quote(doTryCatch))) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #             call &lt;- sys.call(-4L)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         dcall &lt;- deparse(call, nlines = 1L)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         prefix &lt;- paste("Error in", dcall, ": ")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         LONG &lt;- 75L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         sm &lt;- strsplit(conditionMessage(e), "\n")[[1L]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         w &lt;- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         if (is.na(w)) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #             w &lt;- 14L + nchar(dcall, type = "b") + nchar(sm[1L], </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #                 type = "b")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         if (w &gt; LONG) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #             prefix &lt;- paste0(prefix, "\n  ")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     else prefix &lt;- "Error : "</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     msg &lt;- paste0(prefix, conditionMessage(e), "\n")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     .Internal(seterrmessage(msg[1L]))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     if (!silent &amp;&amp; isTRUE(getOption("show.error.messages"))) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         cat(msg, file = outFile)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         .Internal(printDeferredWarnings())</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     invisible(structure(msg, class = "try-error", condition = e))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # })</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatchList(expr, classes, parentenv, handlers)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatchOne(expr, names, parentenv, handlers[[1L]])</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; doTryCatch(return(expr), name, parentenv, handler)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; withCallingHandlers(withVisible(eval_with_user_handlers(expr, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     envir, enclos, user_handlers)), warning = wHandler, error = eHandler, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     message = mHandler)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; withVisible(eval_with_user_handlers(expr, envir, enclos, user_handlers))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; eval_with_user_handlers(expr, envir, enclos, user_handlers)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; eval(expr, envir, enclos)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; eval(expr, envir, enclos)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; ok(fn(), "something with a coding error")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatch(withCallingHandlers(test, error = capture_calls), error = function(e) e)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatchList(expr, classes, parentenv, handlers)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatchOne(expr, names, parentenv, handlers[[1L]])</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; doTryCatch(return(expr), name, parentenv, handler)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; withCallingHandlers(test, error = capture_calls)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; fn()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; stop("oops")</span>
-<span class="r-in"><span>  <span class="co"># not ok - something with a coding error</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Test resulted in error:</span></span></span>
-<span class="r-in"><span>  <span class="co"># #  oops</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Whilst evaluating:</span></span></span>
-<span class="r-in"><span>  <span class="co"># #  fn()</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Some diagnostic"</span>, <span class="st">"messages"</span><span class="op">)</span>, <span class="st">"A failure with diagnostic messages"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Some diagnostic"</span>, <span class="st">"messages"</span><span class="op">)</span>, <span class="st">"A failure with diagnostic messages"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not ok - A failure with diagnostic messages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Some diagnostic</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # messages</span>
-<span class="r-in"><span>  <span class="co"># not ok - A failure with diagnostic messages</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Test returned non-TRUE value:</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Some diagnostic</span></span></span>
-<span class="r-in"><span>  <span class="co"># # messages</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## Send unittest output to stderr()</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>unittest.output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stderr</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"4 == 5? Probably not"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Send unittest output to stderr()</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>unittest.output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/showConnections.html" class="external-link">stderr</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"4 == 5? Probably not"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## Reset unittest output to default (stdout())</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>unittest.output <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"4 == 5? Probably not"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Reset unittest output to default (stdout())</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>unittest.output <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"4 == 5? Probably not"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not ok - 4 == 5? Probably not</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Mean relative difference: 0.25</span>
@@ -227,12 +145,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">+++ 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # [1] <span style="color: #BB0000;">[-4-]</span><span style="color: #00BB00;">{+5+}</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># \dontshow{</span></span></span>
-<span class="r-in"><span>    <span class="co"># Clear unittest result log, so our unittest failues don't fail example-building</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="st">'outcomes'</span>, pos <span class="op">=</span> <span class="fu">unittest</span><span class="fu">:::</span><span class="va">pkg_vars</span><span class="op">)</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="st">'errors'</span>, pos <span class="op">=</span> <span class="fu">unittest</span><span class="fu">:::</span><span class="va">pkg_vars</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>object 'errors' not found</span>
-<span class="r-in"><span>  <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Clear unittest result log, so our unittest failues don't fail example-building</span></span></span>
+<span class="r-in"><span>  <span class="fu">unittest</span><span class="fu">:::</span><span class="fu">clear_outcomes</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>

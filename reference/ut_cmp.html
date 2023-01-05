@@ -130,31 +130,24 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="co">## A function to test:</span></span></span>
-<span class="r-in"><span>  <span class="va">fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">}</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## A function to test:</span></span></span>
+<span class="r-in"><span><span class="va">fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## Get it right, and test passes:</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Get it right, and test passes:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ok - ut_cmp_equal(fn(3), c(1, 2, 3))</span>
-<span class="r-in"><span>  <span class="co"># ok - ut_cmp_equal(fn(3), c(1, 2, 3))</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## Get it wrong, and we get told where in the output things are different:</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Get it wrong, and we get told where in the output things are different:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not ok - ut_cmp_equal(fn(3), c(1, 4, 3))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Mean relative difference: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">--- fn(3)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">+++ c(1, 4, 3)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # [1] 1 <span style="color: #BB0000;">[-2-]</span><span style="color: #00BB00;">{+4+}</span> 3</span>
-<span class="r-in"><span>  <span class="co"># not ok - ut_cmp_equal(fn(3), c(1, 4, 3))</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Test returned non-TRUE value:</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Mean relative difference: 1</span></span></span>
-<span class="r-in"><span>  <span class="co"># # --- fn(3)</span></span></span>
-<span class="r-in"><span>  <span class="co"># # +++ c(1, 4, 3)</span></span></span>
-<span class="r-in"><span>  <span class="co"># # [1] 1 [-2-]{+4+} 3</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## Using a custom filter, we can format the output with write.table:</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span>, filter <span class="op">=</span> <span class="va">write.table</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Using a custom filter, we can format the output with write.table:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span>, filter <span class="op">=</span> <span class="va">write.table</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not ok - ut_cmp_equal(fn(3), c(1, 4, 3), filter = write.table)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Mean relative difference: 1</span>
@@ -164,142 +157,49 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> # "1" 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # "2" <span style="color: #BB0000;">[-2-]</span><span style="color: #00BB00;">{+4+}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # "3" 3</span>
-<span class="r-in"><span>  <span class="co"># not ok - ut_cmp_equal(fn(3), c(1, 4, 3), filter = write.table)</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Test returned non-TRUE value:</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Mean relative difference: 1</span></span></span>
-<span class="r-in"><span>  <span class="co"># # --- fn(3)</span></span></span>
-<span class="r-in"><span>  <span class="co"># # +++ c(1, 4, 3)</span></span></span>
-<span class="r-in"><span>  <span class="co"># # "x"</span></span></span>
-<span class="r-in"><span>  <span class="co"># # "1" 1</span></span></span>
-<span class="r-in"><span>  <span class="co"># # "2" [-2-]{+4+}</span></span></span>
-<span class="r-in"><span>  <span class="co"># # "3" 3</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## With ut_cmp_equal, an integer 1 is the same as a numeric 1</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## With ut_cmp_equal, an integer 1 is the same as a numeric 1</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ok - ut_cmp_equal(as.numeric(1), as.integer(1))</span>
-<span class="r-in"><span>  <span class="co"># ok - ut_cmp_equal(as.numeric(1), as.integer(1))</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## With ut_cmp_identical, they're not</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_identical</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## With ut_cmp_identical, they're not</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_identical</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not ok - ut_cmp_identical(as.numeric(1), as.integer(1))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">--- as.numeric(1)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">+++ as.integer(1)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #  <span style="color: #BB0000;">[-num-]</span><span style="color: #00BB00;">{+int+}</span> 1</span>
-<span class="r-in"><span>  <span class="co"># not ok - ut_cmp_identical(as.numeric(1), as.integer(1))</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Test returned non-TRUE value:</span></span></span>
-<span class="r-in"><span>  <span class="co"># # --- as.numeric(1)</span></span></span>
-<span class="r-in"><span>  <span class="co"># # +++ as.integer(1)</span></span></span>
-<span class="r-in"><span>  <span class="co"># #  [-num-]{+int+} 1</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## all.equal() takes a tolerance parameter, for example:</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.02</span>, tolerance <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## all.equal() takes a tolerance parameter, for example:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.02</span>, tolerance <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span>  <span class="co"># [1] TRUE</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## ...we can also give this to to ut_cmp_equal if we want a very</span></span></span>
-<span class="r-in"><span>  <span class="co">## approximate comparison</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.02</span>, tolerance <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## ...we can also give this to to ut_cmp_equal if we want a very</span></span></span>
+<span class="r-in"><span><span class="co">## approximate comparison</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.02</span>, tolerance <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ok - ut_cmp_equal(0.01, 0.02, tolerance = 0.1)</span>
-<span class="r-in"><span>  <span class="co"># ok - ut_cmp_equal(0.01, 0.02, tolerance = 0.1)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co">## We can make a comparison function of our own, and use</span></span></span>
-<span class="r-in"><span>  <span class="co">## deparse_depth to show the right expression in diff output</span></span></span>
-<span class="r-in"><span>  <span class="va">cmp_noorder</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>      <span class="va">sortlist</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="kw">else</span> <span class="va">x</span></span></span>
-<span class="r-in"><span>      <span class="fu">ut_cmp_identical</span><span class="op">(</span><span class="fu">sortlist</span><span class="op">(</span><span class="va">a</span><span class="op">)</span>, <span class="fu">sortlist</span><span class="op">(</span><span class="va">b</span><span class="op">)</span>, deparse_depth <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">}</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">cmp_noorder</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">1</span>, b<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>b<span class="op">=</span><span class="fl">2</span>, a<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## We can make a comparison function of our own, and use</span></span></span>
+<span class="r-in"><span><span class="co">## deparse_frame to show the right expression in diff output</span></span></span>
+<span class="r-in"><span><span class="va">cmp_noorder</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">sortlist</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="kw">else</span> <span class="va">x</span></span></span>
+<span class="r-in"><span>    <span class="fu">ut_cmp_identical</span><span class="op">(</span><span class="fu">sortlist</span><span class="op">(</span><span class="va">a</span><span class="op">)</span>, <span class="fu">sortlist</span><span class="op">(</span><span class="va">b</span><span class="op">)</span>, deparse_frame <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">cmp_noorder</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">1</span>, b<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>b<span class="op">=</span><span class="fl">2</span>, a<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> not ok - cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Test resulted in error:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #  unused argument (deparse_depth = -2)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Whilst evaluating:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #  ut_cmp_identical(sortlist(a), sortlist(b), deparse_depth = -2)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Stacktrace:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; .f(.x[[i]], ...)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; withCallingHandlers(data_reference_topic(topic, pkg, examples_env = examples_env, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     run_dont_run = run_dont_run), error = function(err) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     msg &lt;- c(paste0("Failed to parse Rd in ", topic$file_in), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         i = err$message)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     abort(msg, parent = err)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # })</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; data_reference_topic(topic, pkg, examples_env = examples_env, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     run_dont_run = run_dont_run)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; run_examples(tags$tag_examples[[1]], env = if (is.null(examples_env)) NULL else new.env(parent = examples_env), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     topic = tools::file_path_sans_ext(topic$file_in), run_dont_run = run_dont_run)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; highlight_examples(code, topic, env = env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; downlit::evaluate_and_highlight(code, fig_save = fig_save_topic, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     env = child_env(env), output_handler = evaluate::new_output_handler(value = pkgdown_print))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; evaluate::evaluate(code, child_env(env), new_device = TRUE, output_handler = output_handler)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     debug = debug, last = i == length(out), use_try = stop_on_error != </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         2L, keep_warning = keep_warning, keep_message = keep_message, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     output_handler = output_handler, include_timing = include_timing)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; timing_fn(handle(ev &lt;- withCallingHandlers(withVisible(eval_with_user_handlers(expr, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     envir, enclos, user_handlers)), warning = wHandler, error = eHandler, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     message = mHandler)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; handle(ev &lt;- withCallingHandlers(withVisible(eval_with_user_handlers(expr, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     envir, enclos, user_handlers)), warning = wHandler, error = eHandler, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     message = mHandler))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; try(f, silent = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatch(expr, error = function(e) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     call &lt;- conditionCall(e)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     if (!is.null(call)) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         if (identical(call[[1L]], quote(doTryCatch))) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #             call &lt;- sys.call(-4L)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         dcall &lt;- deparse(call, nlines = 1L)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         prefix &lt;- paste("Error in", dcall, ": ")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         LONG &lt;- 75L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         sm &lt;- strsplit(conditionMessage(e), "\n")[[1L]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         w &lt;- 14L + nchar(dcall, type = "w") + nchar(sm[1L], type = "w")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         if (is.na(w)) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #             w &lt;- 14L + nchar(dcall, type = "b") + nchar(sm[1L], </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #                 type = "b")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         if (w &gt; LONG) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #             prefix &lt;- paste0(prefix, "\n  ")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     else prefix &lt;- "Error : "</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     msg &lt;- paste0(prefix, conditionMessage(e), "\n")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     .Internal(seterrmessage(msg[1L]))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     if (!silent &amp;&amp; isTRUE(getOption("show.error.messages"))) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         cat(msg, file = outFile)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #         .Internal(printDeferredWarnings())</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     invisible(structure(msg, class = "try-error", condition = e))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # })</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatchList(expr, classes, parentenv, handlers)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatchOne(expr, names, parentenv, handlers[[1L]])</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; doTryCatch(return(expr), name, parentenv, handler)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; withCallingHandlers(withVisible(eval_with_user_handlers(expr, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     envir, enclos, user_handlers)), warning = wHandler, error = eHandler, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #     message = mHandler)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; withVisible(eval_with_user_handlers(expr, envir, enclos, user_handlers))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; eval_with_user_handlers(expr, envir, enclos, user_handlers)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; eval(expr, envir, enclos)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; eval(expr, envir, enclos)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; ok(cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatch(withCallingHandlers(test, error = capture_calls), error = function(e) e)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatchList(expr, classes, parentenv, handlers)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; tryCatchOne(expr, names, parentenv, handlers[[1L]])</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; doTryCatch(return(expr), name, parentenv, handler)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; withCallingHandlers(test, error = capture_calls)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3))</span>
-<span class="r-in"><span>  <span class="co"># not ok - cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3))</span></span></span>
-<span class="r-in"><span>  <span class="co"># # Test returned non-TRUE value:</span></span></span>
-<span class="r-in"><span>  <span class="co"># # --- list(a = 1, b = 2)</span></span></span>
-<span class="r-in"><span>  <span class="co"># # +++ list(b = 2, a = 3)</span></span></span>
-<span class="r-in"><span>  <span class="co"># # $a</span></span></span>
-<span class="r-in"><span>  <span class="co"># # [1] [-1-]{+3+}</span></span></span>
-<span class="r-in"><span>  <span class="co"># #</span></span></span>
-<span class="r-in"><span>  <span class="co"># # $b</span></span></span>
-<span class="r-in"><span>  <span class="co"># # [1] 2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">--- list(a = 1, b = 2)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">+++ list(b = 2, a = 3)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # $a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # [1] <span style="color: #BB0000;">[-1-]</span><span style="color: #00BB00;">{+3+}</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # $b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # [1] 2</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="co"># \dontshow{</span></span></span>
-<span class="r-in"><span>    <span class="co"># Clear unittest result log, so our unittest failues don't fail example-building</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="st">'outcomes'</span>, pos <span class="op">=</span> <span class="fu">unittest</span><span class="fu">:::</span><span class="va">pkg_vars</span><span class="op">)</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="st">'errors'</span>, pos <span class="op">=</span> <span class="fu">unittest</span><span class="fu">:::</span><span class="va">pkg_vars</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>object 'errors' not found</span>
-<span class="r-in"><span>  <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># \dontshow{</span></span></span>
+<span class="r-in"><span>  <span class="co"># Clear unittest result log, so our unittest failues don't fail example-building</span></span></span>
+<span class="r-in"><span>  <span class="fu">unittest</span><span class="fu">:::</span><span class="fu">clear_outcomes</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
