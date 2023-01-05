@@ -7,25 +7,45 @@
 \description{
   Concise TAP-compliant unit testing package.
   Authored unit tests can be run using \code{R CMD check} with minimal implementation overhead.
-  If you want more features there are other unit testing packages (see 'See Also').
 }
 \details{
-  The \code{unittest} package provides two functions, \code{\link{ok}} and \code{\link{ok_group}}.
-  The \code{\link{ok}} function prints \code{ok} when the expression provided evaluates to \code{TRUE}
-  and prints \code{not ok} if the expression evaluates to anything else or results in a runtime error;
-  this is the \code{TAP} format (\url{http://testanything.org/}) for reporting test results.
-  The \code{\link{ok_group}} function is a convenience function for grouping related unit tests
-  and produces \code{TAP} compliant comments in the output to separate the unit test groups.
 
-  A unit test summary is produced at the end of a session when a set of unit tests are run in non-interactive
-  mode, for example when the unit tests are run using \code{Rscript} or by \code{R CMD check}. For
-  using with \code{R CMD check}, see \sQuote{I'm writing a package, how do I put tests in it?}.
+Given a simple function you'd like to test in the file \code{myfunction.R}:
 
-  For a list of all documentation use \code{library(help="unittest")}.
-  Good places to start are the \sQuote{\href{../doc/getting_started.html}{Getting Started}}
-  and \sQuote{\href{../doc/faq.html}{FAQ}}vignettes.
-  You can see these by typing \code{vignette('getting_started', package='unittest')} and
-  \code{vignette('faq', package='unittest')} respectively.
+\preformatted{biggest <- function(x,y) { max(c(x,y)) }
+}
+       
+A test script for this function \code{test_myfunction.R} would be:
+
+\preformatted{library(unittest)
+    
+source('myfunction.R')  # Or library(mypackage) if part of a package
+    
+ok(biggest(3,4) == 4, "two numbers")
+ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
+}
+
+You can then run this test in several ways:
+
+\enumerate{
+  \item{\code{source('test_myfunction.R')} from R}
+  \item{\code{Rscript --vanilla test_myfunction.R} from the command prompt}
+  \item{\code{R CMD check}, if \code{test_myfunction.R} is inside the \code{tests} directory of \code{mypackage} being tested. \sQuote{unittest} doesn't require any further setup in your package}
+}
+
+If writing tests as part of a package, see \code{vignette("testing_packages", package='unittest')}.
+
+The workhorse of the \sQuote{unittest} package is the \code{\link{ok}} function which prints "ok" when the expression provided evaluates to \code{TRUE} and "not ok" if the expression evaluates to anything else or results in an error.
+There are several \code{ut_cmp_*} helpers designed to work with \code{\link{ok}}:
+
+\enumerate{
+  \item{\code{ok(ut_cmp_equal( biggest(1/3, 2/6), 2/6), "two floating point numbers")}: Uses \code{\link[base]{all.equal}} to compare within a tolerance}
+  \item{\code{ok(ut_cmp_identical( biggest("c", "d") ), "two strings")}: Uses \code{\link[base]{identical}} to make sure outputs are identical}
+  \item{\code{ok(ut_cmp_error(biggest(3), '"y".*missing'), "single argument is an error")}: Make sure the code produces an error matching the regular expression}
+}
+
+In all cases you get detailed, colourised output on what the difference is if the test fails.
+
 }
 
 \author{
