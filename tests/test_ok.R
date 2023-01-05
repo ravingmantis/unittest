@@ -114,6 +114,26 @@ expect_failure(
     )
 )
 
+# Stacktrace not thwarted by closure
+expect_failure(
+    do.call(function (x) {ok(stop("erk"), "Test fails")}, list(1)),
+    paste(
+        regex_escape('# Stacktrace:'),
+        regex_escape('# -> stop("erk")'),
+        sep = '\\n', collapse = '\\n'
+    )
+)
+
+# Stacktrace not thwarted by unittest::ok
+expect_failure(
+    unittest::ok(complex_call(badgers = "yes"), "Calling unittest::ok"),
+    paste(
+        regex_escape('# -> complex_call(badgers = "yes")'),
+        regex_escape('# -> fn(badgers)'),
+        regex_escape('# -> stop("Oh no")'),
+        sep = '\\n', collapse = '\\n'
+    )
+)
 
 # ------------------------
 # Only TRUE counts as true

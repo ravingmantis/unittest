@@ -8,11 +8,21 @@ ok <- function(
     error_stack <- c()
     capture_calls <- function (e) {
         error_stack <<- head(sys.calls(), -2)
-        # Search for first withCallingHandlers in stack (i.e. the start of our machinery)
+
         for (i in seq_along(error_stack)) {
-            if (error_stack[[i]][[1]] == as.name('withCallingHandlers')) break
+            # Start of ok() call
+            if ( identical(error_stack[[i]][[1]], quote(ok)) || identical(error_stack[[i]][[1]], quote(unittest::ok)) ) {
+                error_stack <<- tail(error_stack, -i)
+                for (i in seq_along(error_stack)) {
+                    # End of ok() machinery
+                    if ( identical(error_stack[[i]][[1]], quote(withCallingHandlers)) ) {
+                        error_stack <<- tail(error_stack, -i)
+                        break
+                    }
+                }
+                break
+            }
         }
-        error_stack <<- tail(error_stack, -i)
         signalCondition(e)
     }
     result <- tryCatch(withCallingHandlers(test, error = capture_calls), error = function(e) e)
