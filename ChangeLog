@@ -1,3 +1,10 @@
+2023-05-04 Jamie Lentin  <jm@lentin.co.uk>
+
+    Version 1.6-0
+
+    *  ok: More robust stacktrace filtering (c7740d6)
+    *  non_interactive_summary: clear_outcomes() to reset tests (97146bc)
+
 2022-09-25 Jamie Lentin  <jm@lentin.co.uk>
 
     Version 1.5-3

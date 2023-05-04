@@ -1,4 +1,4 @@
-# unittest 1.5-3-999
+# unittest 1.6-0:
 
 ## Bug fixes
 
