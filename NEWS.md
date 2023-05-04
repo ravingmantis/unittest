@@ -1,3 +1,9 @@
+# unittest 1.5-3-999
+
+## Bug fixes
+
+* More robust stacktrace filtering in ok()
+
 # unittest 1.5-1
 
 ## New features
