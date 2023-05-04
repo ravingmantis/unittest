@@ -10,8 +10,7 @@ Authors@R:
 Description:
     Concise TAP <http://testanything.org/> compliant unit testing package. Authored tests can be run using CMD check with minimal implementation overhead.
 License: GPL (>= 3)
-Depends:
-    R (>= 3.0.0)
+Depends: R (>= 3.0.0)
 Imports:
     methods
 Suggests: 

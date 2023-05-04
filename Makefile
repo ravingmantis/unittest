@@ -61,6 +61,7 @@ release-description:
 	[ -n "$(NEW_VERSION)" ]  # NEW_VERSION variable should be set
 	sed -i 's/^Version: .*/Version: $(NEW_VERSION)/' DESCRIPTION
 	sed -i "s/^Date: .*/Date: $$(date +%Y-%m-%d)/" DESCRIPTION
+	sed -i 's/^Depends: R .*/Depends: R (>= $(shell curl -s https://api.r-hub.io/rversions/r-oldrel/4 | grep -oiE '"version":"[0-9.]+"' | grep -oE '[0-9]+\.[0-9]+\.')0)/' DESCRIPTION
 
 release-changelog:
 	[ -n "$(NEW_VERSION)" ]  # NEW_VERSION variable should be set
