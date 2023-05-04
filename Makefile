@@ -60,10 +60,13 @@ release-description:
 
 release-changelog:
 	[ -n "$(NEW_VERSION)" ]  # NEW_VERSION variable should be set
-	mv ChangeLog ChangeLog.o
+	mv ChangeLog ChangeLog.o || touch ChangeLog.o
 	echo "$$(date +%Y-%m-%d) $$(git config user.name)  <$$(git config user.email)>" > ChangeLog
 	echo "" >> ChangeLog
 	echo "    Version $(NEW_VERSION)" >> ChangeLog
+	echo "" >> ChangeLog
+	git log --pretty=format:'    * %d %s (%h)' $(shell git describe --tags --abbrev=0)..HEAD -- ./R >> ChangeLog
+	echo "" >> ChangeLog
 	echo "" >> ChangeLog
 	cat ChangeLog.o >> ChangeLog
 	rm ChangeLog.o
