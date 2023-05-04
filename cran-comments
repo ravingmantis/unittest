@@ -1,5 +1,32 @@
 # https://cran.r-project.org/submit.html
 
+==== 1.6-0
+
+* Documentation updates
+* Improved stacktrace filtering on error
+
+Tested on R-release Win/MacOS/Ubuntu and R-devel Ubuntu.
+CI test reports can be found here:
+
+  https://github.com/ravingmantis/unittest/actions/runs/4883549739
+
+The source to build the package can be found here, along with the README:
+
+  https://github.com/ravingmantis/unittest/tree/v1.6-0
+
+Full history can be found in the ChangeLog:
+
+  https://github.com/ravingmantis/unittest/blob/v1.6-0/ChangeLog
+
+Differences since the previous submission:
+
+  https://github.com/ravingmantis/unittest/compare/v1.5-3...v1.6-0
+
+Built documentation can be found here:
+
+  https://ravingmantis.github.io/unittest/
+
+
 ==== 1.5-3
 
 * README: Use canonical form of CRAN URL
