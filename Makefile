@@ -15,19 +15,6 @@ full-install: build
 build:
 	R CMD build .
 
-examples: install
-	Rscript -e 'devtools::run_examples(run_donttest = FALSE, run_dontrun = FALSE, document = FALSE)'
-
-vignettes: install
-	Rscript -e 'tools::buildVignettes(dir=".")'
-
-serve-docs:
-	[ -d docs ] && rm -r docs || true
-	Rscript -e "pkgdown::build_site() ; servr::httd(dir='docs', host='0.0.0.0', port='8000')"
-
-test: install
-	for f in tests/test*.R; do echo "=== $$f ============="; Rscript $$f || exit 1; done
-
 check: build
 	R CMD check "$(TARBALL)"
 
@@ -37,6 +24,25 @@ check-as-cran: build
 wincheck: build
 	# See https://win-builder.r-project.org/ for more information
 	curl -# -T "$(TARBALL)" ftp://win-builder.r-project.org/R-devel/
+
+examples: install
+	Rscript -e 'devtools::run_examples(run_donttest = FALSE, run_dontrun = FALSE, document = FALSE)'
+
+vignettes: install
+	Rscript -e 'tools::buildVignettes(dir=".")'
+
+serve-docs:
+	[ -d docs ] && rm -r docs || true
+	Rscript --vanilla -e "pkgdown::build_site() ; servr::httd(dir='docs', host='0.0.0.0', port='8000')"
+
+test: install
+	for f in tests/test*.R; do echo "=== $$f ============="; Rscript $$f || exit 1; done
+
+inttest: install
+	for f in inttest/*/run.R; do echo "=== $$f ============="; Rscript $$f || exit 1; done
+
+coverage:
+	R --vanilla -e 'covr::package_coverage(type = "all", line_exclusions = list())'
 
 release: release-description release-changelog release-news
 	git commit -m "Release version $(NEW_VERSION)" DESCRIPTION ChangeLog NEWS.md
@@ -74,4 +80,4 @@ release-news:
 #  Upload to CRAN
 #  git push && git push --tags
 
-.PHONY: all install full-install examples vignettes serve-docs test build check check-as-cran release release-description release-changelog release-news
+.PHONY: all install full-install build check check-as-cran wincheck examples vignettes serve-docs test inttest coverage release release-description release-changelog release-news
