@@ -44,7 +44,7 @@ inttest: install
 coverage:
 	R --vanilla -e 'covr::package_coverage(type = "all", line_exclusions = list())'
 
-release: release-description release-changelog release-news
+release: release-description $(if $(wildcard ChangeLog),release-changelog) release-news
 	git commit -m "Release version $(NEW_VERSION)" $(wildcard DESCRIPTION ChangeLog NEWS.md)
 	git tag -am "Release version $(NEW_VERSION)" v$(NEW_VERSION)
 	#
