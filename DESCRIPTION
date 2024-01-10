@@ -6,7 +6,7 @@ Version: 1.6-0-999
 Date: 2023-05-04
 Authors@R:
     c(person('Jamie','Lentin',email='lentinj@shuttlethread.com',role=c('aut','cre')),
-      person('Anthony','Hennessey',email='ah@ravingmantis.com',role=c('aut')))
+      person('Anthony','Hennessey',email='anthony.hennessey@protonmail.com',role=c('aut')))
 Description:
     Concise TAP <http://testanything.org/> compliant unit testing package. Authored tests can be run using CMD check with minimal implementation overhead.
 License: GPL (>= 3)

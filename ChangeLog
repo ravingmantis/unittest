@@ -77,7 +77,7 @@
     * R/non_interactive_summary.R (non_interactive_exit): Now notices when tests end prematurely and puts out debug message.
     * man/unittest-package.Rd: Fixed incorrect instructions for integration with R CMD check.
 
-2014-09-10  Anthony Hennessey  <ah@ravingmantis.com>
+2014-09-10  Anthony Hennessey  <anthony.hennessey@protonmail.com>
 
     Version 1.0-1
 

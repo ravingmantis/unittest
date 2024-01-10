@@ -49,7 +49,7 @@ In all cases you get detailed, colourised output on what the difference is if th
 }
 
 \author{
-  Maintainer: Jamie Lentin <lentinj@shuttlethread.com>, Anthony Hennessey <ah@ravingmantis.com>.
+  Maintainer: Jamie Lentin <lentinj@shuttlethread.com>, Anthony Hennessey <anthony.hennessey@protonmail.com>.
 }
 
 \references{
