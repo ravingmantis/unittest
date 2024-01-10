@@ -2,7 +2,7 @@ Encoding: UTF-8
 Package: unittest
 Type: Package
 Title: TAP-Compliant Unit Testing
-Version: 1.6-1
+Version: 1.6-1-999
 Date: 2024-01-10
 Authors@R:
     c(person('Jamie','Lentin',email='lentinj@shuttlethread.com',role=c('aut','cre')),
