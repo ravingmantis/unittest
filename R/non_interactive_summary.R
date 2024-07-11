@@ -27,16 +27,21 @@ non_interactive_exit <- function( e ) {
          tests.total <- nrow(get('outcomes', pos = e))
          tests.failed <- sum(! get('outcomes', pos = e)$status) 
          if ( exists('errors', where = e) ) {
-            tests.errors <- get('errors', pos = e)
-            writeLines(paste("Bail out! Looks like", tests.total, "tests passed, but script ended prematurely", collapse = " "))
-            writeLines(paste("#", tests.errors))
+             tests.errors <- get('errors', pos = e)
+             write_ut_lines(
+                 paste("Bail out! Looks like", tests.total, "tests passed, but script ended prematurely", collapse = " "),
+                 paste("#", tests.errors),
+                 NULL)
          } else if (tests.failed) {
-             cat(paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.\n", collapse = " "), file = output_fh(), append = TRUE)
+             write_ut_lines(
+                 paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.", collapse = " "),
+                 NULL)
              # We need to alter the status code, stop() doesn't work, not allowed to use .Last, should only happen as script is terminating anyway.
              quit(save = "no", status = 10, runLast=FALSE)
-         }
-         else {
-             cat(paste("# Looks like you passed all", tests.total, "tests.\n", collapse = " "), file = output_fh(), append = TRUE)
+         } else {
+             write_ut_lines(
+                 paste("# Looks like you passed all", tests.total, "tests.", collapse = " "),
+                 NULL)
              invisible(NULL)
          }
     }

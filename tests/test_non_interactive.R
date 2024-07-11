@@ -7,7 +7,7 @@ run_script <- function(script, expected_status, expected_out, description) {
         system2(
             R_binary,
             c("--vanilla", "--slave"),
-            input=script,
+            input = paste0(script, collapse = "\n"),
             wait = TRUE, stdout = tmpfiles[1], stderr = tmpfiles[2]),
         warning = function (w) {
             invokeRestart("muffleWarning")
@@ -195,3 +195,29 @@ run_script(
     ),
     "Caught errors outside tests"
 )
+
+# Redirection of output to tempfile
+tf <- tempfile()
+run_script(
+    c(
+        'library(unittest, quietly = TRUE)',
+        deparse1(substitute( options(unittest.output=tf), list(tf = tf) )),
+        'ok(1==1, "1 equals 1")',
+        'writeLines("Hello")',
+        'stop("erk")',
+        NULL
+    ),
+    11,
+    c(
+        "Hello",
+        NULL
+    ),
+    "Failure outside tests, redirected output"
+)
+stopifnot(identical(readLines(tf), c(
+    "ok - 1 equals 1",
+    "Bail out! Looks like 1 tests passed, but script ended prematurely",
+    "# Error: erk",
+    "# Traceback:",
+    "# 1:",
+    "# stop(\"erk\")")))

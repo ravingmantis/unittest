@@ -76,8 +76,7 @@ ok <- function(
         )
     }
     assign_outcome(outcome)
-    rv <- paste0(outcome['output'], "\n")
-    cat(rv, file = output_fh(), append = TRUE)
+    write_ut_lines(outcome['output'])
     invisible(result)
 }
 
@@ -88,4 +87,10 @@ ok <- function(
 # ... but in this case we don't care
 strsplit_with_emptystr <- function (...) {
     lapply(strsplit(...), function (x) if(length(x) == 0) "" else x)
+}
+
+# Append ... lines to output_fh(), tailed with \n.
+# writeLines() isn't enough, as it doesn't do append = TRUE
+write_ut_lines <- function (...) {
+    cat(unlist(list(...)), sep = "\n", file = output_fh(), append = TRUE)
 }
