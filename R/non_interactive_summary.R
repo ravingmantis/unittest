@@ -14,7 +14,7 @@ assign_outcome <- function(outcome) {
     if( ! exists('outcomes', where = pkg_vars) ) {
         assign(
             'outcomes',
-             data.frame(status = logical(0), output = character(0), stringsAsFactors = FALSE),
+             data.frame(status = logical(0), description = character(0), output = character(0), stringsAsFactors = FALSE),
              pos = pkg_vars
         )
     }

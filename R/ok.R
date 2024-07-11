@@ -31,15 +31,16 @@ ok <- function(
     if(identical(result, TRUE) ) {
         outcome <- data.frame(
             status = TRUE,
-            output = paste('ok -', description, collapse = " "),
+            description = description,
+            output = "",
             stringsAsFactors = FALSE
         )
     }
     else if(inherits(result,'error')) {
         outcome <- data.frame(
             status = FALSE,
+            description = description,
             output = paste(
-                paste('not ok -', description, collapse = " "),
                 "# Test resulted in error:",
                 paste("# ", result$message, collapse = "\n"),
                 "# Whilst evaluating:",
@@ -54,8 +55,8 @@ ok <- function(
     else if(is.character(result)) {
         outcome <- data.frame(
             status = FALSE,
+            description = description,
             output = paste(
-                paste('not ok -', description, collapse = " "),
                 "# Test returned non-TRUE value:",
                 paste("#", unlist(strsplit_with_emptystr(result, split = "\n")), collapse = "\n"),
                 sep = "\n", collapse = "\n"
@@ -66,8 +67,8 @@ ok <- function(
     else {
         outcome <- data.frame(
             status = FALSE,
+            description = description,
             output = paste(
-                paste('not ok -', description, collapse = " "),
                 "# Test returned non-TRUE value:",
                 paste("#", capture.output( print(result) ), collapse = "\n"),
                 sep = "\n", collapse = "\n"
@@ -76,7 +77,14 @@ ok <- function(
         )
     }
     assign_outcome(outcome)
-    write_ut_lines(outcome['output'])
+    write_ut_lines(
+        paste(
+            (if (outcome[1, "status"]) "ok" else "not ok"),
+            "-",
+            outcome[1, "description"]),
+        if (any(nzchar(outcome[1, "output"]))) outcome[1, "output"],
+        NULL
+    )
     invisible(result)
 }
 
