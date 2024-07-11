@@ -85,6 +85,13 @@ ok <- function(
         if (any(nzchar(outcome[1, "output"]))) outcome[1, "output"],
         NULL
     )
+    if (isFALSE(outcome[1,'status'])) {
+        switch(on_fail(),
+            stop = stop('Test failure, not continuing'),
+            warn = warning("Failed unittest: ", description, call. = FALSE),
+            NULL
+        )
+    }
     invisible(result)
 }
 

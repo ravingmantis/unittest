@@ -24,8 +24,9 @@ assign_outcome <- function(outcome) {
 # having this as a named function means that CMD check will not complain about the use of cat and packageStartupMessage in .onLoad
 non_interactive_exit <- function( e ) {
     if( exists('outcomes', where = e) && nrow(get('outcomes', pos = e)) ) {
-         tests.total <- nrow(get('outcomes', pos = e))
-         tests.failed <- sum(! get('outcomes', pos = e)$status) 
+         outcomes <- get('outcomes', pos = e)
+         tests.total <- nrow(outcomes)
+         tests.failed <- sum(! outcomes$status)
          if ( exists('errors', where = e) ) {
              tests.errors <- get('errors', pos = e)
              write_ut_lines(
@@ -35,6 +36,7 @@ non_interactive_exit <- function( e ) {
          } else if (tests.failed) {
              write_ut_lines(
                  paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.", collapse = " "),
+                 if (on_fail() == "summary") paste0("# ", which(!outcomes$status), ": ", outcomes[!outcomes$status, "description"]) else NULL,
                  NULL)
              # We need to alter the status code, stop() doesn't work, not allowed to use .Last, should only happen as script is terminating anyway.
              quit(save = "no", status = 10, runLast=FALSE)
