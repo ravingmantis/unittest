@@ -88,7 +88,11 @@ ok <- function(
     if (isFALSE(outcome[1,'status'])) {
         switch(on_fail(),
             stop = stop('Test failure, not continuing'),
-            warn = warning("Failed unittest: ", description, call. = FALSE),
+            # TODO: Number of failing test, as per non-interactive summary
+            # TODO: How to warn that we can't print a summary, because warnings are errors? message() would be lost in noise
+            summary = if (interactive() && getOption("warn") == 0) {
+                warning("Failed unittest: ", description, call. = FALSE)
+            },
             NULL
         )
     }

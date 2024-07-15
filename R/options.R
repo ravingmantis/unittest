@@ -45,12 +45,7 @@ output_ansi_color <- function () {
 }
 
 on_fail <- function () {
-    if (interactive()) {
-        out <- getOption("unittest.on_fail_interactive", Sys.getenv("UT_ON_FAIL_INTERACTIVE", unset = "warn"))
-    } else {
-        out <- getOption("unittest.on_fail", Sys.getenv("UT_ON_FAIL", unset = "summary"))
-    }
-    if (!nzchar(out)) return("continue")
-    if (out %in% c('summary', 'stop', 'warn')) return(out)
-    stop("Unknown unittest on_fail setting, should be one of '', 'summary', 'stop', 'warn': ", out)
+    out <- getOption("unittest.on_fail", Sys.getenv("UT_ON_FAIL", unset = "summary"))
+    if (out %in% c('quiet', 'summary', 'stop')) return(out)
+    stop("Unknown unittest on_fail setting, should be one of 'quiet', 'summary', 'stop': ", out)
 }
