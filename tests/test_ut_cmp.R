@@ -193,6 +193,33 @@ ok_group("output_diff", (function () {
     ok(!all(grepl('\033\\[.*?m', ut_cmp_identical(1L, 2L), perl = TRUE)), "cli.num_colors honoured (no escape code in output)")
 })())
 
+ok_group("context_lines", local({
+    ok(cmp_lines(ut_cmp_identical(as.list(1:10), {x <- 1:10 ; x[[5]] <- 99 ; as.list(x)}, context_lines = 3),
+        '--- as.list(1:10)',
+        '+++ {',
+        '[1] 4',
+        '',
+        '[[5]]',
+        '[1] [-5-]{+99+}',
+        '',
+        '[[6]]',
+        '[1] 6',
+        NULL), "ut_cmp_identical: context_lines = 3 returned 3 lines of context")
+
+    ok(cmp_lines(ut_cmp_equal(as.list(1:10), {x <- 1:10 ; x[[5]] <- 99 ; as.list(x)}, context_lines = 3),
+        'Component 5: Mean relative difference: 18.8',
+        '--- as.list(1:10)',
+        '+++ {',
+        '[1] 4',
+        '',
+        '[[5]]',
+        '[1] [-5-]{+99+}',
+        '',
+        '[[6]]',
+        '[1] 6',
+        NULL), "ut_cmp_equal: context_lines = 3 returned 3 lines of context")
+}))
+
 ok_group("ut_cmp_identical:nogit", mock(unittest:::git_binary, function () "/not-here", {
     ok(isTRUE(ut_cmp_identical(4, 4)), "Identical objects return true")
     ok(cmp_lines(ut_cmp_identical(as.integer(4), 4),
