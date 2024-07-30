@@ -69,7 +69,8 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ut_cmp_error</span><span class="op">(</span><span class="va">code</span>, <span class="va">expected_regexp</span>, ignore.case <span class="op">=</span> <span class="cn">FALSE</span>, perl <span class="op">=</span> <span class="cn">FALSE</span>, fixed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ut_cmp_error</span><span class="op">(</span><span class="va">code</span>, expected_regexp <span class="op">=</span> <span class="cn">NULL</span>, expected_class <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>               ignore.case <span class="op">=</span> <span class="cn">FALSE</span>, perl <span class="op">=</span> <span class="cn">FALSE</span>, fixed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,7 +80,14 @@
 <dd><p>Code expression to test, should generate an error</p></dd>
 
   <dt id="arg-expected-regexp">expected_regexp<a class="anchor" aria-label="anchor" href="#arg-expected-regexp"></a></dt>
-<dd><p>Regular expression the error should match</p></dd>
+<dd><p>Regular expression the error should match.
+    If <code>NULL</code> the error message will not be checked.</p></dd>
+
+  <dt id="arg-expected-class">expected_class<a class="anchor" aria-label="anchor" href="#arg-expected-class"></a></dt>
+<dd><p>Error class(es) that the error should match.
+    If <code>NULL</code> the error class will not be checked.
+    If <code>expected_class</code> is a vector then the error must inherit from
+    all of the <code>expected_class</code>es.</p></dd>
 
   <dt id="arg-ignore-case">ignore.case<a class="anchor" aria-label="anchor" href="#arg-ignore-case"></a></dt>
 <dd><p>Passed to <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></code></p></dd>
@@ -93,9 +101,12 @@
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Returns <code>TRUE</code> if <code>exp</code> generates an error and matches <code>expected_regexp</code>.
-  Returns a string with expected and actual error if <code>exp</code> generates an error but does not match.
-  Returns <code>"No error returned"</code> if <code>exp</code> does not generate an error.</p>
+    <p>Returns <code>TRUE</code> if <code>code</code> generates an error and, if they are specified (not <code>NULL</code>),
+  the error matches <code>expected_regexp</code> and/or <code>expected_class</code>.
+  If an error is thrown by <code>code</code> and <code>expected_regexp</code> and/or <code>expected_class</code>
+  are given but do not match the error, returns a string with the expected and actual error message,
+  and the expected and actual error class generated.
+  Returns <code>"No error returned"</code> if <code>code</code> does not generate an error.</p>
     </div>
 
     <div id="ref-examples">
@@ -104,6 +115,19 @@
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"Hammer time"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span>, <span class="st">"hammer"</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="st">"Returned a hammer-based error"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ok - Returned a hammer-based error</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_error</span><span class="op">(</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">errorCondition</a></span><span class="op">(</span><span class="st">"Hammer time"</span>, class <span class="op">=</span> <span class="st">"MC"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span>, expected_mesage <span class="op">=</span> <span class="st">"Hammer"</span>, expected_class <span class="op">=</span> <span class="st">"MC"</span><span class="op">)</span>, <span class="st">"Returned a MC Hammer based error"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - Returned a MC Hammer based error</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Test resulted in error:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #  unused argument (expected_mesage = "Hammer")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Whilst evaluating:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #  ut_cmp_error({</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #      stop(errorCondition("Hammer time", class = "MC"))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> #  }, expected_mesage = "Hammer", expected_class = "MC")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Stacktrace:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # -&gt; </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
