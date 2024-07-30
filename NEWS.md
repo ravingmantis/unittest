@@ -1,5 +1,9 @@
 # unittest 1.6-1-999:
 
+## New features
+
+* ut_cmp_error() can now check error class as well as message (27e6e2d)
+
 # unittest 1.6-0:
 
 ## Bug fixes
