@@ -6,27 +6,44 @@
 \description{A helper to catch expected errors and ensure they match what is expected}
 
 \usage{
-  ut_cmp_error(code, expected_regexp, ignore.case = FALSE, perl = FALSE, fixed = FALSE)
+  ut_cmp_error(code, expected_regexp = NULL, expected_class = NULL,
+               ignore.case = FALSE, perl = FALSE, fixed = FALSE)
 }
 
 \arguments{
   \item{code}{Code expression to test, should generate an error}
-  \item{expected_regexp}{Regular expression the error should match}
+  \item{expected_regexp}{
+    Regular expression the error should match.
+    If \code{NULL} the error message will not be checked.
+  }
+  \item{expected_class}{
+    Error class(es) that the error should match.
+    If \code{NULL} the error class will not be checked.
+    If \code{expected_class} is a vector then the error must inherit from
+    all of the \code{expected_class}es.
+  }
   \item{ignore.case}{Passed to \code{\link{grepl}}}
   \item{perl}{Passed to \code{\link{grepl}}}
   \item{fixed}{Passed to \code{\link{grepl}}}
 }
 
 \value{
-  Returns \code{TRUE} if \code{exp} generates an error and matches \code{expected_regexp}.
-  Returns a string with expected and actual error if \code{exp} generates an error but does not match.
-  Returns \code{"No error returned"} if \code{exp} does not generate an error.
+  Returns \code{TRUE} if \code{code} generates an error and, if they are specified (not \code{NULL}),
+  the error matches \code{expected_regexp} and/or \code{expected_class}.
+  If an error is thrown by \code{code} and \code{expected_regexp} and/or \code{expected_class}
+  are given but do not match the error, returns a string with the expected and actual error message,
+  and the expected and actual error class generated.
+  Returns \code{"No error returned"} if \code{code} does not generate an error.
 }
 
 \examples{
 ok(ut_cmp_error({
   stop("Hammer time")
 }, "hammer", ignore.case = TRUE), "Returned a hammer-based error")
+
+ok(ut_cmp_error({
+  stop(errorCondition("Hammer time", class = "MC"))
+}, expected_mesage = "Hammer", expected_class = "MC"), "Returned a MC Hammer based error")
 
 \dontshow{
   # Clear unittest result log, so our unittest failues don't fail example-building
