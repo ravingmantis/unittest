@@ -2,6 +2,7 @@
 
 ## New features
 
+* unittest.cmp_context configures number of context lines for diff output (833c9c5)
 * Add ut_cmp_warning() for checking code is raising warnings (840f1f4)
 * ut_cmp_error() can now check error class as well as message (27e6e2d)
 
