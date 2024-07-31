@@ -104,12 +104,14 @@ expect_failure(
     'Oh no(.|\n)*fn\\(5\\)'
 )
 expect_failure(
-    ok(complex_call(badgers = "yes", locations = c("Bungay", "Milton Keynes", "Hearne Bay", "Wigan")), "Multi-line stacktrace"),
+    ok(complex_call(badgers = "yes", locations = c("Bungay", "Milton Keynes", "Hearne Bay", "Wigan", "Hereford", "Timperley", "Cardiff", "Hexham", "Bangor")), "Multi-line stacktrace"),
     paste(
-        regex_escape('# -> complex_call(badgers = "yes", locations = c("Bungay", "Milton Keynes", '),
-        regex_escape('#     "Hearne Bay", "Wigan"))'),
-        regex_escape('# -> fn(badgers)'),
-        regex_escape('# -> stop("Oh no")'),
+        regex_escape('# Traceback:'),
+        regex_escape('#   1: complex_call(badgers = "yes", locations = c("Bungay", "Milton Keynes", '),
+        regex_escape('#          "Hearne Bay", "Wigan", "Hereford", "Timperley", "Cardiff", '),
+        regex_escape('#          "Hexham", "Bangor"))'),
+        regex_escape('#   2: fn(badgers)'),
+        regex_escape('#   3: stop("Oh no")'),
         sep = '\\n', collapse = '\\n'
     )
 )
@@ -118,8 +120,8 @@ expect_failure(
 expect_failure(
     do.call(function (x) {ok(stop("erk"), "Test fails")}, list(1)),
     paste(
-        regex_escape('# Stacktrace:'),
-        regex_escape('# -> stop("erk")'),
+        regex_escape('# Traceback:'),
+        regex_escape('#   1: stop("erk")'),
         sep = '\\n', collapse = '\\n'
     )
 )
@@ -128,9 +130,10 @@ expect_failure(
 expect_failure(
     unittest::ok(complex_call(badgers = "yes"), "Calling unittest::ok"),
     paste(
-        regex_escape('# -> complex_call(badgers = "yes")'),
-        regex_escape('# -> fn(badgers)'),
-        regex_escape('# -> stop("Oh no")'),
+        regex_escape('# Traceback:'),
+        regex_escape('#   1: complex_call(badgers = "yes")'),
+        regex_escape('#   2: fn(badgers)'),
+        regex_escape('#   3: stop("Oh no")'),
         sep = '\\n', collapse = '\\n'
     )
 )
