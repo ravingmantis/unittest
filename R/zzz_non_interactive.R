@@ -18,11 +18,12 @@ non_interactive_error_handler <- function() {
             deparse(tb[[i]], nlines = 3)
         )
     })
+    error <- list(
+        message = unlist(strsplit_with_emptystr(geterrmessage(), "\n")),
+        traceback = unlist(tb) )
 
-    assign('errors', c(
-        unlist(strsplit_with_emptystr(geterrmessage(), "\n")),
-        "Traceback:", unlist(tb)
-    ), pos = pkg_vars)
+    tests.failed <- outcome_summary(error = error)
+    clear_outcomes()  # Don't summarise again on non_interactive_exit()
 
     q("no", status = 11, runLast = FALSE)
 }
