@@ -210,20 +210,5 @@ if( ! identical(rv, TRUE) ) {
     stop("ok() return value looks wrong")
 }
 
-
-# ================================
-# if we are being run by CMD check
-# ================================
-
-if(! interactive()) {
-    
-    # we stored some results
-    # this will fail if 'outcomes' does not exist
-    get('outcomes', pos = unittest:::pkg_vars)
-
-    # clean up
-    # Remove outcomes, so we don't try and report actual failures
-    rm('outcomes', pos = unittest:::pkg_vars)
-
-}
-
+# Tests shouldn't be reported as unittest failures
+unittest:::clear_outcomes()
