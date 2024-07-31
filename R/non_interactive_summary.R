@@ -37,6 +37,9 @@ non_interactive_exit <- function( e ) {
          } else if (tests.failed) {
              write_ut_lines(
                  paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.", collapse = " "),
+                 if (tests.failed != tests.total && tests.failed < 20) {
+                     paste0("# ", which(!outcomes$status), ": ", outcomes[!outcomes$status, "description"])
+                 },
                  NULL)
              # We need to alter the status code, stop() doesn't work, not allowed to use .Last, should only happen as script is terminating anyway.
              quit(save = "no", status = 10, runLast=FALSE)

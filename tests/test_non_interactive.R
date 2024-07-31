@@ -79,7 +79,7 @@ run_script(
     "One test one failure case not as expected"
 )
 
-# four tests two failures 
+# four tests two failures, not all tests failed so included which failed
 run_script(
     "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nok(2!=2,\"2 equals 2\")\nok(3==3,\"3 equals 3\")\nok(4!=4,\"4 equals 4\")",
     10,
@@ -92,7 +92,10 @@ run_script(
         "not ok - 4 equals 4",
         "# Test returned non-TRUE value:",
         "# [1] FALSE",
-        "# Looks like you failed 2 of 4 tests."
+        "# Looks like you failed 2 of 4 tests.",
+        "# 2: 2 equals 2",
+        "# 4: 4 equals 4",
+        NULL
     ),
     "Four tests two failures case not as expected"
 )
@@ -151,6 +154,25 @@ run_script(
         "# Looks like you failed 1 of 1 tests."
     ),
     "detaching and unloading stops non_interactive_exit functionality and then reloading and re-attaching resets and the rest still works"
+)
+
+# Too many test failures and we don't print a summary
+run_script(
+    paste(
+        "library(unittest, quietly = TRUE)",
+        paste0("ok(1==", 1:30, ", '1 equals ", 1:30, "')", collapse = "\n"),
+        sep = "\n" ),
+    10,
+    c(
+        "ok - 1 equals 1",
+        unlist(strsplit(paste0(
+            "not ok - 1 equals ", 2:30, "\n",
+            "# Test returned non-TRUE value:\n",
+            "# [1] FALSE" ), "\n")),
+        "# Looks like you failed 29 of 30 tests.",
+        NULL
+    ),
+    "By setting an errors variable in globalenv we managed to influence unittest output"
 )
 
 # Failure outside test
