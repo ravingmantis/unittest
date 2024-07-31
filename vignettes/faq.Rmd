@@ -34,6 +34,37 @@ We can test the argument check like this:
 ok(ut_cmp_error(add_four("a"), "must be numeric"), "add_four() argument not numeric throws error")
 ```
 
+### How do I test if a warning is issued?
+
+Use the ``ut_cmp_warning`` function.
+For example, here is a function that will issue a warning if an argument contains ``NA``:
+
+```{r}
+has_similar_mean <- function(x, y, tol = 0.5) {
+    if( any(is.na(x)) ) warning("x contains NAs", call. = FALSE)
+    if( any(is.na(y)) ) warning("y contains NAs", call. = FALSE)
+    return( isTRUE(all.equal(mean(x), mean(y), tolerance = tol)) )
+}
+```
+
+We can test for a warning like this:
+
+```{r}
+ok(ut_cmp_warning(has_similar_mean(c(1,2,3,4), c(1,NA,5)), "y contains NAs"), "has_similar_mean() NAs in y issues a warning")
+```
+
+We can check for multiple distinct warnings
+
+```{r}
+ok(ut_cmp_warning(has_similar_mean(c(NA,2,3,4), c(1,NA,5)), expected_regexp = c("x contains NAs", "y contains NAs"), expected_count = 2L),
+   "has_similar_mean() NAs in arguments issue warnings")
+```
+Here we could use the same regexp to match both wrnings
+
+```{r}
+ok(ut_cmp_warning(has_similar_mean(c(NA,2,3,4), c(1,NA,5)), "^[xy] contains NAs", expected_count = 2L),
+   "has_similar_mean() NAs in arguments issue warnings")
+```
 
 ### How do I test multivalue results, or see differences?
 
