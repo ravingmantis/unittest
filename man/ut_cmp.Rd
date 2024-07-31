@@ -10,8 +10,18 @@
 }
 
 \usage{
-  ut_cmp_equal(a, b, filter = NULL, deparse_frame = -1, ...)
-  ut_cmp_identical(a, b, filter = NULL, deparse_frame = -1)
+ut_cmp_equal(
+        a, b,
+        filter = NULL,
+        deparse_frame = -1,
+        context_lines = getOption("unittest.cmp_context", 1e8),
+        ... )
+
+ut_cmp_identical(
+        a, b,
+        filter = NULL,
+        deparse_frame = -1,
+        context_lines = getOption("unittest.cmp_context", 1e8) )
 }
 
 \arguments{
@@ -21,6 +31,9 @@
   \item{deparse_frame}{
     Tell \code{\link{sys.call}} which frame to deparse to get original expressions.
     Set to \code{-2} when making a helper function, see examples.
+  }
+  \item{context_lines}{
+    Number of lines of context surrounding changed lines to print.
   }
   \item{...}{Other arguments passed directly to \code{\link{all.equal}}}
 }

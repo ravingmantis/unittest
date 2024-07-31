@@ -1,15 +1,34 @@
 # Return TRUE if all.equal(a, b), otherwise show the difference with str().
 # like all.equal but with more diagnostic output
-ut_cmp_equal <- function(a, b, filter = NULL, deparse_frame = -1, ...) {
-    cmp_inner(a, b, comparison_fn = function (x, y) all.equal(x, y, ...), filter = filter, deparse_frame = deparse_frame)
+ut_cmp_equal <- function(
+        a, b,
+        filter = NULL,
+        deparse_frame = -1,
+        context_lines = getOption("unittest.cmp_context", 1e8),
+        ... ) {
+    cmp_inner(
+        a, b,
+        comparison_fn = function (x, y) all.equal(x, y, ...),
+        filter = filter,
+        deparse_frame = deparse_frame,
+        context_lines = context_lines )
 }
 
 # Same as ut_cmp_equal(), but uses identical instead
-ut_cmp_identical <- function(a, b, filter = NULL, deparse_frame = -1) {
-    cmp_inner(a, b, comparison_fn = identical, filter = filter, deparse_frame = deparse_frame)
+ut_cmp_identical <- function(
+        a, b,
+        filter = NULL,
+        deparse_frame = -1,
+        context_lines = getOption("unittest.cmp_context", 1e8) ) {
+    cmp_inner(
+        a, b,
+        comparison_fn = identical,
+        filter = filter,
+        deparse_frame = deparse_frame,
+        context_lines = context_lines)
 }
 
-cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL, deparse_frame = -1) {
+cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL, deparse_frame = -1, context_lines = context_lines) {
     stopifnot(is.numeric(deparse_frame) && deparse_frame < 0)
 
     # Compare inputs, if equal then we're done
@@ -38,7 +57,8 @@ cmp_inner <- function(a, b, comparison_fn = all.equal, filter = NULL, deparse_fr
             diff_lines <- output_diff(
                 f(a), f(b),
                 a_label = deparse1(sys.call(deparse_frame)[[2]], nlines = 1),
-                b_label = deparse1(sys.call(deparse_frame)[[3]], nlines = 1))
+                b_label = deparse1(sys.call(deparse_frame)[[3]], nlines = 1),
+                context_lines = context_lines )
             if (length(diff_lines) > 0) {
                 break
             }
@@ -59,7 +79,7 @@ git_binary <- function() {
 }
 
 # Given 2 stdout-producing arguments, return human-readable word-diff lines, using git diff if available.
-output_diff <- function (a_out, b_out, a_label, b_label) {
+output_diff <- function (a_out, b_out, a_label, b_label, context_lines = 1e8) {
     # Write 2 tempfiles, use git to compare
     if (file.exists(git_binary())) {
         # NB: Make sure we use / under windows, since this is what git will do
@@ -78,7 +98,8 @@ output_diff <- function (a_out, b_out, a_label, b_label) {
             paste0("--color=", if (output_ansi_color()) "always" else "never"),
             "--word-diff=plain",
             "--minimal",
-            "-U100000000",  # Lines of context, assuming output is no longer than this
+            # Lines of context to show around differences
+            paste0("-U", format(context_lines, scientific = FALSE)),
             a_path,
             b_path,
             NULL), input = "", stdout = TRUE, stderr = TRUE))
