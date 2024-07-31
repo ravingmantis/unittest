@@ -1,26 +1,32 @@
 pkg_vars <- new.env(parent = emptyenv())
 
-# Clear out pkg_vars so any test failures aren't reported
+# Start recording outcomes, so a summary will be generated
+record_outcomes <- function () {
+    assign('outcomes', data.frame(
+        status = logical(0),
+        description = character(0),
+        output = character(0),
+        stringsAsFactors = FALSE), pos = pkg_vars )
+    assign('errors', list(), pos = pkg_vars)
+}
+
+# Clear out previous outcomes, stop recording outcomes
 clear_outcomes <- function () {
     if (exists('outcomes', where = pkg_vars)) rm('outcomes', pos = pkg_vars)
 }
 
 assign_outcome <- function(outcome) {
-    if (interactive()) return()
-    # as per assign() invoked for side effect
-    if( ! exists('outcomes', where = pkg_vars) ) {
-        assign(
-            'outcomes',
-             data.frame(status = logical(0), description = character(0), output = character(0), stringsAsFactors = FALSE),
-             pos = pkg_vars
-        )
-    }
+    # Only bother assigning if we're recording at this point
+    if (!exists('outcomes', where = pkg_vars)) return()
     assign('outcomes', rbind(get('outcomes', pos = pkg_vars), outcome), pos = pkg_vars)
 }
 
 # Output human-readable version of summary contents, return number of failing tests, or -1 if an error occured
 outcome_summary <- function (error = NULL) {
-    outcomes <- if (exists('outcomes', where = pkg_vars)) get('outcomes', pos = pkg_vars) else data.frame(status = logical(0))
+    # If not recording, print nothing
+    if (!exists('outcomes', where = pkg_vars)) return(invisible(0))
+
+    outcomes <- get('outcomes', pos = pkg_vars)
     tests.total <- nrow(outcomes)
     tests.failed <- sum(!outcomes$status)
 
@@ -33,7 +39,8 @@ outcome_summary <- function (error = NULL) {
             NULL)
         tests.failed <- -1
     } else if( tests.total == 0 ) {
-        # No tests run, or package detached
+        # No tests run
+        # NB: We could report this, but we need to fix the examples/tests first
     } else if (tests.failed) {
         write_ut_lines(
             paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.", collapse = " "),

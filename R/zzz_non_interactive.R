@@ -31,6 +31,9 @@ non_interactive_error_handler <- function() {
 .onAttach <- function(libname, pkgname) {
     if (interactive()) return()
 
+    # Start recording outcomes
+    record_outcomes()
+
     reg.finalizer(pkg_vars, non_interactive_exit, onexit = TRUE)
 
     # Only register our error handler if we'd use the default otherwise
