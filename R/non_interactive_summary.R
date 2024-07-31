@@ -83,6 +83,5 @@ non_interactive_error_handler <- function() {
 .onDetach <- function(libpath) {
     if (interactive()) return()
 
-    rm('outcomes', pos = pkg_vars)
-    rm('errors', pos = pkg_vars)
+    clear_outcomes()
 }
