@@ -112,13 +112,40 @@ function that will throw an error for a bad argument:</p>
 <pre><code><span><span class="co">## ok - add_four() argument not numeric throws error</span></span></code></pre>
 </div>
 <div class="section level3">
+<h3 id="how-do-i-test-if-a-warning-is-issued">How do I test if a warning is issued?<a class="anchor" aria-label="anchor" href="#how-do-i-test-if-a-warning-is-issued"></a>
+</h3>
+<p>Use the <code>ut_cmp_warning</code> function. For example, here is a
+function that will issue a warning if an argument contains
+<code>NA</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">has_similar_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">tol</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="st">"x contains NAs"</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="st">"y contains NAs"</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/Logic.html" class="external-link">isTRUE</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, tolerance <span class="op">=</span> <span class="va">tol</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>We can test for a warning like this:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp_warning.html">ut_cmp_warning</a></span><span class="op">(</span><span class="fu">has_similar_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>, <span class="st">"y contains NAs"</span><span class="op">)</span>, <span class="st">"has_similar_mean() NAs in y issues a warning"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## ok - has_similar_mean() NAs in y issues a warning</span></span></code></pre>
+<p>We can check for multiple distinct warnings</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp_warning.html">ut_cmp_warning</a></span><span class="op">(</span><span class="fu">has_similar_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>, expected_regexp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x contains NAs"</span>, <span class="st">"y contains NAs"</span><span class="op">)</span>, expected_count <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>,</span>
+<span>   <span class="st">"has_similar_mean() NAs in arguments issue warnings"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## ok - has_similar_mean() NAs in arguments issue warnings</span></span></code></pre>
+<p>Here we could use the same regexp to match both wrnings</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp_warning.html">ut_cmp_warning</a></span><span class="op">(</span><span class="fu">has_similar_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>, <span class="st">"^[xy] contains NAs"</span>, expected_count <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>,</span>
+<span>   <span class="st">"has_similar_mean() NAs in arguments issue warnings"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## ok - has_similar_mean() NAs in arguments issue warnings</span></span></code></pre>
+</div>
+<div class="section level3">
 <h3 id="how-do-i-test-multivalue-results-or-see-differences">How do I test multivalue results, or see differences?<a class="anchor" aria-label="anchor" href="#how-do-i-test-multivalue-results-or-see-differences"></a>
 </h3>
 <p>Use <code>ut_cmp_equal(...)</code> or
 <code>ut_cmp_identical(...)</code> as replacements for
 <code>all.equal(...)</code> and <code>identical(...)</code>
 respectively:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
 <span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span>, <span class="st">"a and b are equal"</span><span class="op">)</span></span></code></pre></div>
@@ -148,7 +175,7 @@ not ok - ut_cmp_equal(c(1, 2, 3, 4, 5), c(1, 8, 8, 4, 5))
 <p>When dealing with many unit tests in one file it can be useful to
 group related unit tests.</p>
 <p>The <code><a href="../reference/ok_group.html">ok_group()</a></code> function is used like this:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ok_group.html">ok_group</a></span><span class="op">(</span><span class="st">"Test addition"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span> <span class="op">==</span> <span class="fl">2</span>, <span class="st">"Can add 1"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">==</span> <span class="fl">4</span>, <span class="st">"Can add 3"</span><span class="op">)</span></span>
@@ -156,7 +183,7 @@ group related unit tests.</p>
 <pre><code><span><span class="co">## # Test addition</span></span>
 <span><span class="co">## ok - Can add 1</span></span>
 <span><span class="co">## ok - Can add 3</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ok_group.html">ok_group</a></span><span class="op">(</span><span class="st">"Test subtraction"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">1</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"Can subtract 1"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">3</span> <span class="op">==</span> <span class="op">-</span><span class="fl">2</span>, <span class="st">"Can subtract 3"</span><span class="op">)</span></span>
