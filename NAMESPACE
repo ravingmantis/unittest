@@ -10,3 +10,6 @@ export(ut_cmp_identical)
 
 # R/ut_cmp_error.R
 export(ut_cmp_error)
+
+# R/ut_cmp_warning.R
+export(ut_cmp_warning)
