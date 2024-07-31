@@ -26,25 +26,25 @@ outcome_summary <- function () {
     tests.failed <- sum(!outcomes$status)
     errors <- if (exists('errors', where = pkg_vars)) get('errors', pos = pkg_vars) else NULL
 
-    if( nrow(outcomes) > 0 ) {
-         if ( !is.null(errors) ) {
-             write_ut_lines(
-                 paste("Bail out! Looks like", tests.total, "tests passed, but script ended prematurely", collapse = " "),
-                 paste("#", errors),
-                 NULL)
-             tests.failed <- -1
-         } else if (tests.failed) {
-             write_ut_lines(
-                 paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.", collapse = " "),
-                 if (tests.failed != tests.total && tests.failed < 20) {
-                     paste0("# ", which(!outcomes$status), ": ", outcomes[!outcomes$status, "description"])
-                 },
-                 NULL)
-         } else {
-             write_ut_lines(
-                 paste("# Looks like you passed all", tests.total, "tests.", collapse = " "),
-                 NULL)
-         }
+    if( tests.total == 0 ) {
+        # No tests run, or package detached
+    } else if ( !is.null(errors) ) {
+        write_ut_lines(
+            paste("Bail out! Looks like", tests.total, "tests passed, but script ended prematurely", collapse = " "),
+            paste("#", errors),
+            NULL)
+        tests.failed <- -1
+    } else if (tests.failed) {
+        write_ut_lines(
+            paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.", collapse = " "),
+            if (tests.failed != tests.total && tests.failed < 20) {
+                paste0("# ", which(!outcomes$status), ": ", outcomes[!outcomes$status, "description"])
+            },
+            NULL)
+    } else {
+        write_ut_lines(
+            paste("# Looks like you passed all", tests.total, "tests.", collapse = " "),
+            NULL)
     }
 
     return(invisible(tests.failed))
