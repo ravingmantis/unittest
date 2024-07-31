@@ -198,6 +198,28 @@ run_script(
     "Failure outside tests"
 )
 
+# Failure before test
+run_script(
+    paste(
+        "library(unittest, quietly = TRUE)",
+        "stop('eek\nook')",
+        "ok(1==1, '1 equals 1')",
+        "ok(2==2, '2 equals 2')",
+        "", sep = "\n"
+    ),
+    11,
+    c(
+        "Bail out! Looks like 0 tests ran, but script ended prematurely",
+        "# Error: eek",
+        "# ook",
+        "# Traceback:",
+        "# 1:",
+        '# stop("eek\\nook")',
+        NULL
+    ),
+    "Failure before tests"
+)
+
 # Failure before test-failure (we count all tests, including failures)
 run_script(
     paste(

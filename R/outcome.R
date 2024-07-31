@@ -24,9 +24,7 @@ outcome_summary <- function (error = NULL) {
     tests.total <- nrow(outcomes)
     tests.failed <- sum(!outcomes$status)
 
-    if( tests.total == 0 ) {
-        # No tests run, or package detached
-    } else if ( !is.null(error) ) {
+    if ( !is.null(error) ) {
         write_ut_lines(
             paste("Bail out! Looks like", tests.total, "tests ran, but script ended prematurely", collapse = " "),
             paste("#", error$message),
@@ -34,6 +32,8 @@ outcome_summary <- function (error = NULL) {
             paste("#", error$traceback),
             NULL)
         tests.failed <- -1
+    } else if( tests.total == 0 ) {
+        # No tests run, or package detached
     } else if (tests.failed) {
         write_ut_lines(
             paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.", collapse = " "),
