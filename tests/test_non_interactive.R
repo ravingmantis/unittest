@@ -221,3 +221,18 @@ stopifnot(identical(readLines(tf), c(
     "# Traceback:",
     "# 1:",
     "# stop(\"erk\")")))
+
+# unittest output shouldn't be influenced by the global environment
+run_script(
+    paste(
+        "library(unittest, quietly = TRUE)",
+        "errors <- 'This is not an error, just a string I made'",
+        "ok(1==1, '1 equals 1')",
+        sep = "\n" ),
+    0,
+    c(
+        "ok - 1 equals 1",
+        "# Looks like you passed all 1 tests."
+    ),
+    "By setting an errors variable in globalenv we managed to influence unittest output"
+)

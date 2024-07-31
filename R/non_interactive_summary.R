@@ -1,6 +1,6 @@
 # everything should no-op in interactive session
 
-pkg_vars <- new.env()
+pkg_vars <- new.env(parent = emptyenv())
 
 # Clear out pkg_vars so any test failures aren't reported
 clear_outcomes <- function () {
