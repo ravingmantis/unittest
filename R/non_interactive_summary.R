@@ -23,14 +23,16 @@ assign_outcome <- function(outcome) {
 
 # having this as a named function means that CMD check will not complain about the use of cat and packageStartupMessage in .onLoad
 non_interactive_exit <- function( e ) {
-    if( exists('outcomes', where = e) && nrow(get('outcomes', pos = e)) ) {
-         tests.total <- nrow(get('outcomes', pos = e))
-         tests.failed <- sum(! get('outcomes', pos = e)$status) 
-         if ( exists('errors', where = e) ) {
-             tests.errors <- get('errors', pos = e)
+    outcomes <- if (exists('outcomes', where = e)) get('outcomes', pos = e) else data.frame(status = logical(0))
+    tests.total <- nrow(outcomes)
+    tests.failed <- sum(!outcomes$status)
+    errors <- if (exists('errors', where = e)) get('errors', pos = e) else NULL
+
+    if( nrow(outcomes) > 0 ) {
+         if ( !is.null(errors) ) {
              write_ut_lines(
                  paste("Bail out! Looks like", tests.total, "tests passed, but script ended prematurely", collapse = " "),
-                 paste("#", tests.errors),
+                 paste("#", errors),
                  NULL)
          } else if (tests.failed) {
              write_ut_lines(
