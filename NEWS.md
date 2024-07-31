@@ -2,6 +2,7 @@
 
 ## New features
 
+* Add ut_cmp_warning() for checking code is raising warnings (840f1f4)
 * ut_cmp_error() can now check error class as well as message (27e6e2d)
 
 # unittest 1.6-0:
