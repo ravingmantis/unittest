@@ -28,7 +28,7 @@ outcome_summary <- function (error = NULL) {
         # No tests run, or package detached
     } else if ( !is.null(error) ) {
         write_ut_lines(
-            paste("Bail out! Looks like", tests.total, "tests passed, but script ended prematurely", collapse = " "),
+            paste("Bail out! Looks like", tests.total, "tests ran, but script ended prematurely", collapse = " "),
             paste("#", error$message),
             "# Traceback:",
             paste("#", error$traceback),
