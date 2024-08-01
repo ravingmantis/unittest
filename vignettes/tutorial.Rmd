@@ -1,0 +1,104 @@
+---
+title: "Tutorial"
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## The basic idea
+
+You write a function, for example
+
+```{r}
+# Trim whitespace and then reverse a string.
+# (code based on an example from help for strsplit.)
+strTrimAndReverse <- function(x) sapply(lapply(strsplit(trimws(x), NULL), rev), paste, collapse = "")
+```
+
+and then write some code to see if it works
+
+```{r, results="hold"}
+if(strTrimAndReverse("hello") == "olleh") cat("works for a single string\n")
+if(identical(strTrimAndReverse(c("hello", "world")), c("olleh", "dlrow"))) cat("works for a vector of strings\n")
+if(strTrimAndReverse(" byebye ") == "eybeyb") cat("trims whitespace\n")
+```
+
+These tests are useful because now we can alter the implementation of `strTrimAndReverse` and run our test code to see if the new version works.
+
+So that is it, that is the basic idea behind unit testing.
+
+## Why use a unit testing library
+
+So let us consider the case when our tests fail.
+To do this let us reimplement the function with a bug; the function no longer strps trailing whitespace.
+
+```{r}
+# Trim whitespace and then reverse a string.
+strTrimAndReverse <- function(x) sapply(lapply(strsplit(trimws(x, 'l'), NULL), rev), paste, collapse = "")
+```
+
+Now we run the tests again
+
+```{r, results="hold"}
+if(strTrimAndReverse("hello") == "olleh") cat("works for a single string\n")
+if(identical(strTrimAndReverse(c("hello", "world")), c("olleh", "dlrow"))) cat("works for a vector of strings\n")
+if(strTrimAndReverse(" byebye ") == "eybeyb") cat("trims whitespace\n")
+```
+
+It was not so obvious that the test failed, so lets write our code to catch the error
+
+```{r, results="hold"}
+if(strTrimAndReverse("hello") == "olleh") {
+    cat("works for a single string\n")
+} else {
+    cat("ERROR with a single string\n")
+}
+if(identical(strTrimAndReverse(c("hello", "world")), c("olleh", "dlrow"))) {
+    cat("works for a vector of strings\n")
+} else {
+    cat("ERROR with a vector of strings\n")
+}
+if(strTrimAndReverse(" byebye ") == "eybeyb") {
+    cat("trims whitespace\n")
+} else {
+    cat("ERROR triming whitespace\n")
+}
+```
+
+So this is good, but we are starting to need a lot of boilerplate code.
+And this problem will get worse as we start to think of more scenarios that we need to catch, for example we should also nicely catch a runtime error that is introduced into the code.
+
+To illustrate this we will create a `strTrimAndReverseBroken` that has a bug that causes a runtime error
+
+```{r}
+strTrimAndReverseBroken <- function(x) sapply(lapply(strsplit(trimws(x, 'oops'), NULL), rev), paste, collapse = "")
+```
+
+And the test code that can also catch this
+
+```{r, results="hold"}
+tryCatch({
+    if(strTrimAndReverseBroken("hello") == "olleh") {
+        cat("works for a single string\n")
+    } else {
+        cat("ERROR with a single string\n")
+    }
+}, error = function(e) { cat(paste0("ERROR with a single string\n", "# Test resulted in error: ", e$message, "\n")) })
+```
+
+So here it the code you need to do the above tests using `unittest`
+
+```{r, results="hold"}
+library(unittest)
+
+ok(strTrimAndReverse("hello") == "olleh", "single string")
+ok(ut_cmp_identical(strTrimAndReverse(c("hello", "world")), c("olleh", "dlrow")), "vector of strings")
+ok(ut_cmp_identical(strTrimAndReverse(" byebye "), "eybeyb"), "trims whitespace")
+ok(strTrimAndReverseBroken("hello") == "olleh", "single string in broken function")
+```
+
+```{r, echo=FALSE}
+unittest:::clear_outcomes()
+```
+
