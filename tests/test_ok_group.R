@@ -1,4 +1,4 @@
-library(unittest, quietly = TRUE)
+library(unittest)
 
 expect_equal <- function (expr, expected) {
     actual <- capture.output(expr)

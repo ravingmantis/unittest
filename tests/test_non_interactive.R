@@ -34,7 +34,7 @@ run_script <- function(script, expected_status, expected_out, description) {
 
 # one test one success
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")",
+    "library(unittest)\nok(1==1,\"1 equals 1\")",
     0,
     c(
         "ok - 1 equals 1",
@@ -45,7 +45,7 @@ run_script(
 
 # Success with a multi-line expression
 run_script(
-    "library(unittest, quietly = TRUE)\nok(all.equal(c('This is a string', 'This is a string too', 'Exciting times'),\nc('This is a string', 'This is a string too', 'Exciting times')))",
+    "library(unittest)\nok(all.equal(c('This is a string', 'This is a string too', 'Exciting times'),\nc('This is a string', 'This is a string too', 'Exciting times')))",
     0,
     c(
         'ok - all.equal(c("This is a string", "This is a string too", "Exc',
@@ -56,7 +56,7 @@ run_script(
 
 # two tests two sucesses
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nok(2==2,\"2 equals 2\")",
+    "library(unittest)\nok(1==1,\"1 equals 1\")\nok(2==2,\"2 equals 2\")",
     0,
     c(
         "ok - 1 equals 1",
@@ -68,7 +68,7 @@ run_script(
 
 # one test one failure 
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")",
+    "library(unittest)\nok(1!=1,\"1 equals 1\")",
     10,
     c(
         "not ok - 1 equals 1",
@@ -81,7 +81,7 @@ run_script(
 
 # four tests two failures, not all tests failed so included which failed
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1==1,\"1 equals 1\")\nok(2!=2,\"2 equals 2\")\nok(3==3,\"3 equals 3\")\nok(4!=4,\"4 equals 4\")",
+    "library(unittest)\nok(1==1,\"1 equals 1\")\nok(2!=2,\"2 equals 2\")\nok(3==3,\"3 equals 3\")\nok(4!=4,\"4 equals 4\")",
     10,
     c(
         "ok - 1 equals 1",
@@ -102,7 +102,7 @@ run_script(
 
 # check detaching stops non_interactive_exit functionality
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=FALSE)",
+    "library(unittest)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=FALSE)",
     0,
     c(
         "not ok - 1 equals 1",
@@ -114,7 +114,7 @@ run_script(
 
 # and if we re-attach it works again
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=FALSE)\nlibrary(unittest, quietly = TRUE)\nok(2!=2,\"2 equals 2\")",
+    "library(unittest)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=FALSE)\nlibrary(unittest)\nok(2!=2,\"2 equals 2\")",
     10,
     c(
         "not ok - 1 equals 1",
@@ -130,7 +130,7 @@ run_script(
 
 # check detaching and unloading stops non_interactive_exit functionality
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=TRUE)",
+    "library(unittest)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=TRUE)",
     0,
     c(
         "not ok - 1 equals 1",
@@ -142,7 +142,7 @@ run_script(
 
 # and if we reload and re-attach it works again
 run_script(
-    "library(unittest, quietly = TRUE)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=TRUE)\nlibrary(unittest, quietly = TRUE)\nok(2!=2,\"2 equals 2\")",
+    "library(unittest)\nok(1!=1,\"1 equals 1\")\ndetach(package:unittest,unload=TRUE)\nlibrary(unittest)\nok(2!=2,\"2 equals 2\")",
     10,
     c(
         "not ok - 1 equals 1",
@@ -159,7 +159,7 @@ run_script(
 # Too many test failures and we don't print a summary
 run_script(
     paste(
-        "library(unittest, quietly = TRUE)",
+        "library(unittest)",
         paste0("ok(1==", 1:30, ", '1 equals ", 1:30, "')", collapse = "\n"),
         sep = "\n" ),
     10,
@@ -178,7 +178,7 @@ run_script(
 # Failure outside test
 run_script(
     paste(
-        "library(unittest, quietly = TRUE)",
+        "library(unittest)",
         "ok(1==1, '1 equals 1')",
         "stop('eek\nook')",
         "ok(2==2, '2 equals 2')",
@@ -200,7 +200,7 @@ run_script(
 # Failure before test
 run_script(
     paste(
-        "library(unittest, quietly = TRUE)",
+        "library(unittest)",
         "stop('eek\nook')",
         "ok(1==1, '1 equals 1')",
         "ok(2==2, '2 equals 2')",
@@ -221,7 +221,7 @@ run_script(
 # Failure before test-failure (we count all tests, including failures)
 run_script(
     paste(
-        "library(unittest, quietly = TRUE)",
+        "library(unittest)",
         "ok(1==1, '1 equals 1')",
         "ok(1==2, '1 equals 2')",
         "stop('eek\nook')",
@@ -246,7 +246,7 @@ run_script(
 # tryCatch() doesn't count as failure
 run_script(
     paste(
-        "library(unittest, quietly = TRUE)",
+        "library(unittest)",
         "ok(1==1, '1 equals 1')",
         "tryCatch(stop('not fatal'), error = function (e) NULL)",
         "ok(2==2, '2 equals 2')",
@@ -267,7 +267,7 @@ run_script(
 tf <- tempfile()
 run_script(
     c(
-        'library(unittest, quietly = TRUE)',
+        'library(unittest)',
         deparse1(substitute( options(unittest.output=tf), list(tf = tf) )),
         'ok(1==1, "1 equals 1")',
         'writeLines("Hello")',
@@ -292,7 +292,7 @@ stopifnot(identical(readLines(tf), c(
 # unittest output shouldn't be influenced by the global environment
 run_script(
     paste(
-        "library(unittest, quietly = TRUE)",
+        "library(unittest)",
         "errors <- 'This is not an error, just a string I made'",
         "ok(1==1, '1 equals 1')",
         sep = "\n" ),

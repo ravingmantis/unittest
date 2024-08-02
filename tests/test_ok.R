@@ -4,7 +4,7 @@
 #
 
 
-library(unittest, quietly = TRUE)
+library(unittest)
 
 
 # -----
