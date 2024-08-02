@@ -85,6 +85,10 @@ ok <- function(
         if (any(nzchar(outcome[1, "output"]))) outcome[1, "output"],
         NULL
     )
+    if (!outcome[1, "status"] && isTRUE(getOption("unittest.stop_on_fail", FALSE))) {
+        write_ut_lines("# Test failure and unittest.stop_on_fail is set")
+        stop()
+    }
     invisible(result)
 }
 

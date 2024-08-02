@@ -213,5 +213,32 @@ if( ! identical(rv, TRUE) ) {
     stop("ok() return value looks wrong")
 }
 
+# ---------------------
+# unittest.stop_on_fail
+# ---------------------
+test_path <- tempfile(fileext = ".R")
+writeLines('
+library(unittest)
+
+finished <- FALSE
+ok(1==1)
+ok(1==2)
+ok(1==1)
+finished <- TRUE
+', con = test_path)
+
+# Without unittest.stop_on_fail, we see all failures
+options(unittest.stop_on_fail = NULL)
+success <- tryCatch({source(test_path) ; TRUE}, error = function (e) { FALSE })
+stopifnot(success)
+stopifnot(finished)
+
+# With, we stop at the first failing test:
+options(unittest.stop_on_fail = TRUE)
+success <- tryCatch({source(test_path) ; TRUE}, error = function (e) { FALSE })
+stopifnot(!success)
+stopifnot(!finished)
+
 # Tests shouldn't be reported as unittest failures
 unittest:::clear_outcomes()
+options(unittest.stop_on_fail = NULL)
