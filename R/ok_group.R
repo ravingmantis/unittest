@@ -10,12 +10,11 @@ ok_group <- function (message, tests = NULL) {
         function(e) invokeRestart("grmbl", e, sys.calls())
     }), grmbl = function(e, calls) {
         n <- length(sys.calls())
-        calls <- calls[-seq.int(length.out = n - 1L)]
-        calls <- head(calls, -2)
         output <- paste("# Exception:", e$message)
-        if(length(calls)>0) output <- paste(output, "# Traceback:",
-                                      paste0("# ", format_traceback(calls), collapse = "\n"),
-                                      sep = "\n", collapse = "\n")
+        if(length(calls)>=n+2)
+            output <- paste(output, "# Traceback:",
+                      paste0("# ", format_traceback(calls, start = n, end = length(calls)-2), collapse = "\n"),
+                      sep = "\n", collapse = "\n")
         outcome <- data.frame(
             status = FALSE,
             description = paste0("exception caught within ok_group '", message[1], "'"),
