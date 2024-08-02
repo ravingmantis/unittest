@@ -44,6 +44,7 @@ outcome_summary <- function (error = NULL) {
         # NB: We could report this, but we need to fix the examples/tests first
     } else if (tests.failed) {
         write_ut_lines(
+            paste0(1, "..", tests.total),
             paste("# Looks like you failed", tests.failed, "of", tests.total, "tests.", collapse = " "),
             if (tests.failed != tests.total && tests.failed < 20) {
                 paste0("# ", which(!outcomes$status), ": ", outcomes[!outcomes$status, "description"])
@@ -51,6 +52,7 @@ outcome_summary <- function (error = NULL) {
             NULL)
     } else {
         write_ut_lines(
+            paste0(1, "..", tests.total),
             paste("# Looks like you passed all", tests.total, "tests.", collapse = " "),
             NULL)
     }

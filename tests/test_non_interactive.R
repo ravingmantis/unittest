@@ -38,6 +38,7 @@ run_script(
     0,
     c(
         "ok - 1 equals 1",
+        "1..1",
         "# Looks like you passed all 1 tests."
     ),
     "One test one success case not as expected"
@@ -49,6 +50,7 @@ run_script(
     0,
     c(
         'ok - all.equal(c("This is a string", "This is a string too", "Exc',
+        "1..1",
         "# Looks like you passed all 1 tests."
     ),
     "One test one success case not as expected"
@@ -61,6 +63,7 @@ run_script(
     c(
         "ok - 1 equals 1",
         "ok - 2 equals 2",
+        "1..2",
         "# Looks like you passed all 2 tests."
     ),
     "Two tests two successes case not as expected"
@@ -74,6 +77,7 @@ run_script(
         "not ok - 1 equals 1",
         "# Test returned non-TRUE value:",
         "# [1] FALSE",
+        "1..1",
         "# Looks like you failed 1 of 1 tests."
     ),
     "One test one failure case not as expected"
@@ -92,6 +96,7 @@ run_script(
         "not ok - 4 equals 4",
         "# Test returned non-TRUE value:",
         "# [1] FALSE",
+        "1..4",
         "# Looks like you failed 2 of 4 tests.",
         "# 2: 2 equals 2",
         "# 4: 4 equals 4",
@@ -123,6 +128,7 @@ run_script(
         "not ok - 2 equals 2",
         "# Test returned non-TRUE value:",
         "# [1] FALSE",
+        "1..1",
         "# Looks like you failed 1 of 1 tests."
     ),
     "detaching stops non_interactive_exit functionality and then re-attaching resets and the rest still works"
@@ -151,6 +157,7 @@ run_script(
         "not ok - 2 equals 2",
         "# Test returned non-TRUE value:",
         "# [1] FALSE",
+        "1..1",
         "# Looks like you failed 1 of 1 tests."
     ),
     "detaching and unloading stops non_interactive_exit functionality and then reloading and re-attaching resets and the rest still works"
@@ -169,6 +176,7 @@ run_script(
             "not ok - 1 equals ", 2:30, "\n",
             "# Test returned non-TRUE value:\n",
             "# [1] FALSE" ), "\n")),
+        "1..30",
         "# Looks like you failed 29 of 30 tests.",
         NULL
     ),
@@ -257,6 +265,7 @@ run_script(
         "ok - 1 equals 1",
         "NULL",
         "ok - 2 equals 2",
+        "1..2",
         "# Looks like you passed all 2 tests.",
         NULL
     ),
@@ -299,6 +308,7 @@ run_script(
     0,
     c(
         "ok - 1 equals 1",
+        "1..1",
         "# Looks like you passed all 1 tests."
     ),
     "By setting an errors variable in globalenv we managed to influence unittest output"

@@ -47,6 +47,7 @@ run_script(paste0('
     writeLines("It\'s over!")
 '), 0, c(
     'ok - 1 == 1',
+    '1..1',
     '# Looks like you passed all 1 tests.',
     "It's over!",
     NULL ), "Printed summary after sourcing a test script, script still carried on")
@@ -64,6 +65,7 @@ run_script('
     "not ok - 2 == 1",
     "# Test returned non-TRUE value:",
     "# [1] FALSE",
+    '1..2',
     "# Looks like you failed 1 of 2 tests.",
     "# 2: 2 == 1",
     "It's over!",
@@ -104,5 +106,6 @@ run_script('
     'ok - 2 == 2',
     'ok - 3 == 3',
     'ok - 4 == 4',
+    '1..4',
     '# Looks like you passed all 4 tests.',
 NULL ), "Can nest outcome recording")
