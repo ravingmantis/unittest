@@ -32,3 +32,32 @@ expect_equal(ok_group("camels", print("moo")), c(
 expect_equal({
     if (!is.null(ok_group("camels", 6))) stop("Didn't return NULL")
 }, c("# camels"))
+
+
+# The following tests should register failures
+
+# Execution continues after an exception
+expect_equal({ok_group("snake", stop("hiss!")); print("badger")}, c(
+    "# snake",
+    "not ok - exception caught within ok_group 'snake'",
+    "# Exception: hiss!",
+    "#   Call stack:",
+    '#      stop("hiss!")',
+    '[1] "badger"'))
+
+# Don't output an empty call stack
+expect_equal(ok_group("snake", reptile <- snake), c(
+    "# snake",
+    "not ok - exception caught within ok_group 'snake'",
+    "# Exception: object 'snake' not found"))
+
+# if we are being run by CMD check
+if(! interactive()) {
+    # we stored some failures
+    # this will fail if 'outcomes' does not exist
+    get('outcomes', pos = unittest:::pkg_vars)
+
+    # clean up
+    # Remove outcomes, so we don't try and report actual failures
+    rm('outcomes', pos = unittest:::pkg_vars)
+}
