@@ -12,10 +12,10 @@ ok_group <- function (message, tests = NULL) {
         n <- length(sys.calls())
         calls <- calls[-seq.int(length.out = n - 1L)]
         calls <- head(calls, -2)
-        tb <- lapply(calls, deparse, width.cutoff = 200L, nlines = 1L)
         output <- paste("# Exception:", e$message)
-        if(length(tb)>0) output <- paste(output, "#   Call stack:",
-                                   paste("#     ", tb, collapse = "\n"), sep = "\n")
+        if(length(calls)>0) output <- paste(output, "# Traceback:",
+                                      paste0("# ", format_traceback(calls), collapse = "\n"),
+                                      sep = "\n", collapse = "\n")
         outcome <- data.frame(
             status = FALSE,
             description = paste0("exception caught within ok_group '", message[1], "'"),

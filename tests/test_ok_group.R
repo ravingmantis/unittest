@@ -41,8 +41,8 @@ expect_equal({ok_group("snake", stop("hiss!")); print("badger")}, c(
     "# snake",
     "not ok - exception caught within ok_group 'snake'",
     "# Exception: hiss!",
-    "#   Call stack:",
-    '#      stop("hiss!")',
+    "# Traceback:",
+    '#   1: stop("hiss!")',
     '[1] "badger"'))
 
 # Don't output an empty call stack
