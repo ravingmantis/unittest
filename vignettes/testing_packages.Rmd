@@ -41,7 +41,7 @@ Create a corresponding ``tests/test_biggest.R`` in your package source (the file
 #!/usr/bin/Rscript --vanilla
 
 library(mypackage)
-library(unittest, quietly = TRUE)
+library(unittest)
 if (!interactive()) options(warn=2, error = function() { sink(stderr()) ; traceback(3) ; q(status = 1) })
 
 ok(ut_cmp_equal( biggest(3,4), 4), "two numbers")

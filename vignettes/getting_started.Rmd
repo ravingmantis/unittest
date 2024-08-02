@@ -8,27 +8,21 @@ vignette: >
 
 ## A very simple example
 
-Suppose you have a file ``biggest.R`` with the following function:
+Suppose you have the following function:
 
 ```{r}
 biggest <- function(x,y) {max(c(x,y))}
 ```
 
-To test this create a file called ``test_biggest.R`` in the same directory containing:
+To test this you could do something like this in an ``R`` session:
 
 ```{r, eval=FALSE}
-library(unittest, quietly = TRUE)
+library(unittest)
 
-source('biggest.R')
+biggest <- function(x,y) {max(c(x,y))}
 
 ok(biggest(3,4) == 4, "two numbers")
 ok(biggest(c(5,3),c(3,4)) == 5, "two vectors")
-```
-
-Now in an ``R`` session ``source`` the test file:
-
-```{r, eval=FALSE}
-source('test_biggest.R')
 ```
 
 and you will see output like this
@@ -40,8 +34,8 @@ ok - two vectors
 
 and that's it.
 
-Now each time you edit ``biggest.R`` re-sourcing ``test_biggest.R``
-reloads your function and runs your unit tests.
+Now each time you edit the ``biggest()`` function
+you rerun your unit tests.
 
 ## Comparing results
 
@@ -66,10 +60,6 @@ work out the problem.
 To help with this we can use ``ut_cmp_equal``. If we rewrite our test to:
 
 ```{r, eval=FALSE}
-library(unittest, quietly = TRUE)
-
-source('biggest.R')
-
 ok(ut_cmp_equal(biggest(3,4), 4), "two numbers")
 ok(ut_cmp_equal(biggest(c(5,3),c(3,4)), 5), "two vectors")
 ```
