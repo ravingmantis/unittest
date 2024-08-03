@@ -2,6 +2,7 @@
 
 ## New features
 
+* Add options(unittest.stop_on_fail = TRUE), to stop with first error (ce2dcbc)
 * Failing tests are now reported at the end of test output (ec84b0c)
 * unittest.cmp_context configures number of context lines for diff output (833c9c5)
 * Add ut_cmp_warning() for checking code is raising warnings (840f1f4)
