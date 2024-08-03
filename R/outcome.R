@@ -1,13 +1,14 @@
 pkg_vars <- new.env(parent = emptyenv())
 
-# Start recording outcomes, so a summary will be generated
+# Start recording outcomes, so a summary will be generated. Return TRUE iff not previously recording
 record_outcomes <- function () {
+    if (exists('outcomes', where = pkg_vars)) return(FALSE)
     assign('outcomes', data.frame(
         status = logical(0),
         description = character(0),
         output = character(0),
         stringsAsFactors = FALSE), pos = pkg_vars )
-    assign('errors', list(), pos = pkg_vars)
+    return(TRUE)
 }
 
 # Clear out previous outcomes, stop recording outcomes
