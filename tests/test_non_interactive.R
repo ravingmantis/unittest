@@ -187,15 +187,60 @@ run_script(
     11,
     c(
         "ok - 1 equals 1",
-        "Bail out! Looks like 1 tests passed, but script ended prematurely",
+        "Bail out! Looks like 1 tests ran, but script ended prematurely",
         "# Error: eek",
         "# ook",
         "# Traceback:",
-        "# 1:",
-        '# stop("eek\\nook")',
+        '#   1: stop("eek\\nook")',
         NULL
     ),
     "Failure outside tests"
+)
+
+# Failure before test
+run_script(
+    paste(
+        "library(unittest, quietly = TRUE)",
+        "stop('eek\nook')",
+        "ok(1==1, '1 equals 1')",
+        "ok(2==2, '2 equals 2')",
+        "", sep = "\n"
+    ),
+    11,
+    c(
+        "Bail out! Looks like 0 tests ran, but script ended prematurely",
+        "# Error: eek",
+        "# ook",
+        "# Traceback:",
+        '#   1: stop("eek\\nook")',
+        NULL
+    ),
+    "Failure before tests"
+)
+
+# Failure before test-failure (we count all tests, including failures)
+run_script(
+    paste(
+        "library(unittest, quietly = TRUE)",
+        "ok(1==1, '1 equals 1')",
+        "ok(1==2, '1 equals 2')",
+        "stop('eek\nook')",
+        "", sep = "\n"
+    ),
+    11,
+    c(
+        "ok - 1 equals 1",
+        "not ok - 1 equals 2",
+        "# Test returned non-TRUE value:",
+        "# [1] FALSE",
+        "Bail out! Looks like 2 tests ran, but script ended prematurely",
+        "# Error: eek",
+        "# ook",
+        "# Traceback:",
+        '#   1: stop("eek\\nook")',
+        NULL
+    ),
+    "Failure before tests"
 )
 
 # tryCatch() doesn't count as failure
@@ -238,11 +283,11 @@ run_script(
 )
 stopifnot(identical(readLines(tf), c(
     "ok - 1 equals 1",
-    "Bail out! Looks like 1 tests passed, but script ended prematurely",
+    "Bail out! Looks like 1 tests ran, but script ended prematurely",
     "# Error: erk",
     "# Traceback:",
-    "# 1:",
-    "# stop(\"erk\")")))
+    '#   1: stop("erk")',
+    NULL)))
 
 # unittest output shouldn't be influenced by the global environment
 run_script(

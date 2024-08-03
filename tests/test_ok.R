@@ -104,12 +104,14 @@ expect_failure(
     'Oh no(.|\n)*fn\\(5\\)'
 )
 expect_failure(
-    ok(complex_call(badgers = "yes", locations = c("Bungay", "Milton Keynes", "Hearne Bay", "Wigan")), "Multi-line stacktrace"),
+    ok(complex_call(badgers = "yes", locations = c("Bungay", "Milton Keynes", "Hearne Bay", "Wigan", "Hereford", "Timperley", "Cardiff", "Hexham", "Bangor")), "Multi-line stacktrace"),
     paste(
-        regex_escape('# -> complex_call(badgers = "yes", locations = c("Bungay", "Milton Keynes", '),
-        regex_escape('#     "Hearne Bay", "Wigan"))'),
-        regex_escape('# -> fn(badgers)'),
-        regex_escape('# -> stop("Oh no")'),
+        regex_escape('# Traceback:'),
+        regex_escape('#   1: complex_call(badgers = "yes", locations = c("Bungay", "Milton Keynes", '),
+        regex_escape('#          "Hearne Bay", "Wigan", "Hereford", "Timperley", "Cardiff", '),
+        regex_escape('#          "Hexham", "Bangor"))'),
+        regex_escape('#   2: fn(badgers)'),
+        regex_escape('#   3: stop("Oh no")'),
         sep = '\\n', collapse = '\\n'
     )
 )
@@ -118,8 +120,8 @@ expect_failure(
 expect_failure(
     do.call(function (x) {ok(stop("erk"), "Test fails")}, list(1)),
     paste(
-        regex_escape('# Stacktrace:'),
-        regex_escape('# -> stop("erk")'),
+        regex_escape('# Traceback:'),
+        regex_escape('#   1: stop("erk")'),
         sep = '\\n', collapse = '\\n'
     )
 )
@@ -128,9 +130,10 @@ expect_failure(
 expect_failure(
     unittest::ok(complex_call(badgers = "yes"), "Calling unittest::ok"),
     paste(
-        regex_escape('# -> complex_call(badgers = "yes")'),
-        regex_escape('# -> fn(badgers)'),
-        regex_escape('# -> stop("Oh no")'),
+        regex_escape('# Traceback:'),
+        regex_escape('#   1: complex_call(badgers = "yes")'),
+        regex_escape('#   2: fn(badgers)'),
+        regex_escape('#   3: stop("Oh no")'),
         sep = '\\n', collapse = '\\n'
     )
 )
@@ -210,5 +213,32 @@ if( ! identical(rv, TRUE) ) {
     stop("ok() return value looks wrong")
 }
 
+# ---------------------
+# unittest.stop_on_fail
+# ---------------------
+test_path <- tempfile(fileext = ".R")
+writeLines('
+library(unittest)
+
+finished <- FALSE
+ok(1==1)
+ok(1==2)
+ok(1==1)
+finished <- TRUE
+', con = test_path)
+
+# Without unittest.stop_on_fail, we see all failures
+options(unittest.stop_on_fail = NULL)
+success <- tryCatch({source(test_path) ; TRUE}, error = function (e) { FALSE })
+stopifnot(success)
+stopifnot(finished)
+
+# With, we stop at the first failing test:
+options(unittest.stop_on_fail = TRUE)
+success <- tryCatch({source(test_path) ; TRUE}, error = function (e) { FALSE })
+stopifnot(!success)
+stopifnot(!finished)
+
 # Tests shouldn't be reported as unittest failures
 unittest:::clear_outcomes()
+options(unittest.stop_on_fail = NULL)

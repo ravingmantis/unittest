@@ -45,8 +45,8 @@ ok <- function(
                 paste("# ", result$message, collapse = "\n"),
                 "# Whilst evaluating:",
                 paste("# ", deparse(result$call), collapse = "\n"),
-                "# Stacktrace:",
-                paste("# ->", lapply(error_stack, function (ex) paste(deparse(ex), collapse = "\n# ")), collapse = "\n"),
+                "# Traceback:",
+                paste0("# ", format_traceback(error_stack), collapse = "\n"),
                 sep = "\n", collapse = "\n"
             ),
             stringsAsFactors = FALSE
@@ -85,6 +85,10 @@ ok <- function(
         if (any(nzchar(outcome[1, "output"]))) outcome[1, "output"],
         NULL
     )
+    if (!outcome[1, "status"] && isTRUE(getOption("unittest.stop_on_fail", FALSE))) {
+        write_ut_lines("# Test failure and unittest.stop_on_fail is set")
+        stop()
+    }
     invisible(result)
 }
 
