@@ -89,7 +89,7 @@ run_script('
     "Bail out! Looks like 2 tests ran, but script ended prematurely",
     "# Oh no!",
     "# Traceback:",
-    "#   1: stop(\"Oh no!\")",
+    "#  1: stop(\"Oh no!\")",
     "It's over!",
     NULL ), "Printed summary with error, script still carried on")
 

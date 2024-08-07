@@ -14,8 +14,8 @@ format_traceback <- function (stack, start = 1, end = length(stack)) {
 
     tb <- lapply(seq_along(stack), function (i) {
         lines <- deparse(stack[[i]], width.cutoff = 60L, nlines = 3L)
-        prefix <- rep("     ", length(lines))
-        prefix[[1]] <- paste0(format(i, width = 3), ": ")
+        prefix <- rep("  ", length(lines))
+        prefix[[1]] <- paste0(format(i, width = 2), ": ")
         paste0(prefix, lines)
     })
 
