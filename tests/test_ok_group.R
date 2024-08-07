@@ -51,13 +51,5 @@ expect_equal(ok_group("snake", reptile <- snake), c(
     "not ok - exception caught within ok_group 'snake'",
     "# Exception: object 'snake' not found"))
 
-# if we are being run by CMD check
-if(! interactive()) {
-    # we stored some failures
-    # this will fail if 'outcomes' does not exist
-    get('outcomes', pos = unittest:::pkg_vars)
-
-    # clean up
-    # Remove outcomes, so we don't try and report actual failures
-    rm('outcomes', pos = unittest:::pkg_vars)
-}
+# Clear any outcomes registered by tests
+unittest:::clear_outcomes()
