@@ -3,6 +3,12 @@ output_fh <- function () {
     getOption("unittest.output", stdout())
 }
 
+# Append ... lines to output_fh(), tailed with \n.
+# writeLines() isn't enough, as it doesn't do append = TRUE
+write_ut_lines <- function (...) {
+    cat(unlist(list(...)), sep = "\n", file = output_fh(), append = TRUE)
+}
+
 # Should we enable colours?
 output_ansi_color <- function () {
     # Honour some of the options that cli/crayon::num_ansi_colors support
