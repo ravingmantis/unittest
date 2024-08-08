@@ -33,6 +33,7 @@ ok <- function(
                 sep = "\n", collapse = "\n" )
     }
     assign_outcome(
+        type = "test",
         status = status,
         description = description,
         output = output )

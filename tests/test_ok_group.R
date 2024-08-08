@@ -83,15 +83,16 @@ run_script('
     "not ok - 1 == 2",
     "# Test returned non-TRUE value:",
     "# [1] FALSE",
-    "not ok - exception caught within ok_group 'snake'",
+    "not ok - ok_group 'snake'",
     "# Exception: hiss!",
     "# Traceback:",
     '#  1: stop("hiss!")',
     '[1] "badger"',
     "1..3",
-    "# Looks like you failed 2 of 3 tests.",
+    "# Looks like you failed 1 of 2 tests.",
     "# 2: 1 == 2",
-    "# 3: exception caught within ok_group 'snake'",
+    "# Looks like 1 groups raised an exception.",
+    "# 1: ok_group 'snake'",
     NULL ), "Execution continues after an exception, if stop_on_fail FALSE")
 
 run_script('
@@ -101,11 +102,11 @@ run_script('
     print("badger")
 ', 11, c(
     "# snake",
-    "not ok - exception caught within ok_group 'snake'",
+    "not ok - ok_group 'snake'",
     "# Exception: hiss!",
     "# Traceback:",
     '#  1: stop("hiss!")',
-    "Bail out! Looks like 1 tests ran, but a test failed and unittest.stop_on_fail is set",
+    "Bail out! Looks like 0 tests ran, but a group failed and unittest.stop_on_fail is set",
     NULL ), "Execution stops after an exception, if stop_on_fail TRUE")
 
 run_script('
@@ -114,10 +115,11 @@ run_script('
     ok_group("snake", reptile <- snake)
 ', 10, c(
     "# snake",
-    "not ok - exception caught within ok_group 'snake'",
+    "not ok - ok_group 'snake'",
     "# Exception: object 'snake' not found",
     "# Traceback:",
     '#  (none)',
     "1..1",
-    "# Looks like you failed 1 of 1 tests.",
+    "# Looks like 1 groups raised an exception.",
+    "# 1: ok_group 'snake'",
     NULL ), "Don't output an empty call stack")

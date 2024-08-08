@@ -16,6 +16,7 @@ ok_group <- function (message, tests = NULL) {
                   paste0("# ", format_traceback(attr(result, 'traceback')), collapse = "\n"),
                   sep = "\n", collapse = "\n")
         assign_outcome(
+            type = "group",
             status = FALSE,
             description = paste0("ok_group '", message[1], "'"),
             output = output )
