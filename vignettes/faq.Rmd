@@ -113,6 +113,14 @@ ok_group("Test subtraction", {
 })
 ```
 
+x You can use ``local()`` to ensure that state is localized within an ``ok_group``
+
+```{r}
+ok_group("Test adding integers", local({
+    x <- 1L; y <- 2L
+    ok(x + y == 3L, "Can add integer variables")
+}))
+```
 
 ### I am sure I do not need to test my code. Is this true?
 

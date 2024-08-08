@@ -5,90 +5,38 @@ ok <- function(
     if(missing(description)) description <- strtrim(paste0(deparse(substitute(test)), collapse = " "), 60)
     if(! is.character(description) || length(description) > 1) stop('\'description\' must be of type \'chr\' and not a vector.')
 
-    error_stack <- c()
-    capture_calls <- function (e) {
-        error_stack <<- head(sys.calls(), -2)
+    result <- try_catch_traceback(test)
 
-        for (i in seq_along(error_stack)) {
-            # Start of ok() call
-            if ( identical(error_stack[[i]][[1]], quote(ok)) || identical(error_stack[[i]][[1]], quote(unittest::ok)) ) {
-                error_stack <<- tail(error_stack, -i)
-                for (i in seq_along(error_stack)) {
-                    # End of ok() machinery
-                    if ( identical(error_stack[[i]][[1]], quote(withCallingHandlers)) ) {
-                        error_stack <<- tail(error_stack, -i)
-                        break
-                    }
-                }
-                break
-            }
-        }
-        signalCondition(e)
-    }
-    result <- tryCatch(withCallingHandlers(test, error = capture_calls), error = function(e) e)
-
-    outcome <- data.frame()
+    status <- FALSE
     if(identical(result, TRUE) ) {
-        outcome <- data.frame(
-            status = TRUE,
-            description = description,
-            output = "",
-            stringsAsFactors = FALSE
-        )
+        status <- TRUE
+        output <- ""
     }
     else if(inherits(result,'error')) {
-        outcome <- data.frame(
-            status = FALSE,
-            description = description,
-            output = paste(
+        output <- paste(
                 "# Test resulted in error:",
                 paste("# ", result$message, collapse = "\n"),
-                "# Whilst evaluating:",
-                paste("# ", deparse(result$call), collapse = "\n"),
                 "# Traceback:",
-                paste0("# ", format_traceback(error_stack), collapse = "\n"),
-                sep = "\n", collapse = "\n"
-            ),
-            stringsAsFactors = FALSE
-        )
+                paste0("# ", format_traceback(attr(result, 'traceback')), collapse = "\n"),
+                sep = "\n", collapse = "\n" )
     }
     else if(is.character(result)) {
-        outcome <- data.frame(
-            status = FALSE,
-            description = description,
-            output = paste(
+        output <- paste(
                 "# Test returned non-TRUE value:",
                 paste("#", unlist(strsplit_with_emptystr(result, split = "\n")), collapse = "\n"),
-                sep = "\n", collapse = "\n"
-            ),
-            stringsAsFactors = FALSE
-        )
+                sep = "\n", collapse = "\n" )
     }
     else {
-        outcome <- data.frame(
-            status = FALSE,
-            description = description,
-            output = paste(
+        output <- paste(
                 "# Test returned non-TRUE value:",
                 paste("#", capture.output( print(result) ), collapse = "\n"),
-                sep = "\n", collapse = "\n"
-            ),
-            stringsAsFactors = FALSE
-        )
+                sep = "\n", collapse = "\n" )
     }
-    assign_outcome(outcome)
-    write_ut_lines(
-        paste(
-            (if (outcome[1, "status"]) "ok" else "not ok"),
-            "-",
-            outcome[1, "description"]),
-        if (any(nzchar(outcome[1, "output"]))) outcome[1, "output"],
-        NULL
-    )
-    if (!outcome[1, "status"] && isTRUE(getOption("unittest.stop_on_fail", FALSE))) {
-        write_ut_lines("# Test failure and unittest.stop_on_fail is set")
-        stop()
-    }
+    assign_outcome(
+        type = "test",
+        status = status,
+        description = description,
+        output = output )
     invisible(result)
 }
 

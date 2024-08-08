@@ -12,7 +12,7 @@ non_interactive_exit <- function( e ) {
 non_interactive_error_handler <- function() {
     error <- list(
         message = unlist(strsplit_with_emptystr(geterrmessage(), "\n")),
-        traceback = format_traceback(sys.calls(), end = -1) )
+        traceback = head(sys.calls(), -1) )
 
     tests.failed <- outcome_summary(error = error)
     clear_outcomes()  # Don't summarise again on non_interactive_exit()
