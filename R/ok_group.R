@@ -22,11 +22,6 @@ ok_group <- function (message, tests = NULL) {
             stringsAsFactors = FALSE
         )
         assign_outcome(outcome)
-        write_ut_lines(
-            paste("not ok -", outcome[1, "description"]),
-            outcome[1, "output"],
-            NULL
-        )
     }
 
     invisible(NULL)

@@ -1,5 +1,39 @@
 library(unittest)
 
+R_binary <- file.path(R.home("bin"), "R")
+
+run_script <- function(script, expected_status, expected_out, description) {
+    # solaris does not like pipes so use tmp files as intermediaries
+    tmpfiles <- tempfile(pattern = c('R_unittest_stdout_','R_unittest_stderr_'), tmpdir = tempdir())
+    exit_status <- withCallingHandlers(
+        system2(
+            R_binary,
+            c("--vanilla", "--slave"),
+            input = paste0(script, collapse = "\n"),
+            wait = TRUE, stdout = tmpfiles[1], stderr = tmpfiles[2]),
+        warning = function (w) {
+            invokeRestart("muffleWarning")
+        }
+    )
+    actual <- readLines(tmpfiles[1])  # only interested in stdout
+    if( isTRUE(all.equal(actual, expected_out)) && exit_status == expected_status) {
+        cat("ok\n")
+    } else {
+        cat("\nExpected status",
+            expected_status,
+            "\nGot status",
+            exit_status,
+            "\nExpected stdout:",
+            expected_out,
+            "\nGot stdout:",
+            actual,
+            sep = "\n"
+        )
+        stop( description )
+    }
+    invisible(c(exit_status, actual))
+}
+
 expect_equal <- function (expr, expected) {
     actual <- capture.output(expr)
     if (!identical(all.equal(actual, expected), TRUE)) {
@@ -33,26 +67,46 @@ expect_equal({
     if (!is.null(ok_group("camels", 6))) stop("Didn't return NULL")
 }, c("# camels"))
 
-
-# The following tests should register failures
-
-# Execution continues after an exception
-expect_equal({ok_group("snake", stop("hiss!")); print("badger")}, c(
+run_script('
+    library(unittest)
+    options(unittest.stop_on_fail = FALSE)
+    ok_group("snake", stop("hiss!"))
+    print("badger")
+', 10, c(
     "# snake",
     "not ok - exception caught within ok_group 'snake'",
     "# Exception: hiss!",
     "# Traceback:",
     '#  1: stop("hiss!")',
-    '[1] "badger"'))
+    '[1] "badger"',
+    "1..1",
+    "# Looks like you failed 1 of 1 tests.",
+    NULL ), "Execution continues after an exception, if stop_on_fail FALSE")
 
-# Don't output an empty call stack
-expect_equal(ok_group("snake", reptile <- snake), c(
+run_script('
+    library(unittest)
+    options(unittest.stop_on_fail = TRUE)
+    ok_group("snake", stop("hiss!"))
+    print("badger")
+', 11, c(
+    "# snake",
+    "not ok - exception caught within ok_group 'snake'",
+    "# Exception: hiss!",
+    "# Traceback:",
+    '#  1: stop("hiss!")',
+    "Bail out! Looks like 1 tests ran, but a test failed and unittest.stop_on_fail is set",
+    NULL ), "Execution stops after an exception, if stop_on_fail TRUE")
+
+run_script('
+    library(unittest)
+    options(unittest.stop_on_fail = FALSE)
+    ok_group("snake", reptile <- snake)
+', 10, c(
     "# snake",
     "not ok - exception caught within ok_group 'snake'",
     "# Exception: object 'snake' not found",
     "# Traceback:",
     '#  (none)',
-    NULL ))
-
-# Clear any outcomes registered by tests
-unittest:::clear_outcomes()
+    "1..1",
+    "# Looks like you failed 1 of 1 tests.",
+    NULL ), "Don't output an empty call stack")

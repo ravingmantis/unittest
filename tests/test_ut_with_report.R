@@ -94,6 +94,26 @@ run_script('
     NULL ), "Printed summary with error, script still carried on")
 
 run_script('
+    library("unittest")
+    unittest:::clear_outcomes()  # Disable implicit summary from non-interactive script
+    options(unittest.stop_on_fail = TRUE)
+    unittest:::ut_with_report({
+        ok(1==1)
+        ok(2==1)
+        stop("Oh no!")
+        ok(3==1)
+    })
+    writeLines("It\'s over!")
+', 0, c(
+    "ok - 1 == 1",
+    "not ok - 2 == 1",
+    "# Test returned non-TRUE value:",
+    "# [1] FALSE",
+    "Bail out! Looks like 2 tests ran, but a test failed and unittest.stop_on_fail is set",
+    "It's over!",
+    NULL ), "Stop-on-fail honoured, didn't get to the failure")
+
+run_script('
     library(unittest)
     ok(1==1)
     unittest:::ut_with_report({
