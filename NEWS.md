@@ -1,5 +1,9 @@
 # unittest 1.6-1-999:
 
+## Breaking changes
+
+* ok_group() now catches exceptions, reports as errors and carries on, unless unittest.stop_on_fail set (08ae641)
+
 ## New features
 
 * Include TAP plan in test summary at end of tests (1b890ad)
