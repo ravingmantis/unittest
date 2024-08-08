@@ -70,17 +70,28 @@ expect_equal({
 run_script('
     library(unittest)
     options(unittest.stop_on_fail = FALSE)
-    ok_group("snake", stop("hiss!"))
+    ok_group("snake", {
+        ok(1==1)
+        ok(1==2)
+        stop("hiss!")
+        ok(1==3)
+    })
     print("badger")
 ', 10, c(
     "# snake",
+    "ok - 1 == 1",
+    "not ok - 1 == 2",
+    "# Test returned non-TRUE value:",
+    "# [1] FALSE",
     "not ok - exception caught within ok_group 'snake'",
     "# Exception: hiss!",
     "# Traceback:",
     '#  1: stop("hiss!")',
     '[1] "badger"',
-    "1..1",
-    "# Looks like you failed 1 of 1 tests.",
+    "1..3",
+    "# Looks like you failed 2 of 3 tests.",
+    "# 2: 1 == 2",
+    "# 3: exception caught within ok_group 'snake'",
     NULL ), "Execution continues after an exception, if stop_on_fail FALSE")
 
 run_script('
