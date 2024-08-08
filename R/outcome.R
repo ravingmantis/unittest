@@ -18,7 +18,9 @@ clear_outcomes <- function () {
     if (exists('outcomes', where = pkg_vars)) rm('outcomes', pos = pkg_vars)
 }
 
-assign_outcome <- function(outcome) {
+assign_outcome <- function(...) {
+    outcome <- as.data.frame(list(...))
+
     # Only bother assigning if we're recording at this point
     if (exists('outcomes', where = pkg_vars)) {
         assign('outcomes', rbind(get('outcomes', pos = pkg_vars), outcome), pos = pkg_vars)

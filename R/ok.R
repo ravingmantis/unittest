@@ -7,54 +7,35 @@ ok <- function(
 
     result <- try_catch_traceback(test)
 
-    outcome <- data.frame()
+    status <- FALSE
     if(identical(result, TRUE) ) {
-        outcome <- data.frame(
-            status = TRUE,
-            description = description,
-            output = "",
-            stringsAsFactors = FALSE
-        )
+        status <- TRUE
+        output <- ""
     }
     else if(inherits(result,'error')) {
-        outcome <- data.frame(
-            status = FALSE,
-            description = description,
-            output = paste(
+        output <- paste(
                 "# Test resulted in error:",
                 paste("# ", result$message, collapse = "\n"),
                 "# Traceback:",
                 paste0("# ", format_traceback(attr(result, 'traceback')), collapse = "\n"),
-                sep = "\n", collapse = "\n"
-            ),
-            stringsAsFactors = FALSE
-        )
+                sep = "\n", collapse = "\n" )
     }
     else if(is.character(result)) {
-        outcome <- data.frame(
-            status = FALSE,
-            description = description,
-            output = paste(
+        output <- paste(
                 "# Test returned non-TRUE value:",
                 paste("#", unlist(strsplit_with_emptystr(result, split = "\n")), collapse = "\n"),
-                sep = "\n", collapse = "\n"
-            ),
-            stringsAsFactors = FALSE
-        )
+                sep = "\n", collapse = "\n" )
     }
     else {
-        outcome <- data.frame(
-            status = FALSE,
-            description = description,
-            output = paste(
+        output <- paste(
                 "# Test returned non-TRUE value:",
                 paste("#", capture.output( print(result) ), collapse = "\n"),
-                sep = "\n", collapse = "\n"
-            ),
-            stringsAsFactors = FALSE
-        )
+                sep = "\n", collapse = "\n" )
     }
-    assign_outcome(outcome)
+    assign_outcome(
+        status = status,
+        description = description,
+        output = output )
     invisible(result)
 }
 

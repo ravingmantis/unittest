@@ -15,13 +15,10 @@ ok_group <- function (message, tests = NULL) {
                   "# Traceback:",
                   paste0("# ", format_traceback(attr(result, 'traceback')), collapse = "\n"),
                   sep = "\n", collapse = "\n")
-        outcome <- data.frame(
+        assign_outcome(
             status = FALSE,
-            description = paste0("exception caught within ok_group '", message[1], "'"),
-            output = output,
-            stringsAsFactors = FALSE
-        )
-        assign_outcome(outcome)
+            description = paste0("ok_group '", message[1], "'"),
+            output = output )
     }
 
     invisible(NULL)
