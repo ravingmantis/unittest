@@ -5,27 +5,7 @@ ok <- function(
     if(missing(description)) description <- strtrim(paste0(deparse(substitute(test)), collapse = " "), 60)
     if(! is.character(description) || length(description) > 1) stop('\'description\' must be of type \'chr\' and not a vector.')
 
-    error_stack <- c()
-    capture_calls <- function (e) {
-        error_stack <<- head(sys.calls(), -2)
-
-        for (i in seq_along(error_stack)) {
-            # Start of ok() call
-            if ( identical(error_stack[[i]][[1]], quote(ok)) || identical(error_stack[[i]][[1]], quote(unittest::ok)) ) {
-                error_stack <<- tail(error_stack, -i)
-                for (i in seq_along(error_stack)) {
-                    # End of ok() machinery
-                    if ( identical(error_stack[[i]][[1]], quote(withCallingHandlers)) ) {
-                        error_stack <<- tail(error_stack, -i)
-                        break
-                    }
-                }
-                break
-            }
-        }
-        signalCondition(e)
-    }
-    result <- tryCatch(withCallingHandlers(test, error = capture_calls), error = function(e) e)
+    result <- try_catch_traceback(test)
 
     outcome <- data.frame()
     if(identical(result, TRUE) ) {
@@ -43,10 +23,8 @@ ok <- function(
             output = paste(
                 "# Test resulted in error:",
                 paste("# ", result$message, collapse = "\n"),
-                "# Whilst evaluating:",
-                paste("# ", deparse(result$call), collapse = "\n"),
                 "# Traceback:",
-                paste0("# ", format_traceback(error_stack), collapse = "\n"),
+                paste0("# ", format_traceback(attr(result, 'traceback')), collapse = "\n"),
                 sep = "\n", collapse = "\n"
             ),
             stringsAsFactors = FALSE

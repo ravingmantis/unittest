@@ -1,16 +1,25 @@
+# tryCatch expr, returning any error, decorated with attr(e, 'traceback')
+try_catch_traceback <- function (expr) {
+    # See tools:::.try_quietly
+    tryCatch(withRestarts(withCallingHandlers({
+        expr
+    }, error = {
+        function(e) invokeRestart("grmbl", e, sys.calls())
+    }), grmbl = function(e, calls) {
+        n <- length(sys.calls())
+        # Remove post-restart sys.calls() from the stacktrace sys.calls()
+        calls <- calls[-seq.int(length.out = n - 1L)]
+        # Chop off .handleSimpleError / h(simpleError)
+        calls <- head(calls, -2)
+        attr(e, 'traceback') <- calls
+        e
+    }))
+}
+
 # Generate a traceback string
-format_traceback <- function (stack, start = 1, end = length(stack)) {
+format_traceback <- function (stack) {
     stack <- as.list(stack)
-    stack_calls <- vapply(stack, function (c) if (is.call(c)) deparse1(c[[1]]) else "", character(1))
-    if (is.character(start)) {
-        start <- min(max(which(stack_calls == start) + 1, 1), length(stack_calls))
-    }
-    if (is.character(end)) {
-        end <- min(max(which(stack_calls == end) - 1, 1), length(stack_calls))
-    } else if (end < 0) {
-        end <- length(stack) + end
-    }
-    stack <- stack[start:end]
+    if (length(stack) == 0) return(" (none)")
 
     tb <- lapply(seq_along(stack), function (i) {
         lines <- deparse(stack[[i]], width.cutoff = 60L, nlines = 3L)

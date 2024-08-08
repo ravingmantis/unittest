@@ -49,7 +49,10 @@ expect_equal({ok_group("snake", stop("hiss!")); print("badger")}, c(
 expect_equal(ok_group("snake", reptile <- snake), c(
     "# snake",
     "not ok - exception caught within ok_group 'snake'",
-    "# Exception: object 'snake' not found"))
+    "# Exception: object 'snake' not found",
+    "# Traceback:",
+    '#  (none)',
+    NULL ))
 
 # Clear any outcomes registered by tests
 unittest:::clear_outcomes()

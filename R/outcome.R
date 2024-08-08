@@ -36,7 +36,7 @@ outcome_summary <- function (error = NULL) {
             paste("Bail out! Looks like", tests.total, "tests ran, but script ended prematurely", collapse = " "),
             paste("#", error$message),
             "# Traceback:",
-            paste("#", error$traceback),
+            paste("#", format_traceback(error$traceback)),
             NULL)
         tests.failed <- -1
     } else if( tests.total == 0 ) {

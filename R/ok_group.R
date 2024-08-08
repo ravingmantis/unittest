@@ -6,15 +6,15 @@ ok_group <- function (message, tests = NULL) {
     write_ut_lines(
         paste0("# ", message),
         NULL)
-    tryCatch(withRestarts(withCallingHandlers(tests, error = {
-        function(e) invokeRestart("grmbl", e, sys.calls())
-    }), grmbl = function(e, calls) {
-        n <- length(sys.calls())
-        output <- paste("# Exception:", e$message)
-        if(length(calls)>=n+2)
-            output <- paste(output, "# Traceback:",
-                      paste0("# ", format_traceback(calls, start = n, end = length(calls)-2), collapse = "\n"),
-                      sep = "\n", collapse = "\n")
+    result <- try_catch_traceback(tests)
+
+    if (inherits(result,'error')) {
+        output <- paste("# Exception:", result$message)
+
+        output <- paste(output,
+                  "# Traceback:",
+                  paste0("# ", format_traceback(attr(result, 'traceback')), collapse = "\n"),
+                  sep = "\n", collapse = "\n")
         outcome <- data.frame(
             status = FALSE,
             description = paste0("exception caught within ok_group '", message[1], "'"),
@@ -27,6 +27,7 @@ ok_group <- function (message, tests = NULL) {
             outcome[1, "output"],
             NULL
         )
-    }))
+    }
+
     invisible(NULL)
 }
