@@ -9,6 +9,15 @@ write_ut_lines <- function (...) {
     cat(unlist(list(...)), sep = "\n", file = output_fh(), append = TRUE)
 }
 
+# Write output in bold & colour, if turned on
+write_ut_bold <- function (..., color = 0) {
+    if (!output_ansi_color()) {
+        write_ut_lines(...)
+    } else {
+        write_ut_lines(paste0(paste0("\033[", color, ";1m"), ..., "\033[0m"))
+    }
+}
+
 # Should we enable colours?
 output_ansi_color <- function () {
     # Honour some of the options that cli/crayon::num_ansi_colors support
