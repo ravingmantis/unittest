@@ -28,13 +28,13 @@ assign_outcome <- function(...) {
         assign('outcomes', rbind(get('outcomes', pos = pkg_vars), outcome), pos = pkg_vars)
     }
 
-    write_ut_lines(
+    write_ut_bold(
         paste(
             (if (outcome[1, "status"]) "ok" else "not ok"),
             "-",
             outcome[1, "description"]),
-        if (any(nzchar(outcome[1, "output"]))) outcome[1, "output"],
-        NULL)
+        color = if (outcome[1, "status"]) 32L else 31L )
+    if (any(nzchar(outcome[1, "output"]))) write_ut_lines(outcome[1, "output"])
 
     if (!outcome[1, "status"] && isTRUE(getOption("unittest.stop_on_fail", FALSE))) {
         stop(MSG_STOP_ON_FAIL)
