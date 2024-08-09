@@ -33,7 +33,7 @@ assign_outcome <- function(...) {
             (if (outcome[1, "status"]) "ok" else "not ok"),
             "-",
             outcome[1, "description"]),
-        color = if (outcome[1, "status"]) 32L else 31L )
+        color = if (outcome[1, "status"]) 0L else 31L )
     if (any(nzchar(outcome[1, "output"]))) write_ut_lines(outcome[1, "output"])
 
     if (!outcome[1, "status"] && isTRUE(getOption("unittest.stop_on_fail", FALSE))) {

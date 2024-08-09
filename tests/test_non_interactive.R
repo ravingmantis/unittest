@@ -320,7 +320,7 @@ run_script('
     ok(1==1)
     ok(ut_cmp_equal(as.list(1:2), as.list(1:3)))
 ', 10, c(
-    "\033[32;1mok - 1 == 1\033[0m",
+    "\033[0;1mok - 1 == 1\033[0m",
     "\033[31;1mnot ok - ut_cmp_equal(as.list(1:2), as.list(1:3))\033[0m",
     "# Test returned non-TRUE value:",
     "# Length mismatch: comparison on first 2 components",
