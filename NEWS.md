@@ -6,6 +6,7 @@
 
 ## New features
 
+* Colour ok / not ok lines if we can (4dc435d0)
 * Include TAP plan in test summary at end of tests (1b890ad)
 * Add options(unittest.stop_on_fail = TRUE), to stop with first error (ce2dcbc)
 * Failing tests are now reported at the end of test output (ec84b0c)
