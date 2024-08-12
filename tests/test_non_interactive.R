@@ -313,3 +313,53 @@ run_script(
     ),
     "By setting an errors variable in globalenv we managed to influence unittest output"
 )
+
+run_script('
+    library(unittest)
+    options(cli.num_colors = 16)
+    ok(1==1)
+    ok(ut_cmp_equal(as.list(1:2), as.list(1:3)))
+', 10, c(
+    "\033[0;1mok - 1 == 1\033[0m",
+    "\033[31;1mnot ok - ut_cmp_equal(as.list(1:2), as.list(1:3))\033[0m",
+    "# Test returned non-TRUE value:",
+    "# Length mismatch: comparison on first 2 components",
+    "# \033[1m--- as.list(1:2)\033[m",
+    "# \033[1m+++ as.list(1:3)\033[m",
+    "# [[1]]\033[m",
+    "# [1] 1\033[m",
+    "# ",
+    "# [[2]]\033[m",
+    "# [1] 2\033[m",
+    "# ",
+    "# \033[32m{+[[3]]+}\033[m",
+    "# \033[32m{+[1] 3+}\033[m",
+    "1..2",
+    "# Looks like you failed 1 of 2 tests.",
+    "# 2: ut_cmp_equal(as.list(1:2), as.list(1:3))",
+    NULL ), "Ok / not ok output colourful if turned on")
+
+run_script('
+    library(unittest)
+    options(cli.num_colors = 1)
+    ok(1==1)
+    ok(ut_cmp_equal(as.list(1:2), as.list(1:3)))
+', 10, c(
+    "ok - 1 == 1",
+    "not ok - ut_cmp_equal(as.list(1:2), as.list(1:3))",
+    "# Test returned non-TRUE value:",
+    "# Length mismatch: comparison on first 2 components",
+    "# --- as.list(1:2)",
+    "# +++ as.list(1:3)",
+    "# [[1]]",
+    "# [1] 1",
+    "# ",
+    "# [[2]]",
+    "# [1] 2",
+    "# ",
+    "# {+[[3]]+}",
+    "# {+[1] 3+}",
+    "1..2",
+    "# Looks like you failed 1 of 2 tests.",
+    "# 2: ut_cmp_equal(as.list(1:2), as.list(1:3))",
+    NULL ), "Ok / not ok output not colourful if turned off")
