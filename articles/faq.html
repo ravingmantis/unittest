@@ -109,7 +109,7 @@ function that will throw an error for a bad argument:</p>
 <p>We can test the argument check like this:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp_error.html">ut_cmp_error</a></span><span class="op">(</span><span class="fu">add_four</span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span>, <span class="st">"must be numeric"</span><span class="op">)</span>, <span class="st">"add_four() argument not numeric throws error"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## ok - add_four() argument not numeric throws error</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="font-weight: bold;">ok - add_four() argument not numeric throws error</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="how-do-i-test-if-a-warning-is-issued">How do I test if a warning is issued?<a class="anchor" aria-label="anchor" href="#how-do-i-test-if-a-warning-is-issued"></a>
@@ -126,17 +126,17 @@ function that will issue a warning if an argument contains
 <p>We can test for a warning like this:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp_warning.html">ut_cmp_warning</a></span><span class="op">(</span><span class="fu">has_similar_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>, <span class="st">"y contains NAs"</span><span class="op">)</span>, <span class="st">"has_similar_mean() NAs in y issues a warning"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## ok - has_similar_mean() NAs in y issues a warning</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="font-weight: bold;">ok - has_similar_mean() NAs in y issues a warning</span></span></span></code></pre>
 <p>We can check for multiple distinct warnings</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp_warning.html">ut_cmp_warning</a></span><span class="op">(</span><span class="fu">has_similar_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>, expected_regexp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x contains NAs"</span>, <span class="st">"y contains NAs"</span><span class="op">)</span>, expected_count <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>,</span>
 <span>   <span class="st">"has_similar_mean() NAs in arguments issue warnings"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## ok - has_similar_mean() NAs in arguments issue warnings</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="font-weight: bold;">ok - has_similar_mean() NAs in arguments issue warnings</span></span></span></code></pre>
 <p>Here we could use the same regexp to match both wrnings</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp_warning.html">ut_cmp_warning</a></span><span class="op">(</span><span class="fu">has_similar_mean</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span>, <span class="st">"^[xy] contains NAs"</span>, expected_count <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>,</span>
 <span>   <span class="st">"has_similar_mean() NAs in arguments issue warnings"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## ok - has_similar_mean() NAs in arguments issue warnings</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="font-weight: bold;">ok - has_similar_mean() NAs in arguments issue warnings</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="how-do-i-test-multivalue-results-or-see-differences">How do I test multivalue results, or see differences?<a class="anchor" aria-label="anchor" href="#how-do-i-test-multivalue-results-or-see-differences"></a>
@@ -149,7 +149,7 @@ respectively:</p>
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
 <span><span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fu"><a href="../reference/ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="va">a</span>,<span class="va">b</span><span class="op">)</span>, <span class="st">"a and b are equal"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## ok - a and b are equal</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="font-weight: bold;">ok - a and b are equal</span></span></span></code></pre>
 <p><code>ut_cmp_identical</code> will make sure your objects are
 identical, and is more useful when comparing e.g. a list of strings
 which should be exactly the same.</p>
@@ -181,16 +181,16 @@ group related unit tests.</p>
 <span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">==</span> <span class="fl">4</span>, <span class="st">"Can add 3"</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # Test addition</span></span>
-<span><span class="co">## ok - Can add 1</span></span>
-<span><span class="co">## ok - Can add 3</span></span></code></pre>
+<span><span class="co">## <span style="font-weight: bold;">ok - Can add 1</span></span></span>
+<span><span class="co">## <span style="font-weight: bold;">ok - Can add 3</span></span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ok_group.html">ok_group</a></span><span class="op">(</span><span class="st">"Test subtraction"</span>, <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">1</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">"Can subtract 1"</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">3</span> <span class="op">==</span> <span class="op">-</span><span class="fl">2</span>, <span class="st">"Can subtract 3"</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # Test subtraction</span></span>
-<span><span class="co">## ok - Can subtract 1</span></span>
-<span><span class="co">## ok - Can subtract 3</span></span></code></pre>
+<span><span class="co">## <span style="font-weight: bold;">ok - Can subtract 1</span></span></span>
+<span><span class="co">## <span style="font-weight: bold;">ok - Can subtract 3</span></span></span></code></pre>
 <p>x You can use <code><a href="https://rdrr.io/r/base/eval.html" class="external-link">local()</a></code> to ensure that state is localized
 within an <code>ok_group</code></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -199,7 +199,7 @@ within an <code>ok_group</code></p>
 <span>    <span class="fu"><a href="../reference/ok.html">ok</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span> <span class="op">==</span> <span class="fl">3L</span>, <span class="st">"Can add integer variables"</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## # Test adding integers</span></span>
-<span><span class="co">## ok - Can add integer variables</span></span></code></pre>
+<span><span class="co">## <span style="font-weight: bold;">ok - Can add integer variables</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="i-am-sure-i-do-not-need-to-test-my-code--is-this-true">I am sure I do not need to test my code. Is this true?<a class="anchor" aria-label="anchor" href="#i-am-sure-i-do-not-need-to-test-my-code--is-this-true"></a>

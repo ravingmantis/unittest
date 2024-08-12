@@ -104,22 +104,22 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">1</span>, <span class="st">"1 equals 1"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - 1 equals 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - 1 equals 1</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - 1 == 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - 1 == 1</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fl">1</span><span class="op">==</span><span class="fl">2</span>, <span class="st">"1 equals 2"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - 1 equals 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - 1 equals 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # [1] FALSE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>, <span class="st">"compare vectors"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - compare vectors</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - compare vectors</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">fn</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"oops"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="op">)</span>, <span class="st">"something with a coding error"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - something with a coding error</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - something with a coding error</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test resulted in error:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> #  oops</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Traceback:</span>
@@ -127,7 +127,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> #  2: stop("oops")</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Some diagnostic"</span>, <span class="st">"messages"</span><span class="op">)</span>, <span class="st">"A failure with diagnostic messages"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - A failure with diagnostic messages</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - A failure with diagnostic messages</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Some diagnostic</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # messages</span>
@@ -146,18 +146,18 @@
 <span class="r-in"><span><span class="co"># Without unittest.stop_on_fail, we see all failures:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>unittest.stop_on_fail <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="va">test_path</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span> <span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"=== error ==="</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - 1 == 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - 1 == 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - 1 == 1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - 1 == 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # [1] FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - 2 == 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - 3 == 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - 2 == 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - 3 == 3</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With, we stop at the first failing test:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>unittest.stop_on_fail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/conditions.html" class="external-link">tryCatch</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="va">test_path</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span> <span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"=== error ==="</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - 1 == 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - 1 == 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - 1 == 1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - 1 == 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # [1] FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "=== error ==="</span>
@@ -170,7 +170,7 @@
 <span class="r-in"><span><span class="co">## Reset unittest output to default (stdout())</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>unittest.output <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ok</span><span class="op">(</span><span class="fu"><a href="ut_cmp.html">ut_cmp_equal</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>, <span class="st">"4 == 5? Probably not"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - 4 == 5? Probably not</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - 4 == 5? Probably not</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Mean relative difference: 0.25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">--- 4</span></span>

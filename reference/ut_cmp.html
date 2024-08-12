@@ -145,11 +145,11 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get it right, and test passes:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - ut_cmp_equal(fn(3), c(1, 2, 3))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - ut_cmp_equal(fn(3), c(1, 2, 3))</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get it wrong, and we get told where in the output things are different:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - ut_cmp_equal(fn(3), c(1, 4, 3))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - ut_cmp_equal(fn(3), c(1, 4, 3))</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Mean relative difference: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">--- fn(3)</span></span>
@@ -158,7 +158,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Using a custom filter, we can format the output with write.table:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu">fn</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span>, filter <span class="op">=</span> <span class="va">write.table</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - ut_cmp_equal(fn(3), c(1, 4, 3), filter = write.table)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - ut_cmp_equal(fn(3), c(1, 4, 3), filter = write.table)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Mean relative difference: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">--- fn(3)</span></span>
@@ -170,11 +170,11 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## With ut_cmp_equal, an integer 1 is the same as a numeric 1</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - ut_cmp_equal(as.numeric(1), as.integer(1))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - ut_cmp_equal(as.numeric(1), as.integer(1))</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## With ut_cmp_identical, they're not</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_identical</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - ut_cmp_identical(as.numeric(1), as.integer(1))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - ut_cmp_identical(as.numeric(1), as.integer(1))</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">--- as.numeric(1)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">+++ as.integer(1)</span></span>
@@ -187,7 +187,7 @@
 <span class="r-in"><span><span class="co">## ...we can also give this to to ut_cmp_equal if we want a very</span></span></span>
 <span class="r-in"><span><span class="co">## approximate comparison</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">ut_cmp_equal</span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.02</span>, tolerance <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ok - ut_cmp_equal(0.01, 0.02, tolerance = 0.1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">ok - ut_cmp_equal(0.01, 0.02, tolerance = 0.1)</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## We can make a comparison function of our own, and use</span></span></span>
 <span class="r-in"><span><span class="co">## deparse_frame to show the right expression in diff output</span></span></span>
@@ -196,7 +196,7 @@
 <span class="r-in"><span>    <span class="fu">ut_cmp_identical</span><span class="op">(</span><span class="fu">sortlist</span><span class="op">(</span><span class="va">a</span><span class="op">)</span>, <span class="fu">sortlist</span><span class="op">(</span><span class="va">b</span><span class="op">)</span>, deparse_frame <span class="op">=</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ok.html">ok</a></span><span class="op">(</span><span class="fu">cmp_noorder</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">1</span>, b<span class="op">=</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>b<span class="op">=</span><span class="fl">2</span>, a<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> not ok - cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">not ok - cmp_noorder(list(a = 1, b = 2), list(b = 2, a = 3))</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Test returned non-TRUE value:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">--- list(a = 1, b = 2)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # <span style="font-weight: bold;">+++ list(b = 2, a = 3)</span></span>
