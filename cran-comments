@@ -1,5 +1,38 @@
 # https://cran.r-project.org/submit.html
 
+==== 1.7-0
+
+This release adds several new features
+
+* Colour ok / not ok lines if we can (4dc435d0)
+* Include TAP plan in test summary at end of tests (1b890ad)
+* Add options(unittest.stop_on_fail = TRUE), to stop with first error (ce2dcbc)
+* Failing tests are now reported at the end of test output (ec84b0c)
+* unittest.cmp_context configures number of context lines for diff output (833c9c5)
+* Add ut_cmp_warning() for checking code is raising warnings (840f1f4)
+* ut_cmp_error() can now check error class as well as message (27e6e2d)
+
+Tested on R-release Win/MacOS/Ubuntu and R-devel Ubuntu.
+CI test reports can be found here:
+
+  https://github.com/ravingmantis/unittest/actions/runs/10421461335
+
+The source to build the package can be found here, along with the README:
+
+  https://github.com/ravingmantis/unittest/tree/v1.7-0
+
+Full history can be found in the ChangeLog:
+
+  https://github.com/ravingmantis/unittest/blob/v1.7-0/ChangeLog
+
+Differences since the previous submission:
+
+  https://github.com/ravingmantis/unittest/compare/v1.6-1...v1.7-0
+
+Built documentation can be found here:
+
+  https://ravingmantis.github.io/unittest/
+
 ==== 1.6-1
 
 This release is purely to update e-mail addresses of maintainers.
