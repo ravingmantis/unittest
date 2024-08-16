@@ -1,3 +1,41 @@
+2024-08-16 Jamie Lentin  <jm@lentin.co.uk>
+
+    Version 1.7-0
+
+    *  (origin/oknotok-colours) outcome: White "ok" instead of green (15d72dd)
+    *  outcome: Colour ok/not ok lines if we can (4dc435d)
+    *  output: Move "options" code to "output" (8b7bc7f)
+    *  (origin/ok_group_error_handling, ok_group_error_handling) ok_group: Summarise groups and tests separately (179e124)
+    *  outcomes: Abstract data.frame-based storage (8f1731d)
+    *  outcome: Common line-writing, stop_on_fail-handling (20031a7)
+    *  format_traceback: Unify error-handling in try_catch_traceback() (88cd9e7)
+    *  format_traceback: Reduce indentation (238f788)
+    *  use format_traceback to subset the call stack (f40299b)
+    *  use format_traceback (63fa950)
+    *  ok_group wraps code block with tryCatch (08ae641)
+    *  add TAP plan where we have human readable summaries (1b890ad)
+    *  outcome: Don't blat history on subsequent record_outcomes() (02b20ac)
+    *  ok: Add unittest.stop_on_fail (ce2dcbc)
+    *  ut_with_report: Experimental interactive summaries (80b2d49)
+    *  format_traceback: Add common traceback formatter (340ea7f)
+    *  outcome: Explicitly record_outcomes() (3de7d5a)
+    *  outcome: Report errors if no tests run (1a507b7)
+    *  outcome: It's tests *ran*, not tests *passed* (aafbdac)
+    *  outcome: Pass in errors to outcome_summary() (89697d3)
+    *  outcome: Remove nested if (443d037)
+    *  outcome: Break up non_interactive_summary (c81a3f8)
+    *  Merge pull request #20 from ravingmantis/test-summaries (a511f34)
+    *  Merge pull request #19 from ravingmantis/context-lines (ab5cb61)
+    *  Added ut_cmp_warning() function (840f1f4)
+    *  non_interactive_summary: Tell people which tests failed (ec84b0c)
+    *  non_interactive_summary: Fetch variables from environment once (e3ab94d)
+    *  non_interactive_summary: Isolate pkg_vars from GlobalEnv() (7d0604b)
+    *  summary: Use clear_outcomes() instead of manually clearing environment (46bd8eb)
+    *  ut_cmp: Expose context_lines as parameter & option (833c9c5)
+    *  ut_cmp_error extended to check error class (27e6e2d)
+    *  Break up outcomes' description & output (04f8677)
+    *  Standardise text output with write_ut_lines() (c33ffb4)
+
 2024-01-10 Jamie Lentin  <jm@lentin.co.uk>
 
     Version 1.6-1

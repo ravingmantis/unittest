@@ -1,4 +1,4 @@
-# unittest 1.6-1-999:
+# unittest 1.7-0:
 
 ## Breaking changes
 

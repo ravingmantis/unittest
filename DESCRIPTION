@@ -2,15 +2,15 @@ Encoding: UTF-8
 Package: unittest
 Type: Package
 Title: TAP-Compliant Unit Testing
-Version: 1.6-1-999
-Date: 2024-01-10
+Version: 1.7-0
+Date: 2024-08-16
 Authors@R:
     c(person('Jamie','Lentin',email='lentinj@shuttlethread.com',role=c('aut','cre')),
       person('Anthony','Hennessey',email='anthony.hennessey@protonmail.com',role=c('aut')))
 Description:
     Concise TAP <http://testanything.org/> compliant unit testing package. Authored tests can be run using CMD check with minimal implementation overhead.
 License: GPL (>= 3)
-Depends: R (>= 3.6.0)
+Depends: R (>= 4.0.0)
 Imports:
     methods
 Suggests: 
