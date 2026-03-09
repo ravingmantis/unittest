@@ -88,7 +88,7 @@ run_script('
     "# Traceback:",
     '#  1: stop("hiss!")',
     '[1] "badger"',
-    "1..3",
+    "1..2",
     "# Looks like you failed 1 of 2 tests.",
     "# 2: 1 == 2",
     "# Looks like 1 groups raised an exception.",
@@ -151,7 +151,7 @@ run_script('
     "# Exception: object 'snake' not found",
     "# Traceback:",
     '#  (none)',
-    "1..1",
+    "1..0",
     "# Looks like 1 groups raised an exception.",
     "# 1: ok_group 'snake'",
     NULL ), "Don't output an empty call stack")

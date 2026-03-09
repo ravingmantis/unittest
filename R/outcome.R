@@ -68,7 +68,7 @@ outcome_summary <- function (error = NULL) {
             NULL)
         return(invisible(-1))
     } else if (length(fail.types) > 0) {
-        write_ut_lines(paste0(1, "..", nrow(outcomes)))
+        write_ut_lines(paste0(1, "..", tests.total))
         tests.failed <- sum(fail.types == "test")
         groups.failed <- sum(fail.types == "group")
         oc_split <- split(outcomes, outcomes$type)
@@ -91,7 +91,7 @@ outcome_summary <- function (error = NULL) {
         return(invisible(0))
     } else {
         write_ut_lines(
-            paste0(1, "..", nrow(outcomes)),
+            paste0(1, "..", tests.total),
             paste("# Looks like you passed all", tests.total, "tests.", collapse = " "),
             NULL)
         return(invisible(0))
