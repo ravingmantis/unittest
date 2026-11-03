@@ -6,6 +6,9 @@ library(unittest)
 cmp_lines <- function (actual, ...) {
     # Remove color escape codes
     no_color <- gsub('\033\\[.*?m', '', actual, perl = TRUE)
+    # Remove leading whitespace, as str won't add it in new versions:
+    # str(): no longer prepend space; more consistent in setting a space, after ":" and "attr(..)="
+    no_color <- gsub('^\\s+', '', no_color, perl = TRUE)
     if(identical(no_color, c(...)[!is.null(c(...))])) {
         return(TRUE)
     }
@@ -154,7 +157,7 @@ ok_group("ut_cmp_identical", (function () {
     ok(cmp_lines(ut_cmp_identical(as.integer(4), 4),
         '--- as.integer(4)',
         '+++ 4',
-        ' [-int-]{+num+} 4',
+        '[-int-]{+num+} 4',
         NULL), "Equivalent objects do not, unlike ut_cmp_equal(). We also fall back to using str(), as print() will produce identical output")
 
     # NB: On r-oldrel-windows-ix86+x86_64 this produces 1.0000000001,
@@ -163,13 +166,13 @@ ok_group("ut_cmp_identical", (function () {
     ok(cmp_lines(gsub("1.0000000001[0-9]+", "1.0000000001", ut_cmp_identical(1, 1 + 1e-10)),
         '--- 1',
         '+++ 1 + 1e-10',
-        ' num [-1-]{+1.0000000001+}',
+        'num [-1-]{+1.0000000001+}',
         NULL), "Increase str() digits to 22 show a difference")
 
     ok(cmp_lines(ut_cmp_identical(1 + 1e-10, 1 + 1e-7),
         '--- 1 + 1e-10',
         '+++ 1 + 1e-07',
-        ' num [-1-]{+1.0000001+}',
+        'num [-1-]{+1.0000001+}',
         NULL), "Increase str() digits (7 is enough) show a difference")
 
     cmp_helper <- function (a, b) ut_cmp_identical(a, b, deparse_frame = -2)
@@ -246,8 +249,8 @@ ok_group("ut_cmp_identical:nogit", mock(unittest:::git_binary, function () "/not
     ok(isTRUE(ut_cmp_identical(4, 4)), "Identical objects return true")
     ok(cmp_lines(ut_cmp_identical(as.integer(4), 4),
         '--- as.integer(4)',
-        ' int 4',
+        'int 4',
         '+++ 4',
-        ' num 4',
+        'num 4',
         NULL), "Equivalent objects do not, unlike ut_cmp_equal(). We also fall back to using str(), as print() will produce identical output")
 }))
