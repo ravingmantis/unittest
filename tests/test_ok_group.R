@@ -88,7 +88,7 @@ run_script('
     "# Traceback:",
     '#  1: stop("hiss!")',
     '[1] "badger"',
-    "1..3",
+    "1..2",
     "# Looks like you failed 1 of 2 tests.",
     "# 2: 1 == 2",
     "# Looks like 1 groups raised an exception.",
@@ -111,6 +111,38 @@ run_script('
 
 run_script('
     library(unittest)
+    options(unittest.stop_on_fail = TRUE)
+    ok_group("snake", {
+        ok(1==1)
+        ok(1==2)
+        ok(1==3)
+    })
+    print("badger")
+', 11, c(
+    "# snake",
+    "ok - 1 == 1",
+    "not ok - 1 == 2",
+    "# Test returned non-TRUE value:",
+    "# [1] FALSE",
+    "Bail out! Looks like 2 tests ran, but a test failed and unittest.stop_on_fail is set",
+    NULL ), "Test failing inside a group with stop_on_fail TRUE isn't also reported as a group exception")
+
+run_script('
+    library(unittest)
+    ok_group("", stop("hiss!"))
+', 10, c(
+    "# ",
+    "not ok - ok_group ''",
+    "# Exception: hiss!",
+    "# Traceback:",
+    '#  1: stop("hiss!")',
+    "1..0",
+    "# Looks like 1 groups raised an exception.",
+    "# 1: ok_group ''",
+    NULL ), "Empty group message isn't reported as 'NA'")
+
+run_script('
+    library(unittest)
     options(unittest.stop_on_fail = FALSE)
     ok_group("snake", reptile <- snake)
 ', 10, c(
@@ -119,7 +151,7 @@ run_script('
     "# Exception: object 'snake' not found",
     "# Traceback:",
     '#  (none)',
-    "1..1",
+    "1..0",
     "# Looks like 1 groups raised an exception.",
     "# 1: ok_group 'snake'",
     NULL ), "Don't output an empty call stack")

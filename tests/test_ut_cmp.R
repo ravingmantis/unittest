@@ -6,6 +6,9 @@ library(unittest)
 cmp_lines <- function (actual, ...) {
     # Remove color escape codes
     no_color <- gsub('\033\\[.*?m', '', actual, perl = TRUE)
+    # Remove leading whitespace, as str won't add it in new versions:
+    # str(): no longer prepend space; more consistent in setting a space, after ":" and "attr(..)="
+    no_color <- gsub('^\\s+', '', no_color, perl = TRUE)
     if(identical(no_color, c(...)[!is.null(c(...))])) {
         return(TRUE)
     }
@@ -154,7 +157,7 @@ ok_group("ut_cmp_identical", (function () {
     ok(cmp_lines(ut_cmp_identical(as.integer(4), 4),
         '--- as.integer(4)',
         '+++ 4',
-        ' [-int-]{+num+} 4',
+        '[-int-]{+num+} 4',
         NULL), "Equivalent objects do not, unlike ut_cmp_equal(). We also fall back to using str(), as print() will produce identical output")
 
     # NB: On r-oldrel-windows-ix86+x86_64 this produces 1.0000000001,
@@ -163,13 +166,13 @@ ok_group("ut_cmp_identical", (function () {
     ok(cmp_lines(gsub("1.0000000001[0-9]+", "1.0000000001", ut_cmp_identical(1, 1 + 1e-10)),
         '--- 1',
         '+++ 1 + 1e-10',
-        ' num [-1-]{+1.0000000001+}',
+        'num [-1-]{+1.0000000001+}',
         NULL), "Increase str() digits to 22 show a difference")
 
     ok(cmp_lines(ut_cmp_identical(1 + 1e-10, 1 + 1e-7),
         '--- 1 + 1e-10',
         '+++ 1 + 1e-07',
-        ' num [-1-]{+1.0000001+}',
+        'num [-1-]{+1.0000001+}',
         NULL), "Increase str() digits (7 is enough) show a difference")
 
     cmp_helper <- function (a, b) ut_cmp_identical(a, b, deparse_frame = -2)
@@ -191,6 +194,28 @@ ok_group("output_diff", (function () {
 
     options("cli.num_colors" = 1)
     ok(!all(grepl('\033\\[.*?m', ut_cmp_identical(1L, 2L), perl = TRUE)), "cli.num_colors honoured (no escape code in output)")
+
+    tmp_before <- list.files(tempdir())
+    ut_cmp_identical(1L, 2L)
+    ok(ut_cmp_identical(setdiff(list.files(tempdir()), tmp_before), character(0)), "Temporary files removed afterwards")
+
+    # NB: GIT_CONFIG_GLOBAL needs git >= 2.32, older versions will ignore it & pass trivially
+    git_config <- tempfile()
+    writeLines(c(
+        '[diff]',
+        '    noprefix = true',
+        '    mnemonicPrefix = true',
+        '    external = /not-here',
+        NULL), git_config)
+    old_env <- Sys.getenv("GIT_CONFIG_GLOBAL", unset = NA)
+    Sys.setenv(GIT_CONFIG_GLOBAL = git_config)
+    ok(cmp_lines(ut_cmp_identical(c(1, 2, 3), c(1, 9, 3)),
+        '--- c(1, 2, 3)',
+        '+++ c(1, 9, 3)',
+        '[1] 1 [-2-]{+9+} 3',
+        NULL), "Output not affected by user's git config")
+    if (is.na(old_env)) Sys.unsetenv("GIT_CONFIG_GLOBAL") else Sys.setenv(GIT_CONFIG_GLOBAL = old_env)
+    unlink(git_config)
 })())
 
 ok_group("context_lines", local({
@@ -224,8 +249,8 @@ ok_group("ut_cmp_identical:nogit", mock(unittest:::git_binary, function () "/not
     ok(isTRUE(ut_cmp_identical(4, 4)), "Identical objects return true")
     ok(cmp_lines(ut_cmp_identical(as.integer(4), 4),
         '--- as.integer(4)',
-        ' int 4',
+        'int 4',
         '+++ 4',
-        ' num 4',
+        'num 4',
         NULL), "Equivalent objects do not, unlike ut_cmp_equal(). We also fall back to using str(), as print() will produce identical output")
 }))

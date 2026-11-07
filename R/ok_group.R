@@ -3,10 +3,14 @@
 ok_group <- function (message, tests = NULL) {
     # Break up any newlines inside message, so we just have a character vector of lines
     message <- unlist(strsplit(message, "[\r\n]+"))
+    if (length(message) == 0) message <- ""  # strsplit("", ...) gives character(0)
     write_ut_lines(
         paste0("# ", message),
         NULL)
     result <- try_catch_traceback(tests)
+
+    # A test inside failed with unittest.stop_on_fail, not an exception in the group itself
+    if (inherits(result, 'ut_stop_on_fail')) stop(result)
 
     if (inherits(result,'error')) {
         output <- paste("# Exception:", result$message)

@@ -95,5 +95,19 @@ test_output_ansi_color({
     stopifnot(isFALSE(unittest:::output_ansi_color()))
 })
 
+# Pretend to be running in RStudio's console
+test_output_ansi_color(local({
+    old_platform <- .Platform
+    rebind <- function (value) {
+        unlockBinding(".Platform", baseenv())
+        assign(".Platform", value, envir = baseenv())
+        lockBinding(".Platform", baseenv())
+    }
+    on.exit(rebind(old_platform))
+
+    rebind(modifyList(old_platform, list(GUI = "RStudio")))
+    stopifnot(isTRUE(unittest:::output_ansi_color()))
+}))
+
 # Clear results of expected test failures
 if (!interactive()) rm('outcomes', pos = unittest:::pkg_vars)

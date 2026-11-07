@@ -85,12 +85,12 @@ output_diff <- function (a_out, b_out, a_label, b_label, context_lines = 1e8) {
         # NB: Make sure we use / under windows, since this is what git will do
         a_path <- normalizePath(tempfile(pattern = "a."), winslash = "/", mustWork = FALSE)
         utils::capture.output(a_out, file = a_path)
-        on.exit(unlink(a_path))
+        on.exit(unlink(a_path), add = TRUE)
 
         # NB: Make sure we use / under windows, since this is what git will do
         b_path <- normalizePath(tempfile(pattern = "b."), winslash = "/", mustWork = FALSE)
         utils::capture.output(b_out, file = b_path)
-        on.exit(unlink(b_path))
+        on.exit(unlink(b_path), add = TRUE)
 
         out <- suppressWarnings(system2(Sys.which('git'), c(
             "diff",
@@ -98,6 +98,10 @@ output_diff <- function (a_out, b_out, a_label, b_label, context_lines = 1e8) {
             paste0("--color=", if (output_ansi_color()) "always" else "never"),
             "--word-diff=plain",
             "--minimal",
+            # Ignore any user config that would change output format
+            "--no-ext-diff",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
             # Lines of context to show around differences
             paste0("-U", format(context_lines, scientific = FALSE)),
             a_path,
