@@ -43,7 +43,7 @@ output_ansi_color <- function () {
         return(FALSE)
     }
 
-    if (.Platform$GUI == "Rstudio") {
+    if (tolower(.Platform$GUI) == "rstudio") {
         # Rstudio console is terminal-ish, but not isatty()
         return(TRUE)
     }
