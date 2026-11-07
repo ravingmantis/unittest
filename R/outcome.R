@@ -37,7 +37,9 @@ assign_outcome <- function(...) {
     if (any(nzchar(outcome[1, "output"]))) write_ut_lines(outcome[1, "output"])
 
     if (!outcome[1, "status"] && isTRUE(getOption("unittest.stop_on_fail", FALSE))) {
-        stop(MSG_STOP_ON_FAIL)
+        stop(structure(
+            class = c("ut_stop_on_fail", "error", "condition"),
+            list(message = MSG_STOP_ON_FAIL, call = sys.call()) ))
     }
 }
 

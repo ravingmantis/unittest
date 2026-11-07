@@ -8,6 +8,9 @@ ok_group <- function (message, tests = NULL) {
         NULL)
     result <- try_catch_traceback(tests)
 
+    # A test inside failed with unittest.stop_on_fail, not an exception in the group itself
+    if (inherits(result, 'ut_stop_on_fail')) stop(result)
+
     if (inherits(result,'error')) {
         output <- paste("# Exception:", result$message)
 
