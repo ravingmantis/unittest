@@ -195,6 +195,24 @@ ok_group("output_diff", (function () {
     tmp_before <- list.files(tempdir())
     ut_cmp_identical(1L, 2L)
     ok(ut_cmp_identical(setdiff(list.files(tempdir()), tmp_before), character(0)), "Temporary files removed afterwards")
+
+    # NB: GIT_CONFIG_GLOBAL needs git >= 2.32, older versions will ignore it & pass trivially
+    git_config <- tempfile()
+    writeLines(c(
+        '[diff]',
+        '    noprefix = true',
+        '    mnemonicPrefix = true',
+        '    external = /not-here',
+        NULL), git_config)
+    old_env <- Sys.getenv("GIT_CONFIG_GLOBAL", unset = NA)
+    Sys.setenv(GIT_CONFIG_GLOBAL = git_config)
+    ok(cmp_lines(ut_cmp_identical(c(1, 2, 3), c(1, 9, 3)),
+        '--- c(1, 2, 3)',
+        '+++ c(1, 9, 3)',
+        '[1] 1 [-2-]{+9+} 3',
+        NULL), "Output not affected by user's git config")
+    if (is.na(old_env)) Sys.unsetenv("GIT_CONFIG_GLOBAL") else Sys.setenv(GIT_CONFIG_GLOBAL = old_env)
+    unlink(git_config)
 })())
 
 ok_group("context_lines", local({

@@ -98,6 +98,10 @@ output_diff <- function (a_out, b_out, a_label, b_label, context_lines = 1e8) {
             paste0("--color=", if (output_ansi_color()) "always" else "never"),
             "--word-diff=plain",
             "--minimal",
+            # Ignore any user config that would change output format
+            "--no-ext-diff",
+            "--src-prefix=a/",
+            "--dst-prefix=b/",
             # Lines of context to show around differences
             paste0("-U", format(context_lines, scientific = FALSE)),
             a_path,
