@@ -129,6 +129,20 @@ run_script('
 
 run_script('
     library(unittest)
+    ok_group("", stop("hiss!"))
+', 10, c(
+    "# ",
+    "not ok - ok_group ''",
+    "# Exception: hiss!",
+    "# Traceback:",
+    '#  1: stop("hiss!")',
+    "1..0",
+    "# Looks like 1 groups raised an exception.",
+    "# 1: ok_group ''",
+    NULL ), "Empty group message isn't reported as 'NA'")
+
+run_script('
+    library(unittest)
     options(unittest.stop_on_fail = FALSE)
     ok_group("snake", reptile <- snake)
 ', 10, c(
