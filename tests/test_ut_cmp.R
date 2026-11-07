@@ -191,6 +191,10 @@ ok_group("output_diff", (function () {
 
     options("cli.num_colors" = 1)
     ok(!all(grepl('\033\\[.*?m', ut_cmp_identical(1L, 2L), perl = TRUE)), "cli.num_colors honoured (no escape code in output)")
+
+    tmp_before <- list.files(tempdir())
+    ut_cmp_identical(1L, 2L)
+    ok(ut_cmp_identical(setdiff(list.files(tempdir()), tmp_before), character(0)), "Temporary files removed afterwards")
 })())
 
 ok_group("context_lines", local({
