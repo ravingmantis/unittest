@@ -32,6 +32,11 @@
   The \code{unittest.stop_on_fail} option tells unit test to stop on the first test failure.
   This is useful when debugging long test scripts with multiple failures.
 
+  The \code{unittest.source_summary} option controls whether running a test script
+  with \code{\link{source}} in an interactive session prints a summary when it finishes,
+  and stops execution with a \code{ut_test_failure} error if any tests failed.
+  It is on by default in interactive sessions, set it to \code{FALSE} to disable.
+
   The \code{unittest.output} option tells unittest where output should be sent.
   This is most useful for vignettes, where sending output to
   \code{\link{stderr}} separates the unittest output from the vignette itself.
@@ -78,6 +83,11 @@ options(unittest.stop_on_fail = TRUE)
 tryCatch(source(test_path), error = function (e) { print("=== error ===") })
 options(unittest.stop_on_fail = NULL)
 
+# By default you get a summary at the end of a sourced script, but it can be turned off
+source(exprs = quote({ library(unittest) ; ok(TRUE) ; ok(TRUE) }))
+options(unittest.source_summary = FALSE)
+source(exprs = quote({ library(unittest) ; ok(TRUE) ; ok(TRUE) }))
+
 ## Send unittest output to stderr()
 options(unittest.output = stderr())
 ok(ut_cmp_equal(4, 5), "4 == 5? Probably not")
@@ -91,5 +101,6 @@ ok(ut_cmp_equal(4, 5), "4 == 5? Probably not")
   unittest:::clear_outcomes()
   options(unittest.stop_on_fail = old.stop_on_fail)
   options(unittest.output = old.output)
+  options(unittest.source_summary = interactive())
 }
 }
