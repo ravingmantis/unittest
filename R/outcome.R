@@ -83,9 +83,8 @@ outcome_summary <- function (error = NULL) {
     } else if ( !is.null(error) ) {
         write_ut_lines(
             paste("Bail out! Looks like", tests.total, "tests ran, but script ended prematurely", collapse = " "),
-            paste("#", error$message),
-            "# Traceback:",
-            paste("#", format_traceback(error$traceback)),
+            if (!is.null(error$message)) paste("#", error$message),
+            if (!is.null(error$traceback)) c("# Traceback:", paste("#", format_traceback(error$traceback))),
             NULL)
         return(invisible(-1))
     } else if (sum(fail.types) > 0) {
