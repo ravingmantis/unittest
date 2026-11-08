@@ -2,9 +2,14 @@ pkg_vars <- new.env(parent = emptyenv())
 
 MSG_STOP_ON_FAIL <- "Test failure and unittest.stop_on_fail is set"
 
-# Start recording outcomes, so a summary will be generated. Return TRUE iff not previously recording
+# Start recording outcomes, if something will show a summary at the end (see add_summary_hook)
+# Return TRUE iff we started recording
 record_outcomes <- function () {
     if (exists('outcomes', where = pkg_vars)) return(FALSE)
+
+    # If add_summary_hook doesn't want to add a hook (read: in interactive()), no point recording
+    if (!add_summary_hook()) return(FALSE)
+
     assign('outcomes', data.frame(
         type = factor(levels = c("test", "group")),
         status = logical(0),
