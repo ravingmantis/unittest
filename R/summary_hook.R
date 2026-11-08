@@ -30,7 +30,11 @@ add_non_interactive_hooks <- function () {
         q("no", status = 11, runLast = FALSE)
     }
 
-    reg.finalizer(pkg_vars, non_interactive_exit, onexit = TRUE)
+    # NB: We may be called again after clear_outcomes(), only add one finalizer
+    if (!exists('exit_finalizer', where = pkg_vars)) {
+        reg.finalizer(pkg_vars, non_interactive_exit, onexit = TRUE)
+        assign('exit_finalizer', TRUE, pos = pkg_vars)
+    }
 
     # Only register our error handler if we'd use the default otherwise
     if (is.null(getOption('error'))) {

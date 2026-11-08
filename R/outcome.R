@@ -25,6 +25,8 @@ clear_outcomes <- function () {
 }
 
 assign_outcome <- function(...) {
+    record_outcomes()  # NB: Start recording if not already, e.g. unittest::ok() without library()
+
     outcome <- as.data.frame(list(...))
     outcome$type <- factor(outcome$type, levels = c("test", "group"))
 
