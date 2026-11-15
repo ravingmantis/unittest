@@ -1,3 +1,15 @@
+2026-11-15 Jamie Lentin  <jm@lentin.co.uk>
+
+    Version 1.8-0
+
+    *  outcome: outcome_fail_types() accessor (2226644)
+    *  outcome: groups shouldn't be part of plan (6e4965b)
+    *  ok_group: Don't describe a group with an empty message as 'NA' (7ced9ae)
+    *  output: Fix RStudio console colour detection (bed7dc4)
+    *  output_diff: Ignore user git config that changes diff output (5ac85d1)
+    *  output_diff: Don't leak a tempfile on each comparison (69d5234)
+    *  ok_group: Don't report stop_on_fail as a group exception (dc72379)
+
 2024-08-16 Jamie Lentin  <jm@lentin.co.uk>
 
     Version 1.7-0
