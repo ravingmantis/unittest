@@ -1,5 +1,14 @@
 # unittest 1.7-0-999:
 
+## Bug fixes
+
+* ok_group() no longer reports a unittest.stop_on_fail stop as a group exception (dc72379)
+* Failing ut_cmp_*() no longer leaves a temporary file behind in tempdir() (69d5234)
+* Diff output unaffected by user git config, e.g. diff.noprefix / diff.external (5ac85d1)
+* Colour output now detected in the RStudio console (bed7dc4)
+* ok_group() with an empty message no longer described as "NA" (7ced9ae)
+* TAP plan counts only tests, not ok_group()s (6e4965b)
+
 # unittest 1.7-0:
 
 ## Breaking changes
