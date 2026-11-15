@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">unittest</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7-0-999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.8-0-999</span>
       </span>
     </div>
 
@@ -64,7 +64,19 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.7-0-999" id="unittest-17-0-999">unittest 1.7-0-999:<a class="anchor" aria-label="anchor" href="#unittest-17-0-999"></a></h2>
+<h2 class="page-header" data-toc-text="1.8-0-999" id="unittest-18-0-999">unittest 1.8-0-999:<a class="anchor" aria-label="anchor" href="#unittest-18-0-999"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.8-0" id="unittest-18-0">unittest 1.8-0:<a class="anchor" aria-label="anchor" href="#unittest-18-0"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-1-8-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-8-0"></a></h3>
+<ul><li>ok_group() no longer reports a unittest.stop_on_fail stop as a group exception (dc72379)</li>
+<li>Failing ut_cmp_*() no longer leaves a temporary file behind in tempdir() (69d5234)</li>
+<li>Diff output unaffected by user git config, e.g. diff.noprefix / diff.external (5ac85d1)</li>
+<li>Colour output now detected in the RStudio console (bed7dc4)</li>
+<li>ok_group() with an empty message no longer described as “NA” (7ced9ae)</li>
+<li>TAP plan counts only tests, not ok_group()s (6e4965b)</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.7-0" id="unittest-17-0">unittest 1.7-0:<small>2024-08-16</small><a class="anchor" aria-label="anchor" href="#unittest-17-0"></a></h2>
