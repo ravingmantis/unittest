@@ -363,3 +363,28 @@ run_script('
     "# Looks like you failed 1 of 2 tests.",
     "# 2: ut_cmp_equal(as.list(1:2), as.list(1:3))",
     NULL ), "Ok / not ok output not colourful if turned off")
+
+run_script('
+    unittest::ok(1==1)
+    unittest::ok(1==2)
+', 10, c(
+    "ok - 1 == 1",
+    "not ok - 1 == 2",
+    "# Test returned non-TRUE value:",
+    "# [1] FALSE",
+    "1..2",
+    "# Looks like you failed 1 of 2 tests.",
+    "# 2: 1 == 2",
+    NULL ), "Summary & exit status without library(unittest)")
+
+run_script('
+    library(unittest)
+    ok(1==1)
+    unittest:::clear_outcomes()
+    ok(2==2)
+', 0, c(
+    "ok - 1 == 1",
+    "ok - 2 == 2",
+    "1..1",
+    "# Looks like you passed all 1 tests.",
+    NULL ), "Recording restarts after clear_outcomes(), only one summary")

@@ -2,9 +2,14 @@ pkg_vars <- new.env(parent = emptyenv())
 
 MSG_STOP_ON_FAIL <- "Test failure and unittest.stop_on_fail is set"
 
-# Start recording outcomes, so a summary will be generated. Return TRUE iff not previously recording
+# Start recording outcomes, if something will show a summary at the end (see add_summary_hook)
+# Return TRUE iff we started recording
 record_outcomes <- function () {
     if (exists('outcomes', where = pkg_vars)) return(FALSE)
+
+    # If add_summary_hook doesn't want to add a hook (read: in interactive()), no point recording
+    if (!add_summary_hook()) return(FALSE)
+
     assign('outcomes', data.frame(
         type = factor(levels = c("test", "group")),
         status = logical(0),
@@ -20,6 +25,8 @@ clear_outcomes <- function () {
 }
 
 assign_outcome <- function(...) {
+    record_outcomes()  # NB: Start recording if not already, e.g. unittest::ok() without library()
+
     outcome <- as.data.frame(list(...))
     outcome$type <- factor(outcome$type, levels = c("test", "group"))
 
@@ -76,9 +83,8 @@ outcome_summary <- function (error = NULL) {
     } else if ( !is.null(error) ) {
         write_ut_lines(
             paste("Bail out! Looks like", tests.total, "tests ran, but script ended prematurely", collapse = " "),
-            paste("#", error$message),
-            "# Traceback:",
-            paste("#", format_traceback(error$traceback)),
+            if (!is.null(error$message)) paste("#", error$message),
+            if (!is.null(error$traceback)) c("# Traceback:", paste("#", format_traceback(error$traceback))),
             NULL)
         return(invisible(-1))
     } else if (sum(fail.types) > 0) {
