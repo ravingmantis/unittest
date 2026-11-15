@@ -1,5 +1,18 @@
 # https://cran.r-project.org/submit.html
 
+==== 1.8-0
+
+New release of existing package
+
+Differences since the previous submission:
+
+  https://github.com/ravingmantis/unittest/blob/v1.8-0/NEWS.md
+  https://github.com/ravingmantis/unittest/compare/v1.7-0...v1.8-0
+
+CI test reports can be found here:
+
+  https://github.com/ravingmantis/unittest/actions/runs/43705227387
+
 ==== 1.7-0
 
 This release adds several new features
